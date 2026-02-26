@@ -1,0 +1,192 @@
+/* ============================================
+   Constellation Labels & Sky Map View
+   ============================================ */
+
+/* Constellation labels positioned on the solar system view */
+#constellation-labels {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-canvas) + 1);
+    pointer-events: none;
+}
+
+.constellation-label {
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.constellation-label:hover {
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+    transform: scale(1.1);
+}
+
+.constellation-label .zodiac-symbol {
+    font-size: 1.1rem;
+    display: block;
+    text-align: center;
+    margin-bottom: 3px;
+    filter: none;
+}
+
+/* Sky Map View */
+.sky-map-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-canvas) + 2);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.sky-map-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Constellation detail popup */
+.constellation-popup {
+    position: fixed;
+    z-index: var(--z-tooltip);
+    background: var(--bg-panel);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.3s ease;
+}
+
+.constellation-popup-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.constellation-popup-symbol {
+    font-size: 2rem;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-glass);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+}
+
+.constellation-popup-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-bright);
+}
+
+.constellation-popup-dates {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.constellation-popup-body {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+
+.constellation-popup-stars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.star-chip {
+    padding: 4px 10px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+/* Ecliptic line */
+.ecliptic-indicator {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 16px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    z-index: var(--z-ui);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ecliptic-indicator.visible {
+    opacity: 1;
+}
+
+.ecliptic-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-purple);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+}
+
+/* Compass / Direction indicator */
+#compass-overlay {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--z-ui);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 20px;
+    background: var(--bg-panel);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#compass-overlay.visible {
+    opacity: 1;
+}
+
+.compass-direction {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--text-bright);
+    min-width: 30px;
+    text-align: center;
+}
+
+.compass-degrees {
+    font-family: var(--font-mono);
+    color: var(--accent-blue);
+}

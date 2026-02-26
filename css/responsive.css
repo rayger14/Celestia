@@ -1,0 +1,208 @@
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    #planet-panel {
+        width: 360px;
+    }
+
+    .view-tabs span {
+        display: none;
+    }
+
+    .tab-btn {
+        padding: 8px 12px;
+    }
+
+    .premium-pricing {
+        flex-direction: column;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    #top-bar {
+        height: 48px;
+        padding: 0 10px;
+    }
+
+    .app-title {
+        font-size: 0.9rem;
+        letter-spacing: 0.15em;
+    }
+
+    .view-tabs {
+        position: fixed;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: calc(var(--z-ui) + 1);
+        background: var(--bg-panel);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--border-subtle);
+        box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .view-tabs span {
+        display: none;
+    }
+
+    .header-actions {
+        gap: 4px;
+    }
+
+    .action-btn span {
+        display: none;
+    }
+
+    .action-btn {
+        padding: 6px 8px;
+    }
+
+    /* Planet Panel becomes bottom sheet on mobile */
+    #planet-panel {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 70vh;
+        border-left: none;
+        border-top: 1px solid var(--border-subtle);
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        transform: translateY(100%);
+    }
+
+    #planet-panel.visible {
+        transform: translateY(0);
+    }
+
+    .panel-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .stat-card {
+        padding: 12px;
+    }
+
+    .stat-card-value {
+        font-size: 0.95rem;
+    }
+
+    /* Zoom controls */
+    #zoom-controls {
+        right: 10px;
+        flex-direction: row;
+        transform: none;
+        top: auto;
+        bottom: 120px;
+    }
+
+    #zoom-slider {
+        writing-mode: horizontal-tb;
+        direction: ltr;
+        width: 80px;
+        height: 28px;
+    }
+
+    /* Minimap hidden on mobile */
+    #minimap {
+        display: none;
+    }
+
+    /* Bottom bar */
+    .info-pills {
+        gap: 8px;
+        padding: 6px 10px;
+    }
+
+    .info-pill {
+        padding: 3px 10px;
+        font-size: 0.72rem;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 95%;
+        padding: 24px;
+        margin: 0 10px;
+    }
+
+    .premium-pricing {
+        gap: 8px;
+    }
+
+    .price-option {
+        padding: 12px 8px;
+    }
+
+    .price-amount {
+        font-size: 1.1rem;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 420px) {
+    .info-pills {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    #next-event-pill {
+        display: none;
+    }
+
+    .panel-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .speed-controls {
+        flex-wrap: wrap;
+    }
+}
+
+/* High DPI */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .constellation-label {
+        font-size: 0.65rem;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Landscape mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    #top-bar {
+        height: 40px;
+    }
+
+    .view-tabs {
+        position: static;
+        transform: none;
+    }
+
+    #bottom-bar {
+        display: none;
+    }
+
+    #planet-panel {
+        top: 40px;
+        bottom: 0;
+        right: 0;
+        left: auto;
+        width: 320px;
+        height: auto;
+        border-radius: 0;
+        transform: translateX(100%);
+    }
+}
