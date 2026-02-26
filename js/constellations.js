@@ -1,11 +1,13 @@
 /**
  * Celestia — Constellation Data
- * Zodiac constellations with star patterns and ecliptic positions
+ * Zodiac constellations with comprehensive star patterns and ecliptic positions
+ * Star data sourced from Hipparcos/Yale Bright Star Catalog
+ * RA in hours, DEC in degrees, magnitudes are apparent visual
  */
 
 const ConstellationData = (() => {
 
-    // 12 Zodiac constellations with ecliptic longitude ranges, star patterns
+    // 12 Zodiac constellations with full star patterns
     const zodiac = [
         {
             name: 'Aries',
@@ -17,12 +19,15 @@ const ConstellationData = (() => {
             brightStar: 'Hamal',
             description: 'The Ram. One of the faintest zodiac constellations, but historically the first sign as the vernal equinox once fell here.',
             stars: [
-                { name: 'Hamal', ra: 2.12, dec: 23.46, mag: 2.0 },
-                { name: 'Sheratan', ra: 1.91, dec: 20.81, mag: 2.6 },
-                { name: 'Mesarthim', ra: 1.89, dec: 19.29, mag: 3.9 },
-                { name: '41 Ari', ra: 2.83, dec: 27.26, mag: 3.6 },
+                { name: 'Hamal',      ra: 2.12,  dec: 23.46, mag: 2.00, spectral: 'K2III',  dist: 66 },
+                { name: 'Sheratan',    ra: 1.91,  dec: 20.81, mag: 2.64, spectral: 'A5V',    dist: 60 },
+                { name: 'Mesarthim',   ra: 1.89,  dec: 19.29, mag: 3.86, spectral: 'A1V',    dist: 164 },
+                { name: '41 Ari',      ra: 2.83,  dec: 27.26, mag: 3.63, spectral: 'B8V',    dist: 166 },
+                { name: 'Botein',      ra: 3.19,  dec: 19.73, mag: 4.35, spectral: 'K2III',  dist: 168 },
+                { name: 'ε Ari',       ra: 2.99,  dec: 21.34, mag: 4.63, spectral: 'A2V',    dist: 293 },
+                { name: 'ζ Ari',       ra: 3.25,  dec: 21.04, mag: 4.89, spectral: 'A0V',    dist: 263 },
             ],
-            lines: [[0,1],[1,2],[0,3]],
+            lines: [[2,1],[1,0],[0,3],[0,4],[4,6],[5,4]],
         },
         {
             name: 'Taurus',
@@ -34,13 +39,18 @@ const ConstellationData = (() => {
             brightStar: 'Aldebaran',
             description: 'The Bull. Home to the bright star Aldebaran and the Pleiades star cluster, one of the most prominent winter constellations.',
             stars: [
-                { name: 'Aldebaran', ra: 4.60, dec: 16.51, mag: 0.9 },
-                { name: 'Elnath', ra: 5.44, dec: 28.61, mag: 1.7 },
-                { name: 'Alcyone', ra: 3.79, dec: 24.11, mag: 2.9 },
-                { name: 'ζ Tau', ra: 5.63, dec: 21.14, mag: 3.0 },
-                { name: 'θ² Tau', ra: 4.48, dec: 15.87, mag: 3.4 },
+                { name: 'Aldebaran',   ra: 4.60,  dec: 16.51, mag: 0.85, spectral: 'K5III',  dist: 65 },
+                { name: 'Elnath',      ra: 5.44,  dec: 28.61, mag: 1.65, spectral: 'B7III',  dist: 134 },
+                { name: 'Alcyone',     ra: 3.79,  dec: 24.11, mag: 2.87, spectral: 'B7IIIe', dist: 440 },
+                { name: 'ζ Tau',       ra: 5.63,  dec: 21.14, mag: 3.01, spectral: 'B1IVe',  dist: 440 },
+                { name: 'θ² Tau',      ra: 4.48,  dec: 15.87, mag: 3.40, spectral: 'A7III',  dist: 155 },
+                { name: 'λ Tau',       ra: 4.01,  dec: 12.49, mag: 3.47, spectral: 'B3V',    dist: 480 },
+                { name: 'Ain',         ra: 4.48,  dec: 19.18, mag: 3.53, spectral: 'K0III',  dist: 155 },
+                { name: 'Hyadum I',    ra: 4.33,  dec: 15.63, mag: 3.65, spectral: 'K0III',  dist: 154 },
+                { name: 'δ Tau',       ra: 4.38,  dec: 17.54, mag: 3.76, spectral: 'A3V',    dist: 153 },
+                { name: 'Atlas',       ra: 3.81,  dec: 24.05, mag: 3.63, spectral: 'B8III',  dist: 431 },
             ],
-            lines: [[0,4],[4,1],[0,3],[2,4]],
+            lines: [[5,0],[0,4],[4,8],[8,6],[6,1],[0,3],[7,4],[2,9]],
         },
         {
             name: 'Gemini',
@@ -52,13 +62,17 @@ const ConstellationData = (() => {
             brightStar: 'Pollux',
             description: 'The Twins. Represented by Castor and Pollux, two of the brightest stars in the night sky standing side by side.',
             stars: [
-                { name: 'Pollux', ra: 7.76, dec: 28.03, mag: 1.2 },
-                { name: 'Castor', ra: 7.58, dec: 31.89, mag: 1.6 },
-                { name: 'Alhena', ra: 6.63, dec: 16.40, mag: 1.9 },
-                { name: 'Mebsuta', ra: 6.38, dec: 25.13, mag: 3.1 },
-                { name: 'Tejat', ra: 6.23, dec: 22.51, mag: 2.9 },
+                { name: 'Pollux',     ra: 7.76,  dec: 28.03, mag: 1.14, spectral: 'K0III',  dist: 34 },
+                { name: 'Castor',     ra: 7.58,  dec: 31.89, mag: 1.58, spectral: 'A1V',    dist: 51 },
+                { name: 'Alhena',     ra: 6.63,  dec: 16.40, mag: 1.93, spectral: 'A1IV',   dist: 109 },
+                { name: 'Tejat',      ra: 6.38,  dec: 22.51, mag: 2.88, spectral: 'M3III',  dist: 232 },
+                { name: 'Mebsuta',    ra: 6.73,  dec: 25.13, mag: 2.98, spectral: 'G8Ib',   dist: 840 },
+                { name: 'Wasat',      ra: 7.34,  dec: 21.98, mag: 3.53, spectral: 'F0IV',   dist: 59 },
+                { name: 'Propus',     ra: 6.25,  dec: 22.51, mag: 3.28, spectral: 'M3III',  dist: 349 },
+                { name: 'κ Gem',      ra: 7.74,  dec: 24.40, mag: 3.57, spectral: 'G8III',  dist: 143 },
+                { name: 'ξ Gem',      ra: 6.75,  dec: 12.90, mag: 3.35, spectral: 'F5III',  dist: 57 },
             ],
-            lines: [[0,1],[0,2],[1,3],[3,4],[2,4]],
+            lines: [[1,0],[0,7],[7,5],[5,2],[1,4],[4,3],[3,6],[2,8],[4,5]],
         },
         {
             name: 'Cancer',
@@ -68,14 +82,16 @@ const ConstellationData = (() => {
             dates: 'Jun 21 – Jul 22',
             element: 'Water',
             brightStar: 'Tarf',
-            description: 'The Crab. A faint constellation best known for the Beehive Cluster (M44), a beautiful open star cluster visible to the naked eye.',
+            description: 'The Crab. A faint constellation best known for the Beehive Cluster (M44), visible to the naked eye.',
             stars: [
-                { name: 'Tarf', ra: 8.28, dec: 9.19, mag: 3.5 },
-                { name: 'Asellus Australis', ra: 8.74, dec: 18.15, mag: 3.9 },
-                { name: 'Acubens', ra: 8.97, dec: 11.86, mag: 4.3 },
-                { name: 'Asellus Borealis', ra: 8.72, dec: 21.47, mag: 4.7 },
+                { name: 'Tarf',              ra: 8.28,  dec: 9.19,  mag: 3.52, spectral: 'K4III',  dist: 290 },
+                { name: 'Asellus Australis', ra: 8.74,  dec: 18.15, mag: 3.94, spectral: 'K0III',  dist: 136 },
+                { name: 'Acubens',           ra: 8.97,  dec: 11.86, mag: 4.25, spectral: 'A5m',    dist: 174 },
+                { name: 'Asellus Borealis',  ra: 8.72,  dec: 21.47, mag: 4.66, spectral: 'A1IV',   dist: 181 },
+                { name: 'Decapoda',          ra: 8.78,  dec: 28.77, mag: 4.02, spectral: 'G8II',   dist: 298 },
+                { name: 'χ Cnc',             ra: 8.35,  dec: 27.21, mag: 5.13, spectral: 'F6V',    dist: 59 },
             ],
-            lines: [[0,1],[1,2],[1,3]],
+            lines: [[0,1],[1,2],[1,3],[3,4],[5,4]],
         },
         {
             name: 'Leo',
@@ -85,15 +101,20 @@ const ConstellationData = (() => {
             dates: 'Jul 23 – Aug 22',
             element: 'Fire',
             brightStar: 'Regulus',
-            description: 'The Lion. A striking constellation with the bright star Regulus and a distinctive sickle-shaped asterism forming the lion\'s mane.',
+            description: 'The Lion. A striking constellation with the bright star Regulus and the distinctive sickle-shaped asterism forming the lion\'s mane.',
             stars: [
-                { name: 'Regulus', ra: 10.14, dec: 11.97, mag: 1.4 },
-                { name: 'Denebola', ra: 11.82, dec: 14.57, mag: 2.1 },
-                { name: 'Algieba', ra: 10.33, dec: 19.84, mag: 2.6 },
-                { name: 'Zosma', ra: 11.24, dec: 20.52, mag: 2.6 },
-                { name: 'Ras Elased', ra: 9.76, dec: 23.77, mag: 3.0 },
+                { name: 'Regulus',     ra: 10.14, dec: 11.97, mag: 1.35, spectral: 'B8IVn',  dist: 79 },
+                { name: 'Denebola',    ra: 11.82, dec: 14.57, mag: 2.14, spectral: 'A3V',    dist: 36 },
+                { name: 'Algieba',     ra: 10.33, dec: 19.84, mag: 2.28, spectral: 'K1III',  dist: 126 },
+                { name: 'Zosma',       ra: 11.24, dec: 20.52, mag: 2.56, spectral: 'A4V',    dist: 58 },
+                { name: 'Ras Elased',  ra: 9.76,  dec: 23.77, mag: 2.98, spectral: 'G1II',   dist: 247 },
+                { name: 'Adhafera',    ra: 10.28, dec: 23.42, mag: 3.44, spectral: 'F0III',  dist: 274 },
+                { name: 'Chertan',     ra: 11.24, dec: 15.43, mag: 3.34, spectral: 'A2IV',   dist: 165 },
+                { name: 'η Leo',       ra: 10.12, dec: 16.76, mag: 3.52, spectral: 'A0Ib',   dist: 2000 },
+                { name: 'Rasalas',     ra: 9.88,  dec: 26.01, mag: 3.88, spectral: 'K2III',  dist: 133 },
+                { name: 'Subra',       ra: 9.69,  dec: 9.89,  mag: 3.52, spectral: 'F6II',   dist: 338 },
             ],
-            lines: [[0,2],[2,4],[2,3],[3,1],[0,1]],
+            lines: [[9,0],[0,7],[7,2],[2,5],[5,4],[4,8],[2,3],[3,1],[0,6],[6,1]],
         },
         {
             name: 'Virgo',
@@ -105,13 +126,16 @@ const ConstellationData = (() => {
             brightStar: 'Spica',
             description: 'The Maiden. The largest zodiac constellation, home to the brilliant blue-white star Spica and the Virgo galaxy cluster.',
             stars: [
-                { name: 'Spica', ra: 13.42, dec: -11.16, mag: 1.0 },
-                { name: 'Porrima', ra: 12.69, dec: -1.45, mag: 2.7 },
-                { name: 'Vindemiatrix', ra: 13.04, dec: 10.96, mag: 2.8 },
-                { name: 'Auva', ra: 12.93, dec: 3.40, mag: 3.4 },
-                { name: 'Zavijava', ra: 11.84, dec: 1.76, mag: 3.6 },
+                { name: 'Spica',         ra: 13.42, dec: -11.16, mag: 0.97, spectral: 'B1V',    dist: 250 },
+                { name: 'Porrima',       ra: 12.69, dec: -1.45,  mag: 2.74, spectral: 'F0V',    dist: 38 },
+                { name: 'Vindemiatrix',  ra: 13.04, dec: 10.96,  mag: 2.83, spectral: 'G8III',  dist: 110 },
+                { name: 'Minelauva',     ra: 12.93, dec: 3.40,   mag: 3.38, spectral: 'M3III',  dist: 198 },
+                { name: 'Heze',          ra: 13.58, dec: -0.60,  mag: 3.37, spectral: 'A3V',    dist: 73 },
+                { name: 'Zavijava',      ra: 11.84, dec: 1.76,   mag: 3.61, spectral: 'F9V',    dist: 36 },
+                { name: 'Zaniah',        ra: 12.33, dec: -0.67,  mag: 3.89, spectral: 'A2IV',   dist: 265 },
+                { name: 'Syrma',         ra: 14.27, dec: -6.00,  mag: 4.08, spectral: 'F6III',  dist: 72 },
             ],
-            lines: [[0,1],[1,3],[3,2],[1,4]],
+            lines: [[5,6],[6,1],[1,3],[3,2],[1,0],[0,4],[4,7]],
         },
         {
             name: 'Libra',
@@ -123,12 +147,14 @@ const ConstellationData = (() => {
             brightStar: 'Zubeneschamali',
             description: 'The Scales. The only zodiac constellation representing an inanimate object. Associated with justice and balance.',
             stars: [
-                { name: 'Zubeneschamali', ra: 15.28, dec: -9.38, mag: 2.6 },
-                { name: 'Zubenelgenubi', ra: 14.85, dec: -16.04, mag: 2.7 },
-                { name: 'Brachium', ra: 15.07, dec: -25.28, mag: 3.3 },
-                { name: 'Zubenelhakrabi', ra: 15.60, dec: -14.79, mag: 3.9 },
+                { name: 'Zubeneschamali', ra: 15.28, dec: -9.38,  mag: 2.61, spectral: 'B8V',   dist: 185 },
+                { name: 'Zubenelgenubi',  ra: 14.85, dec: -16.04, mag: 2.75, spectral: 'A3IV',  dist: 77 },
+                { name: 'Brachium',       ra: 15.07, dec: -25.28, mag: 3.29, spectral: 'M3III', dist: 292 },
+                { name: 'γ Lib',          ra: 15.59, dec: -14.79, mag: 3.91, spectral: 'K0III', dist: 152 },
+                { name: 'υ Lib',          ra: 15.62, dec: -28.13, mag: 3.58, spectral: 'K3III', dist: 195 },
+                { name: 'τ Lib',          ra: 15.90, dec: -29.78, mag: 3.66, spectral: 'B2.5V', dist: 445 },
             ],
-            lines: [[0,1],[1,2],[0,3]],
+            lines: [[1,0],[0,3],[1,2],[2,4],[4,5]],
         },
         {
             name: 'Scorpio',
@@ -140,13 +166,19 @@ const ConstellationData = (() => {
             brightStar: 'Antares',
             description: 'The Scorpion. One of the most recognizable constellations, dominated by the red supergiant Antares, the "heart of the scorpion."',
             stars: [
-                { name: 'Antares', ra: 16.49, dec: -26.43, mag: 1.1 },
-                { name: 'Shaula', ra: 17.56, dec: -37.10, mag: 1.6 },
-                { name: 'Sargas', ra: 17.62, dec: -42.99, mag: 1.9 },
-                { name: 'Dschubba', ra: 16.01, dec: -22.62, mag: 2.3 },
-                { name: 'Acrab', ra: 16.09, dec: -19.81, mag: 2.6 },
+                { name: 'Antares',    ra: 16.49, dec: -26.43, mag: 1.06, spectral: 'M1Ib',   dist: 550 },
+                { name: 'Shaula',     ra: 17.56, dec: -37.10, mag: 1.62, spectral: 'B2IV',    dist: 570 },
+                { name: 'Sargas',     ra: 17.62, dec: -42.99, mag: 1.87, spectral: 'F0II',    dist: 272 },
+                { name: 'Dschubba',   ra: 16.01, dec: -22.62, mag: 2.32, spectral: 'B0.2IV',  dist: 444 },
+                { name: 'Acrab',      ra: 16.09, dec: -19.81, mag: 2.62, spectral: 'B1V',     dist: 530 },
+                { name: 'Larawag',    ra: 16.84, dec: -34.29, mag: 2.29, spectral: 'K2III',   dist: 64 },
+                { name: 'κ Sco',      ra: 17.71, dec: -39.03, mag: 2.39, spectral: 'B1.5III', dist: 480 },
+                { name: 'Alniyat',    ra: 16.35, dec: -25.59, mag: 2.88, spectral: 'B1III',   dist: 735 },
+                { name: 'Fang',       ra: 15.98, dec: -26.11, mag: 2.89, spectral: 'B1V',     dist: 590 },
+                { name: 'Lesath',     ra: 17.53, dec: -37.30, mag: 2.69, spectral: 'B2IV',    dist: 580 },
+                { name: 'Paikauhale', ra: 16.60, dec: -28.22, mag: 2.82, spectral: 'B0.2V',   dist: 470 },
             ],
-            lines: [[4,3],[3,0],[0,1],[1,2]],
+            lines: [[4,3],[3,8],[8,7],[7,0],[0,10],[10,5],[5,6],[6,1],[1,9],[1,2]],
         },
         {
             name: 'Sagittarius',
@@ -156,15 +188,20 @@ const ConstellationData = (() => {
             dates: 'Nov 22 – Dec 21',
             element: 'Fire',
             brightStar: 'Kaus Australis',
-            description: 'The Archer. Points toward the center of the Milky Way, making it one of the richest areas for deep-sky objects.',
+            description: 'The Archer. Points toward the center of the Milky Way, making it one of the richest areas for deep-sky objects. Home to the famous Teapot asterism.',
             stars: [
-                { name: 'Kaus Australis', ra: 18.40, dec: -34.38, mag: 1.8 },
-                { name: 'Nunki', ra: 18.92, dec: -26.30, mag: 2.0 },
-                { name: 'Ascella', ra: 19.04, dec: -29.88, mag: 2.6 },
-                { name: 'Kaus Media', ra: 18.35, dec: -29.83, mag: 2.7 },
-                { name: 'Kaus Borealis', ra: 18.47, dec: -25.42, mag: 2.8 },
+                { name: 'Kaus Australis', ra: 18.40, dec: -34.38, mag: 1.85, spectral: 'B9.5III', dist: 145 },
+                { name: 'Nunki',          ra: 18.92, dec: -26.30, mag: 2.05, spectral: 'B2.5V',   dist: 228 },
+                { name: 'Ascella',        ra: 19.04, dec: -29.88, mag: 2.59, spectral: 'A2IV',    dist: 88 },
+                { name: 'Kaus Media',     ra: 18.35, dec: -29.83, mag: 2.70, spectral: 'K3III',   dist: 348 },
+                { name: 'Kaus Borealis',  ra: 18.47, dec: -25.42, mag: 2.81, spectral: 'K1III',   dist: 78 },
+                { name: 'Alnasl',         ra: 18.10, dec: -30.42, mag: 2.98, spectral: 'K0III',   dist: 96 },
+                { name: 'φ Sgr',          ra: 18.76, dec: -26.99, mag: 3.17, spectral: 'B8III',   dist: 231 },
+                { name: 'τ Sgr',          ra: 19.12, dec: -27.67, mag: 3.32, spectral: 'K1III',   dist: 120 },
+                { name: 'η Sgr',          ra: 18.29, dec: -36.76, mag: 3.11, spectral: 'M2III',   dist: 149 },
             ],
-            lines: [[0,3],[3,4],[4,1],[1,2],[2,0]],
+            // Teapot: Alnasl-KausMedia-KausAustralis-Ascella-Nunki-φSgr-KausBorealis-KausMedia
+            lines: [[5,3],[3,0],[0,2],[2,7],[2,1],[1,6],[6,4],[4,3],[0,8]],
         },
         {
             name: 'Capricorn',
@@ -176,12 +213,16 @@ const ConstellationData = (() => {
             brightStar: 'Deneb Algedi',
             description: 'The Sea-Goat. An ancient constellation representing a mythical creature, half goat and half fish.',
             stars: [
-                { name: 'Deneb Algedi', ra: 21.74, dec: -16.13, mag: 2.9 },
-                { name: 'Dabih', ra: 20.35, dec: -14.78, mag: 3.1 },
-                { name: 'Nashira', ra: 21.67, dec: -16.66, mag: 3.7 },
-                { name: 'Algedi', ra: 20.29, dec: -12.51, mag: 3.6 },
+                { name: 'Deneb Algedi', ra: 21.78, dec: -16.13, mag: 2.87, spectral: 'A5mF2', dist: 39 },
+                { name: 'Dabih',        ra: 20.35, dec: -14.78, mag: 3.08, spectral: 'K0II',  dist: 344 },
+                { name: 'Nashira',      ra: 21.67, dec: -16.66, mag: 3.68, spectral: 'A7III', dist: 139 },
+                { name: 'Algedi',       ra: 20.29, dec: -12.51, mag: 3.57, spectral: 'G2Ib',  dist: 109 },
+                { name: 'ζ Cap',        ra: 21.44, dec: -22.41, mag: 3.74, spectral: 'G4Ib',  dist: 386 },
+                { name: 'θ Cap',        ra: 21.10, dec: -17.23, mag: 4.07, spectral: 'A1V',   dist: 158 },
+                { name: 'ω Cap',        ra: 20.86, dec: -26.92, mag: 4.11, spectral: 'M0III', dist: 630 },
+                { name: 'ψ Cap',        ra: 20.77, dec: -25.27, mag: 4.14, spectral: 'F5V',   dist: 48 },
             ],
-            lines: [[3,1],[1,2],[2,0],[0,3]],
+            lines: [[3,1],[1,7],[7,6],[6,4],[4,2],[2,0],[0,5],[5,1]],
         },
         {
             name: 'Aquarius',
@@ -193,12 +234,17 @@ const ConstellationData = (() => {
             brightStar: 'Sadalsuud',
             description: 'The Water Bearer. Associated with the rainy season in many ancient cultures. Contains the famous Helix Nebula.',
             stars: [
-                { name: 'Sadalsuud', ra: 21.53, dec: -5.57, mag: 2.9 },
-                { name: 'Sadalmelik', ra: 22.10, dec: -0.32, mag: 3.0 },
-                { name: 'Skat', ra: 22.91, dec: -15.82, mag: 3.3 },
-                { name: 'Albali', ra: 20.79, dec: -9.50, mag: 3.8 },
+                { name: 'Sadalsuud',  ra: 21.53, dec: -5.57,  mag: 2.87, spectral: 'G0Ib',  dist: 540 },
+                { name: 'Sadalmelik', ra: 22.10, dec: -0.32,  mag: 2.95, spectral: 'G2Ib',  dist: 520 },
+                { name: 'Skat',       ra: 22.91, dec: -15.82, mag: 3.27, spectral: 'A3V',   dist: 160 },
+                { name: 'Albali',     ra: 20.79, dec: -9.50,  mag: 3.77, spectral: 'A1V',   dist: 208 },
+                { name: 'Sadachbia',  ra: 22.36, dec: -1.39,  mag: 3.84, spectral: 'A0V',   dist: 164 },
+                { name: 'ζ Aqr',      ra: 22.48, dec: -0.02,  mag: 3.65, spectral: 'F3III', dist: 103 },
+                { name: 'Hydor',      ra: 22.88, dec: -7.58,  mag: 3.74, spectral: 'M2III', dist: 392 },
+                { name: 'η Aqr',      ra: 22.59, dec: -0.12,  mag: 4.04, spectral: 'B9IV',  dist: 168 },
+                { name: 'Ancha',      ra: 22.28, dec: -7.78,  mag: 4.16, spectral: 'G8III', dist: 187 },
             ],
-            lines: [[3,0],[0,1],[1,2]],
+            lines: [[3,0],[0,1],[1,4],[4,5],[5,7],[8,2],[2,6],[0,8]],
         },
         {
             name: 'Pisces',
@@ -207,36 +253,59 @@ const ConstellationData = (() => {
             endLon: 360,
             dates: 'Feb 19 – Mar 20',
             element: 'Water',
-            brightStar: 'Eta Piscium',
+            brightStar: 'Alpherg',
             description: 'The Fish. A large but faint constellation. The vernal equinox currently lies within Pisces due to precession.',
             stars: [
-                { name: 'Eta Piscium', ra: 1.52, dec: 15.35, mag: 3.6 },
-                { name: 'Gamma Piscium', ra: 23.29, dec: 3.28, mag: 3.7 },
-                { name: 'Omega Piscium', ra: 23.99, dec: 6.86, mag: 4.0 },
-                { name: 'Alrescha', ra: 2.03, dec: 2.76, mag: 3.8 },
+                { name: 'Alpherg',   ra: 1.52,  dec: 15.35, mag: 3.62, spectral: 'G7III',  dist: 294 },
+                { name: 'γ Psc',     ra: 23.29, dec: 3.28,  mag: 3.69, spectral: 'G9III',  dist: 138 },
+                { name: 'ω Psc',     ra: 23.99, dec: 6.86,  mag: 4.01, spectral: 'F4IV',   dist: 106 },
+                { name: 'Alrescha',  ra: 2.03,  dec: 2.76,  mag: 3.82, spectral: 'A2V',    dist: 151 },
+                { name: 'ι Psc',     ra: 23.67, dec: 5.63,  mag: 4.13, spectral: 'F7V',    dist: 45 },
+                { name: 'ε Psc',     ra: 1.05,  dec: 7.89,  mag: 4.28, spectral: 'K0III',  dist: 182 },
+                { name: 'δ Psc',     ra: 0.81,  dec: 7.59,  mag: 4.43, spectral: 'K4III',  dist: 305 },
+                { name: 'ν Psc',     ra: 1.69,  dec: 5.49,  mag: 4.44, spectral: 'K3III',  dist: 370 },
+                { name: 'θ Psc',     ra: 23.47, dec: 6.38,  mag: 4.28, spectral: 'K1III',  dist: 148 },
+                { name: 'ο Psc',     ra: 1.76,  dec: 9.16,  mag: 4.26, spectral: 'G8III',  dist: 258 },
             ],
-            lines: [[0,3],[3,1],[1,2]],
+            lines: [[1,8],[8,4],[4,2],[2,6],[6,5],[5,9],[9,0],[0,7],[7,3],[3,0]],
         },
     ];
 
     // Notable non-zodiac stars for sky map background
     const brightStars = [
-        { name: 'Sirius', ra: 6.75, dec: -16.72, mag: -1.46 },
-        { name: 'Canopus', ra: 6.40, dec: -52.70, mag: -0.74 },
-        { name: 'Arcturus', ra: 14.26, dec: 19.18, mag: -0.05 },
-        { name: 'Vega', ra: 18.62, dec: 38.78, mag: 0.03 },
-        { name: 'Capella', ra: 5.28, dec: 46.00, mag: 0.08 },
-        { name: 'Rigel', ra: 5.24, dec: -8.20, mag: 0.13 },
-        { name: 'Procyon', ra: 7.65, dec: 5.22, mag: 0.34 },
-        { name: 'Betelgeuse', ra: 5.92, dec: 7.41, mag: 0.50 },
-        { name: 'Altair', ra: 19.85, dec: 8.87, mag: 0.77 },
-        { name: 'Fomalhaut', ra: 22.96, dec: -29.62, mag: 1.16 },
-        { name: 'Deneb', ra: 20.69, dec: 45.28, mag: 1.25 },
-        { name: 'Polaris', ra: 2.53, dec: 89.26, mag: 1.98 },
+        { name: 'Sirius',     ra: 6.75,  dec: -16.72, mag: -1.46, spectral: 'A1V',   dist: 8.6 },
+        { name: 'Canopus',    ra: 6.40,  dec: -52.70, mag: -0.74, spectral: 'F0Ib',  dist: 310 },
+        { name: 'Arcturus',   ra: 14.26, dec: 19.18,  mag: -0.05, spectral: 'K1III', dist: 37 },
+        { name: 'Vega',       ra: 18.62, dec: 38.78,  mag: 0.03,  spectral: 'A0V',   dist: 25 },
+        { name: 'Capella',    ra: 5.28,  dec: 46.00,  mag: 0.08,  spectral: 'G5III', dist: 43 },
+        { name: 'Rigel',      ra: 5.24,  dec: -8.20,  mag: 0.13,  spectral: 'B8Ia',  dist: 860 },
+        { name: 'Procyon',    ra: 7.65,  dec: 5.22,   mag: 0.34,  spectral: 'F5IV',  dist: 11 },
+        { name: 'Betelgeuse', ra: 5.92,  dec: 7.41,   mag: 0.50,  spectral: 'M2Ib',  dist: 700 },
+        { name: 'Altair',     ra: 19.85, dec: 8.87,   mag: 0.77,  spectral: 'A7V',   dist: 17 },
+        { name: 'Fomalhaut',  ra: 22.96, dec: -29.62, mag: 1.16,  spectral: 'A4V',   dist: 25 },
+        { name: 'Deneb',      ra: 20.69, dec: 45.28,  mag: 1.25,  spectral: 'A2Ia',  dist: 2600 },
+        { name: 'Polaris',    ra: 2.53,  dec: 89.26,  mag: 1.98,  spectral: 'F7Ib',  dist: 431 },
     ];
+
+    // Get star color from spectral type
+    function getStarColor(spectral) {
+        if (!spectral) return '#d0d0ff';
+        const type = spectral.charAt(0);
+        switch (type) {
+            case 'O': return '#9bb0ff';
+            case 'B': return '#aabfff';
+            case 'A': return '#cad7ff';
+            case 'F': return '#f8f7ff';
+            case 'G': return '#fff4ea';
+            case 'K': return '#ffd2a1';
+            case 'M': return '#ffb56c';
+            default:  return '#d0d0ff';
+        }
+    }
 
     return {
         zodiac,
         brightStars,
+        getStarColor,
     };
 })();

@@ -1,5 +1,5 @@
 // Celestia Service Worker — enables offline support and PWA install
-const CACHE_NAME = 'celestia-v1';
+const CACHE_NAME = 'celestia-v2';
 const ASSETS = [
     '/',
     '/index.html',

@@ -181,10 +181,18 @@
             if (hit) {
                 selectPlanet(hit);
             } else {
-                // Click on empty space — deselect
-                if (Renderer.selectedPlanet) {
-                    Renderer.selectedPlanet = null;
-                    UI.closePanel();
+                // Check if a constellation star was clicked
+                const starHit = Renderer.hitTestStars(e.clientX, e.clientY);
+                if (starHit) {
+                    // Show star tooltip on click (persists until clicking elsewhere)
+                    UI.showStarTooltip(starHit, e.clientX, e.clientY);
+                } else {
+                    // Click on empty space — deselect and hide star tooltip
+                    UI.hideStarTooltip();
+                    if (Renderer.selectedPlanet) {
+                        Renderer.selectedPlanet = null;
+                        UI.closePanel();
+                    }
                 }
             }
         });
@@ -259,7 +267,16 @@
                     // Tap detection
                     if (dx < 10 && dy < 10) {
                         const hit = hitTestPlanets(touchStartX, touchStartY);
-                        if (hit) selectPlanet(hit);
+                        if (hit) {
+                            selectPlanet(hit);
+                        } else {
+                            const starHit = Renderer.hitTestStars(touchStartX, touchStartY);
+                            if (starHit) {
+                                UI.showStarTooltip(starHit, touchStartX, touchStartY);
+                            } else {
+                                UI.hideStarTooltip();
+                            }
+                        }
                     }
                 }
                 isDragging = false;
@@ -301,10 +318,18 @@
         return null;
     }
 
+    // Track hovered star for tooltip management
+    let hoveredStar = null;
+
     function checkPlanetHover(mx, my) {
         const hit = hitTestPlanets(mx, my);
 
         if (hit && hit !== 'sun') {
+            // Planet hover - hide star tooltip if showing
+            if (hoveredStar) {
+                hoveredStar = null;
+                UI.hideStarTooltip();
+            }
             Renderer.hoveredPlanet = hit;
             const distanceAU = computeDistanceFromEarth(hit);
             const season = computeSeason(hit);
@@ -315,6 +340,19 @@
             if (Renderer.hoveredPlanet) {
                 Renderer.hoveredPlanet = null;
                 UI.hideTooltip();
+            }
+
+            // Check star hover
+            const starHit = Renderer.hitTestStars(mx, my);
+            if (starHit) {
+                hoveredStar = starHit;
+                UI.showStarTooltip(starHit, mx, my);
+                document.getElementById('main-canvas').style.cursor = 'pointer';
+            } else {
+                if (hoveredStar) {
+                    hoveredStar = null;
+                    UI.hideStarTooltip();
+                }
                 if (!isDragging) {
                     document.getElementById('main-canvas').style.cursor = 'grab';
                 }

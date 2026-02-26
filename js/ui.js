@@ -24,6 +24,14 @@ const UI = (() => {
             tooltipDistance: document.getElementById('tooltip-distance'),
             tooltipSeason: document.getElementById('tooltip-season'),
 
+            // Star tooltip
+            starTooltip: document.getElementById('star-tooltip'),
+            starTooltipName: document.querySelector('.star-tooltip-name'),
+            starTooltipConstellation: document.querySelector('.star-tooltip-constellation'),
+            starTooltipMag: document.querySelector('.star-tooltip-mag'),
+            starTooltipSpectral: document.querySelector('.star-tooltip-spectral'),
+            starTooltipDist: document.querySelector('.star-tooltip-dist'),
+
             // Panel content
             panelPlanetName: document.getElementById('panel-planet-name'),
             panelPlanetType: document.getElementById('panel-planet-type'),
@@ -229,6 +237,44 @@ const UI = (() => {
         elements.tooltip.classList.add('hidden');
     }
 
+    function showStarTooltip(starData, screenX, screenY) {
+        elements.starTooltipName.textContent = starData.name;
+        elements.starTooltipConstellation.textContent = starData.constellation;
+        elements.starTooltipMag.textContent = starData.star.mag.toFixed(2);
+
+        const spectral = starData.star.spectral || 'Unknown';
+        const spectralDescriptions = {
+            'O': 'Blue supergiant', 'B': 'Blue-white', 'A': 'White',
+            'F': 'Yellow-white', 'G': 'Yellow (Sun-like)', 'K': 'Orange', 'M': 'Red'
+        };
+        const specDesc = spectralDescriptions[spectral.charAt(0)] || '';
+        elements.starTooltipSpectral.textContent = spectral + (specDesc ? ' (' + specDesc + ')' : '');
+
+        const dist = starData.star.dist;
+        elements.starTooltipDist.textContent = dist < 100
+            ? dist.toFixed(1) + ' light years'
+            : Math.round(dist) + ' light years';
+
+        // Position tooltip
+        const tooltip = elements.starTooltip;
+        tooltip.classList.remove('hidden');
+
+        let tx = screenX + 20;
+        let ty = screenY - 20;
+
+        // Keep on screen
+        if (tx + 230 > window.innerWidth) tx = screenX - 240;
+        if (ty + 140 > window.innerHeight) ty = screenY - 150;
+        if (ty < 60) ty = 60;
+
+        tooltip.style.left = tx + 'px';
+        tooltip.style.top = ty + 'px';
+    }
+
+    function hideStarTooltip() {
+        elements.starTooltip.classList.add('hidden');
+    }
+
     function openPanel(key, distanceAU, season) {
         const info = PlanetData.planetInfo[key];
 
@@ -389,6 +435,8 @@ const UI = (() => {
         init,
         showTooltip,
         hideTooltip,
+        showStarTooltip,
+        hideStarTooltip,
         openPanel,
         closePanel,
         updateDateDisplay,

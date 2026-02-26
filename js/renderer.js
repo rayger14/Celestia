@@ -28,6 +28,11 @@ const Renderer = (() => {
     let hoveredPlanet = null;
     let selectedPlanet = null;
 
+    // Constellation star screen positions (for hit testing)
+    let constellationStarPositions = [];
+    // Planet ecliptic markers (for hit testing)
+    let eclipticPlanetPositions = {};
+
     function init(canvasEl, minimapEl) {
         canvas = canvasEl;
         ctx = canvas.getContext('2d');
@@ -350,36 +355,36 @@ const Renderer = (() => {
         }
     }
 
-    function drawConstellationStars(time) {
+    function drawConstellationStars(time, planetAngles) {
         const sp = worldToScreen(0, 0);
         const eclipticR = 545 * camera.zoom;
 
         if (eclipticR < 80) return;
 
         const zodiac = ConstellationData.zodiac;
-        for (const z of zodiac) {
-            // Draw constellation star pattern
-            const midLon = (z.startLon + z.endLon) / 2;
-            const baseAngle = midLon * Astronomy.DEG;
-            const baseR = eclipticR;
+        const newStarPositions = [];
 
-            // Map constellation stars to positions along the ecliptic
-            const starPositions = z.stars.map((star, idx) => {
-                // Use RA to determine angular position, dec for radial offset
-                const lonFraction = (idx / (z.stars.length - 1 || 1)) * 0.8 - 0.4;
-                const angle = (midLon + lonFraction * ((z.endLon - z.startLon) || 30)) * Astronomy.DEG;
-                const decOffset = (star.dec || 0) * 0.8;
-                const r = baseR + decOffset * camera.zoom;
+        for (const z of zodiac) {
+            // Convert each star's RA/DEC to ecliptic coordinates for proper positioning
+            const starPositions = z.stars.map((star) => {
+                const ecl = Astronomy.raDecToEcliptic(star.ra, star.dec);
+
+                // Use ecliptic longitude for angular position on the ring
+                const angle = ecl.lon * Astronomy.DEG;
+                // Use ecliptic latitude for radial offset from the ring
+                const latOffset = ecl.lat * 2.5 * camera.zoom;
+                const r = eclipticR + latOffset;
 
                 const sx = sp.x + Math.cos(angle) * r;
                 const sy = sp.y + Math.sin(angle) * r;
-                const size = Math.max(1, (5 - star.mag) * 0.8 * camera.zoom);
+                const size = Math.max(1.2, (5 - star.mag) * 0.9 * camera.zoom);
+                const color = ConstellationData.getStarColor(star.spectral);
 
-                return { sx, sy, size, name: star.name };
+                return { sx, sy, size, name: star.name, mag: star.mag, color, star, constellation: z.name };
             });
 
             // Draw connecting lines
-            if (z.lines && camera.zoom > 0.6) {
+            if (z.lines && camera.zoom > 0.5) {
                 ctx.beginPath();
                 for (const [a, b] of z.lines) {
                     if (starPositions[a] && starPositions[b]) {
@@ -387,20 +392,120 @@ const Renderer = (() => {
                         ctx.lineTo(starPositions[b].sx, starPositions[b].sy);
                     }
                 }
-                ctx.strokeStyle = 'rgba(139, 92, 246, 0.12)';
+                ctx.strokeStyle = 'rgba(139, 92, 246, 0.15)';
                 ctx.lineWidth = 0.8;
+                ctx.setLineDash([3, 4]);
                 ctx.stroke();
+                ctx.setLineDash([]);
             }
 
             // Draw stars
             for (const sp2 of starPositions) {
                 if (sp2.sx < -20 || sp2.sx > width + 20 || sp2.sy < -20 || sp2.sy > height + 20) continue;
+
+                // Glow for bright stars (mag < 2.5)
+                if (sp2.mag < 2.5 && sp2.size > 2) {
+                    ctx.beginPath();
+                    ctx.arc(sp2.sx, sp2.sy, sp2.size * 3, 0, Math.PI * 2);
+                    const glowAlpha = Math.min(0.15, (3 - sp2.mag) * 0.05);
+                    ctx.fillStyle = hexToRgba(sp2.color, glowAlpha);
+                    ctx.fill();
+                }
+
+                // Star dot
                 ctx.beginPath();
                 ctx.arc(sp2.sx, sp2.sy, sp2.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(200, 190, 255, ${Math.min(0.7, sp2.size * 0.25)})`;
+                const alpha = Math.min(0.9, sp2.size * 0.22 + 0.2);
+                ctx.fillStyle = hexToRgba(sp2.color, alpha);
                 ctx.fill();
+
+                // Star name label for bright stars when zoomed in
+                if (camera.zoom > 1.2 && sp2.mag < 3.0) {
+                    const fontSize = Math.max(7, Math.min(10, 8 * camera.zoom));
+                    ctx.font = `400 ${fontSize}px 'Space Grotesk', sans-serif`;
+                    ctx.textAlign = 'left';
+                    ctx.fillStyle = `rgba(200, 190, 255, 0.45)`;
+                    ctx.fillText(sp2.name, sp2.sx + sp2.size + 3, sp2.sy + 3);
+                }
+
+                // Store for hit testing
+                newStarPositions.push(sp2);
             }
         }
+
+        constellationStarPositions = newStarPositions;
+
+        // Draw planets on the ecliptic ring (showing which constellation they're in)
+        if (planetAngles && eclipticR > 100) {
+            drawEclipticPlanets(sp, eclipticR, planetAngles, time);
+        }
+    }
+
+    function drawEclipticPlanets(center, eclipticR, planetAngles, time) {
+        const newEclipticPositions = {};
+
+        for (const key of PlanetData.planetOrder) {
+            const angle = planetAngles[key];
+            if (angle === undefined) continue;
+
+            const info = PlanetData.planetInfo[key];
+            const angleRad = angle * Astronomy.DEG;
+            const constellation = Astronomy.getConstellationForLon(angle);
+
+            // Position on the ecliptic ring
+            const px = center.x + Math.cos(angleRad) * eclipticR;
+            const py = center.y + Math.sin(angleRad) * eclipticR;
+
+            // Only draw if on screen
+            if (px < -30 || px > width + 30 || py < -30 || py > height + 30) continue;
+
+            const dotSize = Math.max(3, Math.min(7, 5 * camera.zoom));
+
+            // Glow
+            const glowGrad = ctx.createRadialGradient(px, py, 0, px, py, dotSize * 4);
+            glowGrad.addColorStop(0, info.glowColor);
+            glowGrad.addColorStop(1, 'transparent');
+            ctx.beginPath();
+            ctx.arc(px, py, dotSize * 4, 0, Math.PI * 2);
+            ctx.fillStyle = glowGrad;
+            ctx.fill();
+
+            // Planet dot on ecliptic
+            ctx.beginPath();
+            ctx.arc(px, py, dotSize, 0, Math.PI * 2);
+            ctx.fillStyle = info.color;
+            ctx.fill();
+
+            // White outline to distinguish from stars
+            ctx.beginPath();
+            ctx.arc(px, py, dotSize + 1, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Label
+            if (camera.zoom > 0.5) {
+                const fontSize = Math.max(8, Math.min(11, 9 * camera.zoom));
+                ctx.font = `600 ${fontSize}px 'Space Grotesk', sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.fillStyle = info.color;
+                ctx.fillText(info.name, px, py - dotSize - 5);
+
+                // "in Constellation" label
+                if (camera.zoom > 0.8) {
+                    ctx.font = `400 ${fontSize * 0.75}px 'Space Grotesk', sans-serif`;
+                    ctx.fillStyle = 'rgba(139, 92, 246, 0.5)';
+                    ctx.fillText('in ' + constellation, px, py - dotSize - 5 - fontSize);
+                }
+            }
+
+            // Store for hit testing
+            newEclipticPositions[key] = {
+                sx: px, sy: py, radius: dotSize, constellation, angle
+            };
+        }
+
+        eclipticPlanetPositions = newEclipticPositions;
     }
 
     function drawMinimap(planetAngles) {
@@ -470,7 +575,7 @@ const Renderer = (() => {
         // Draw layers
         drawStarfield(time);
         drawEclipticRing(time);
-        drawConstellationStars(time);
+        drawConstellationStars(time, planetAngles);
 
         // Draw orbits
         const planetPositions = {};
@@ -493,7 +598,27 @@ const Renderer = (() => {
         return planetPositions;
     }
 
+    // Hit test constellation stars
+    function hitTestStars(mx, my) {
+        for (const sp of constellationStarPositions) {
+            const dx = mx - sp.sx;
+            const dy = my - sp.sy;
+            const hitRadius = Math.max(sp.size + 6, 10);
+            if (dx * dx + dy * dy <= hitRadius * hitRadius) {
+                return sp;
+            }
+        }
+        return null;
+    }
+
     // Color utilities
+    function hexToRgba(hex, alpha) {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
     function lightenColor(hex, amount) {
         const r = Math.min(255, parseInt(hex.slice(1, 3), 16) + amount);
         const g = Math.min(255, parseInt(hex.slice(3, 5), 16) + amount);
@@ -514,11 +639,14 @@ const Renderer = (() => {
         camera,
         worldToScreen,
         screenToWorld,
+        hitTestStars,
         get hoveredPlanet() { return hoveredPlanet; },
         set hoveredPlanet(v) { hoveredPlanet = v; },
         get selectedPlanet() { return selectedPlanet; },
         set selectedPlanet(v) { selectedPlanet = v; },
         get width() { return width; },
         get height() { return height; },
+        get constellationStarPositions() { return constellationStarPositions; },
+        get eclipticPlanetPositions() { return eclipticPlanetPositions; },
     };
 })();

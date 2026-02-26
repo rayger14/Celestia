@@ -212,6 +212,37 @@ const Astronomy = (() => {
         return season;
     }
 
+    // Convert equatorial coordinates (RA/DEC) to ecliptic (lon/lat)
+    // RA in hours, DEC in degrees. Returns {lon, lat} in degrees.
+    const OBLIQUITY = 23.4393; // obliquity of the ecliptic (degrees)
+    function raDecToEcliptic(raHours, decDeg) {
+        const alpha = raHours * 15 * DEG; // RA to radians
+        const delta = decDeg * DEG;       // DEC to radians
+        const eps = OBLIQUITY * DEG;
+
+        const sinLam = Math.sin(alpha) * Math.cos(eps) + Math.tan(delta) * Math.sin(eps);
+        const cosLam = Math.cos(alpha);
+        const lon = normalizeDeg(Math.atan2(sinLam, cosLam) * RAD);
+
+        const beta = Math.asin(
+            Math.sin(delta) * Math.cos(eps) -
+            Math.cos(delta) * Math.sin(eps) * Math.sin(alpha)
+        ) * RAD;
+
+        return { lon, lat: beta };
+    }
+
+    // Determine which zodiac constellation a given ecliptic longitude falls in
+    function getConstellationForLon(lon) {
+        lon = normalizeDeg(lon);
+        const signs = [
+            'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
+            'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
+        ];
+        const idx = Math.floor(lon / 30);
+        return signs[Math.min(idx, 11)];
+    }
+
     return {
         J2000,
         DEG,
@@ -230,5 +261,7 @@ const Astronomy = (() => {
         auToLightMinutes,
         formatDistance,
         getSeason,
+        raDecToEcliptic,
+        getConstellationForLon,
     };
 })();
