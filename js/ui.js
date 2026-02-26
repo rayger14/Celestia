@@ -61,6 +61,16 @@ const UI = (() => {
             premiumModal: document.getElementById('premium-modal'),
             premiumBtn: document.getElementById('premium-btn'),
 
+            knowledgeModal: document.getElementById('knowledge-modal'),
+            knowledgeBtn: document.getElementById('knowledge-btn'),
+            knowledgeClose: document.getElementById('knowledge-close'),
+
+            // Panel wisdom
+            panelWisdomSection: document.getElementById('panel-wisdom-section'),
+            panelWisdomName: document.getElementById('panel-wisdom-name'),
+            panelWisdomAssociation: document.getElementById('panel-wisdom-association'),
+            panelWisdomTradition: document.getElementById('panel-wisdom-tradition'),
+
             // Zoom
             zoomIn: document.getElementById('zoom-in'),
             zoomOut: document.getElementById('zoom-out'),
@@ -90,6 +100,21 @@ const UI = (() => {
         elements.datePickerBtn.addEventListener('click', () => toggleModal('date'));
         elements.speedBtn.addEventListener('click', () => toggleModal('speed'));
         elements.premiumBtn.addEventListener('click', () => toggleModal('premium'));
+        elements.knowledgeBtn.addEventListener('click', () => toggleModal('knowledge'));
+        elements.knowledgeClose.addEventListener('click', closeAllModals);
+
+        // Knowledge tabs
+        document.querySelectorAll('.knowledge-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.knowledge-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelectorAll('.knowledge-section').forEach(s => s.classList.remove('active'));
+                document.getElementById('ksection-' + tab.dataset.ktab).classList.add('active');
+            });
+        });
+
+        // Populate knowledge content on first open
+        populateKnowledgeContent();
 
         // Modal backdrops
         document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
@@ -190,6 +215,7 @@ const UI = (() => {
             date: elements.datePickerModal,
             speed: elements.speedModal,
             premium: elements.premiumModal,
+            knowledge: elements.knowledgeModal,
         };
 
         if (activeModal === type) {
@@ -206,6 +232,7 @@ const UI = (() => {
         elements.datePickerModal.classList.add('hidden');
         elements.speedModal.classList.add('hidden');
         elements.premiumModal.classList.add('hidden');
+        elements.knowledgeModal.classList.add('hidden');
         activeModal = null;
     }
 
@@ -296,6 +323,17 @@ const UI = (() => {
         elements.panelMoons.innerHTML = info.moons.length > 0
             ? info.moons.map(m => `<span class="moon-chip">${m}</span>`).join('')
             : '<span class="moon-chip">No known moons</span>';
+
+        // Planet wisdom
+        const wisdom = CosmicKnowledge.planetWisdom[key];
+        if (wisdom) {
+            elements.panelWisdomSection.style.display = '';
+            elements.panelWisdomName.textContent = wisdom.ancientName;
+            elements.panelWisdomAssociation.textContent = wisdom.association;
+            elements.panelWisdomTradition.textContent = wisdom.tradition;
+        } else {
+            elements.panelWisdomSection.style.display = 'none';
+        }
 
         // Draw planet preview
         drawPlanetPreview(key);
@@ -429,6 +467,75 @@ const UI = (() => {
         const g = Math.max(0, parseInt(hex.slice(3, 5), 16) - amount);
         const b = Math.max(0, parseInt(hex.slice(5, 7), 16) - amount);
         return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    function populateKnowledgeContent() {
+        // Science cards
+        const scienceContainer = document.getElementById('science-cards');
+        scienceContainer.innerHTML = CosmicKnowledge.modernScience.map(item => {
+            const citationsHtml = item.citations.map(c =>
+                `<div class="citation">${c.text}</div>`
+            ).join('');
+            return `
+                <div class="science-card" data-id="${item.id}">
+                    <div class="science-card-header">
+                        <span class="science-card-icon">${item.icon}</span>
+                        <span class="science-card-title">${item.title}</span>
+                        <span class="verdict-badge verdict-${item.verdict}">${item.verdict}</span>
+                    </div>
+                    <div class="science-card-finding">${item.finding}</div>
+                    <div class="science-card-details">${item.details}</div>
+                    <div class="science-card-citations">${citationsHtml}</div>
+                    <button class="science-card-toggle">Read more</button>
+                </div>
+            `;
+        }).join('');
+
+        scienceContainer.addEventListener('click', (e) => {
+            const toggle = e.target.closest('.science-card-toggle');
+            if (!toggle) return;
+            const card = toggle.closest('.science-card');
+            card.classList.toggle('expanded');
+            toggle.textContent = card.classList.contains('expanded') ? 'Show less' : 'Read more';
+        });
+
+        // Ancient tradition cards
+        const ancientContainer = document.getElementById('ancient-cards');
+        ancientContainer.innerHTML = CosmicKnowledge.ancientTraditions.map(item => `
+            <div class="ancient-card" data-id="${item.id}">
+                <div class="ancient-card-header">
+                    <span class="ancient-card-icon">${item.icon}</span>
+                    <div class="ancient-card-title-group">
+                        <div class="ancient-card-title">${item.title}</div>
+                        <div class="ancient-card-period">${item.period}</div>
+                    </div>
+                </div>
+                <div class="ancient-card-summary">${item.summary}</div>
+                <div class="ancient-card-body">${item.content}</div>
+                <div class="ancient-card-insight">
+                    <div class="ancient-card-insight-label">Key Insight</div>
+                    <div class="ancient-card-insight-text">${item.keyInsight}</div>
+                </div>
+                <div class="ancient-card-source">${item.source}</div>
+                <button class="ancient-card-toggle">Read more</button>
+            </div>
+        `).join('');
+
+        ancientContainer.addEventListener('click', (e) => {
+            const toggle = e.target.closest('.ancient-card-toggle');
+            if (!toggle) return;
+            const card = toggle.closest('.ancient-card');
+            card.classList.toggle('expanded');
+            toggle.textContent = card.classList.contains('expanded') ? 'Show less' : 'Read more';
+        });
+
+        // Deeper question
+        const deeperContainer = document.getElementById('deeper-question-content');
+        const dq = CosmicKnowledge.deeperQuestion;
+        deeperContainer.innerHTML = `
+            <h3 style="font-family: var(--font-display); font-size: 1.3rem; color: var(--text-bright); margin-bottom: 20px;">${dq.title}</h3>
+            ${dq.paragraphs.map(p => `<div class="deeper-paragraph">${p}</div>`).join('')}
+        `;
     }
 
     return {

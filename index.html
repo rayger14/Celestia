@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/panels.css">
     <link rel="stylesheet" href="css/constellations.css">
+    <link rel="stylesheet" href="css/knowledge.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -62,6 +63,10 @@
                 <button id="speed-btn" class="action-btn" title="Time Speed">
                     <svg viewBox="0 0 24 24" width="20" height="20"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg>
                     <span id="speed-display">1x</span>
+                </button>
+                <button id="knowledge-btn" class="action-btn" title="Cosmic Knowledge">
+                    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span class="knowledge-btn-label">Cosmos</span>
                 </button>
                 <button id="premium-btn" class="action-btn premium-glow" title="Celestia Pro">
                     <svg viewBox="0 0 24 24" width="20" height="20"><polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" fill="currentColor"/></svg>
@@ -159,6 +164,45 @@
                 </div>
                 <button class="btn-premium-cta">Start 7-Day Free Trial</button>
                 <p class="premium-disclaimer">Cancel anytime. No charge during trial.</p>
+            </div>
+        </div>
+
+        <!-- Cosmic Knowledge Modal -->
+        <div id="knowledge-modal" class="modal hidden">
+            <div class="modal-backdrop"></div>
+            <div class="knowledge-content">
+                <button class="knowledge-close" id="knowledge-close">&times;</button>
+                <div class="knowledge-scroll">
+                    <div class="knowledge-header">
+                        <div class="knowledge-badge">Ancient Wisdom & Modern Science</div>
+                        <h2>Cosmic Knowledge</h2>
+                        <p class="knowledge-tagline">What the ancients knew, what science confirms, and the questions that remain</p>
+                    </div>
+
+                    <!-- Tab Navigation -->
+                    <div class="knowledge-tabs">
+                        <button class="knowledge-tab active" data-ktab="science">Modern Science</button>
+                        <button class="knowledge-tab" data-ktab="ancient">Ancient Traditions</button>
+                        <button class="knowledge-tab" data-ktab="why">The Deeper Question</button>
+                    </div>
+
+                    <!-- Modern Science Section -->
+                    <div class="knowledge-section active" id="ksection-science">
+                        <p class="section-intro">Peer-reviewed findings on whether celestial bodies measurably affect life on Earth. Every claim below is cited to specific journals.</p>
+                        <div id="science-cards"></div>
+                    </div>
+
+                    <!-- Ancient Traditions Section -->
+                    <div class="knowledge-section" id="ksection-ancient">
+                        <p class="section-intro">Six major traditions of planetary observation, drawn from academic scholarship — not pop astrology or New Age interpretation.</p>
+                        <div id="ancient-cards"></div>
+                    </div>
+
+                    <!-- Deeper Question Section -->
+                    <div class="knowledge-section" id="ksection-why">
+                        <div id="deeper-question-content"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -266,6 +310,13 @@
                     </div>
                 </div>
 
+                <div class="panel-section panel-wisdom" id="panel-wisdom-section">
+                    <h3>Ancient Knowledge</h3>
+                    <div class="wisdom-ancient-name" id="panel-wisdom-name"></div>
+                    <div class="wisdom-association" id="panel-wisdom-association"></div>
+                    <div class="wisdom-tradition" id="panel-wisdom-tradition"></div>
+                </div>
+
                 <div class="panel-section">
                     <h3>Quick Facts</h3>
                     <ul id="panel-facts" class="facts-list"></ul>
@@ -314,6 +365,7 @@
     <script src="js/astronomy.js"></script>
     <script src="js/planets.js"></script>
     <script src="js/constellations.js"></script>
+    <script src="js/cosmicknowledge.js"></script>
     <script src="js/renderer.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/app.js"></script>

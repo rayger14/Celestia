@@ -1,0 +1,494 @@
+/* ============================================
+   Cosmic Knowledge Modal
+   ============================================ */
+
+.knowledge-content {
+    position: relative;
+    width: 94%;
+    max-width: 720px;
+    max-height: 88vh;
+    background: linear-gradient(180deg, rgba(10, 10, 46, 0.97) 0%, rgba(5, 5, 25, 0.99) 100%);
+    backdrop-filter: blur(40px);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(139, 92, 246, 0.08);
+}
+
+.knowledge-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-glass);
+    color: var(--text-secondary);
+    font-size: 1.3rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.2s ease;
+}
+
+.knowledge-close:hover {
+    background: var(--bg-glass-hover);
+    color: var(--text-primary);
+}
+
+.knowledge-scroll {
+    height: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 32px 28px 40px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-glass) transparent;
+}
+
+.knowledge-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.knowledge-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.knowledge-scroll::-webkit-scrollbar-thumb {
+    background: var(--border-glass);
+    border-radius: 3px;
+}
+
+/* Header */
+.knowledge-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.knowledge-badge {
+    display: inline-block;
+    padding: 5px 18px;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: var(--radius-xl);
+    margin-bottom: 14px;
+}
+
+.knowledge-content h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 8px;
+}
+
+.knowledge-tagline {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Tab Navigation */
+.knowledge-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    background: var(--bg-glass);
+    border-radius: var(--radius-md);
+    padding: 4px;
+}
+
+.knowledge-tab {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.78rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.02em;
+}
+
+.knowledge-tab:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.knowledge-tab.active {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(79, 143, 255, 0.2));
+    color: var(--text-bright);
+    box-shadow: 0 2px 10px rgba(139, 92, 246, 0.15);
+}
+
+/* Knowledge Sections */
+.knowledge-section {
+    display: none;
+}
+
+.knowledge-section.active {
+    display: block;
+}
+
+.section-intro {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Science Cards */
+.science-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-bottom: 14px;
+    transition: all 0.2s ease;
+}
+
+.science-card:hover {
+    border-color: var(--border-glass);
+    transform: translateY(-1px);
+}
+
+.science-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.science-card-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.science-card-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    flex: 1;
+}
+
+.verdict-badge {
+    padding: 3px 10px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: var(--radius-xl);
+    flex-shrink: 0;
+}
+
+.verdict-confirmed {
+    background: rgba(6, 214, 160, 0.15);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(6, 214, 160, 0.3);
+}
+
+.verdict-suggestive {
+    background: rgba(244, 185, 66, 0.12);
+    color: var(--accent-gold);
+    border: 1px solid rgba(244, 185, 66, 0.3);
+}
+
+.verdict-debunked {
+    background: rgba(239, 68, 68, 0.12);
+    color: var(--accent-red);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.science-card-finding {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.science-card-details {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.science-card.expanded .science-card-details {
+    display: block;
+}
+
+.science-card-citations {
+    display: none;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.science-card.expanded .science-card-citations {
+    display: block;
+}
+
+.citation {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding: 3px 0;
+    font-family: var(--font-mono);
+}
+
+.science-card-toggle {
+    display: inline-block;
+    border: none;
+    background: none;
+    color: var(--accent-blue);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.science-card-toggle:hover {
+    color: var(--accent-purple);
+}
+
+/* Ancient Tradition Cards */
+.ancient-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-bottom: 14px;
+    transition: all 0.2s ease;
+}
+
+.ancient-card:hover {
+    border-color: rgba(139, 92, 246, 0.3);
+    transform: translateY(-1px);
+}
+
+.ancient-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.ancient-card-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
+}
+
+.ancient-card-title-group {
+    flex: 1;
+}
+
+.ancient-card-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-bright);
+}
+
+.ancient-card-period {
+    font-size: 0.72rem;
+    color: var(--accent-purple);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+.ancient-card-summary {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.ancient-card-body {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.ancient-card.expanded .ancient-card-body {
+    display: block;
+}
+
+.ancient-card-insight {
+    background: rgba(139, 92, 246, 0.08);
+    border-left: 3px solid var(--accent-purple);
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    display: none;
+}
+
+.ancient-card.expanded .ancient-card-insight {
+    display: block;
+}
+
+.ancient-card-insight-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-purple);
+    margin-bottom: 4px;
+}
+
+.ancient-card-insight-text {
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.ancient-card-source {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    line-height: 1.5;
+    display: none;
+}
+
+.ancient-card.expanded .ancient-card-source {
+    display: block;
+}
+
+.ancient-card-toggle {
+    display: inline-block;
+    border: none;
+    background: none;
+    color: var(--accent-purple);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.ancient-card-toggle:hover {
+    color: var(--accent-blue);
+}
+
+/* Deeper Question */
+.deeper-paragraph {
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    line-height: 1.75;
+    margin-bottom: 18px;
+}
+
+.deeper-paragraph:first-child {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-bright);
+}
+
+.deeper-paragraph:last-child {
+    background: rgba(139, 92, 246, 0.06);
+    border-left: 3px solid var(--accent-purple);
+    padding: 16px 18px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-style: italic;
+    color: var(--text-primary);
+}
+
+/* Planet panel wisdom section */
+.panel-wisdom {
+    margin-bottom: 24px;
+}
+
+.panel-wisdom h3 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.wisdom-ancient-name {
+    font-size: 0.78rem;
+    color: var(--accent-purple);
+    font-weight: 500;
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+}
+
+.wisdom-association {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.wisdom-tradition {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    padding: 10px 12px;
+    background: rgba(139, 92, 246, 0.06);
+    border-left: 2px solid rgba(139, 92, 246, 0.3);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* Knowledge button glow */
+#knowledge-btn svg {
+    color: var(--accent-purple);
+}
+
+.knowledge-btn-label {
+    color: var(--text-secondary);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .knowledge-content {
+        width: 100%;
+        max-height: 92vh;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .knowledge-scroll {
+        padding: 24px 20px 32px;
+        max-height: 92vh;
+    }
+
+    .knowledge-content h2 {
+        font-size: 1.4rem;
+    }
+
+    .knowledge-tab {
+        font-size: 0.7rem;
+        padding: 9px 6px;
+    }
+
+    .science-card,
+    .ancient-card {
+        padding: 16px;
+    }
+
+    .science-card-title,
+    .ancient-card-title {
+        font-size: 0.9rem;
+    }
+}
