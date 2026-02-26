@@ -287,7 +287,7 @@ const Renderer = (() => {
             ctx.fill();
         }
 
-        // Planet label
+        // Planet label + constellation
         if (camera.zoom > 0.3 && planetRadius > 2) {
             const fontSize = Math.max(9, Math.min(13, 11 * camera.zoom));
             ctx.font = `500 ${fontSize}px 'Space Grotesk', sans-serif`;
@@ -296,6 +296,15 @@ const Renderer = (() => {
                 ? 'rgba(255, 255, 255, 0.9)'
                 : 'rgba(255, 255, 255, 0.5)';
             ctx.fillText(info.name, sp.x, sp.y + planetRadius + fontSize + 4);
+
+            // Show which constellation the planet is in
+            const constellation = Astronomy.getConstellationForLon(angle);
+            const smallFontSize = Math.max(7, Math.min(10, 8 * camera.zoom));
+            ctx.font = `400 ${smallFontSize}px 'Space Grotesk', sans-serif`;
+            ctx.fillStyle = isHovered || isSelected
+                ? 'rgba(139, 92, 246, 0.8)'
+                : 'rgba(139, 92, 246, 0.45)';
+            ctx.fillText('in ' + constellation, sp.x, sp.y + planetRadius + fontSize + smallFontSize + 7);
         }
     }
 
@@ -456,21 +465,36 @@ const Renderer = (() => {
             const px = center.x + Math.cos(angleRad) * eclipticR;
             const py = center.y + Math.sin(angleRad) * eclipticR;
 
+            // Planet position on its display orbit (for connecting line)
+            const displayRadius = PlanetData.orbitDisplayRadii[key] * camera.zoom;
+            const planetX = center.x + Math.cos(angleRad) * displayRadius;
+            const planetY = center.y + Math.sin(angleRad) * displayRadius;
+
             // Only draw if on screen
-            if (px < -30 || px > width + 30 || py < -30 || py > height + 30) continue;
+            if (px < -60 || px > width + 60 || py < -60 || py > height + 60) continue;
 
-            const dotSize = Math.max(3, Math.min(7, 5 * camera.zoom));
+            const dotSize = Math.max(4, Math.min(9, 6 * camera.zoom));
 
-            // Glow
-            const glowGrad = ctx.createRadialGradient(px, py, 0, px, py, dotSize * 4);
+            // Draw connecting line from planet to ecliptic marker
+            ctx.beginPath();
+            ctx.moveTo(planetX, planetY);
+            ctx.lineTo(px, py);
+            ctx.strokeStyle = hexToRgba(info.color, 0.15);
+            ctx.lineWidth = 1;
+            ctx.setLineDash([3, 5]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Glow (bigger)
+            const glowGrad = ctx.createRadialGradient(px, py, 0, px, py, dotSize * 5);
             glowGrad.addColorStop(0, info.glowColor);
             glowGrad.addColorStop(1, 'transparent');
             ctx.beginPath();
-            ctx.arc(px, py, dotSize * 4, 0, Math.PI * 2);
+            ctx.arc(px, py, dotSize * 5, 0, Math.PI * 2);
             ctx.fillStyle = glowGrad;
             ctx.fill();
 
-            // Planet dot on ecliptic
+            // Planet dot on ecliptic (bigger)
             ctx.beginPath();
             ctx.arc(px, py, dotSize, 0, Math.PI * 2);
             ctx.fillStyle = info.color;
@@ -478,25 +502,23 @@ const Renderer = (() => {
 
             // White outline to distinguish from stars
             ctx.beginPath();
-            ctx.arc(px, py, dotSize + 1, 0, Math.PI * 2);
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-            ctx.lineWidth = 1;
+            ctx.arc(px, py, dotSize + 1.5, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 1.5;
             ctx.stroke();
 
-            // Label
-            if (camera.zoom > 0.5) {
-                const fontSize = Math.max(8, Math.min(11, 9 * camera.zoom));
-                ctx.font = `600 ${fontSize}px 'Space Grotesk', sans-serif`;
+            // Label - always show at reasonable zoom
+            if (camera.zoom > 0.4) {
+                const fontSize = Math.max(9, Math.min(12, 10 * camera.zoom));
+                ctx.font = `700 ${fontSize}px 'Space Grotesk', sans-serif`;
                 ctx.textAlign = 'center';
                 ctx.fillStyle = info.color;
-                ctx.fillText(info.name, px, py - dotSize - 5);
+                ctx.fillText(info.name, px, py - dotSize - 7);
 
                 // "in Constellation" label
-                if (camera.zoom > 0.8) {
-                    ctx.font = `400 ${fontSize * 0.75}px 'Space Grotesk', sans-serif`;
-                    ctx.fillStyle = 'rgba(139, 92, 246, 0.5)';
-                    ctx.fillText('in ' + constellation, px, py - dotSize - 5 - fontSize);
-                }
+                ctx.font = `500 ${Math.max(7, fontSize * 0.8)}px 'Space Grotesk', sans-serif`;
+                ctx.fillStyle = 'rgba(139, 92, 246, 0.65)';
+                ctx.fillText('in ' + constellation, px, py - dotSize - 7 - fontSize);
             }
 
             // Store for hit testing

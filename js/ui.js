@@ -209,10 +209,10 @@ const UI = (() => {
         activeModal = null;
     }
 
-    function showTooltip(key, screenX, screenY, distanceAU, season) {
+    function showTooltip(key, screenX, screenY, distanceAU, season, constellation) {
         const info = PlanetData.planetInfo[key];
         elements.tooltipIcon.textContent = info.icon;
-        elements.tooltipName.textContent = info.name;
+        elements.tooltipName.textContent = info.name + (constellation ? '  in ' + constellation : '');
         elements.tooltipDistance.textContent = Astronomy.formatDistance(distanceAU);
         elements.tooltipSeason.textContent = season;
 
@@ -275,11 +275,11 @@ const UI = (() => {
         elements.starTooltip.classList.add('hidden');
     }
 
-    function openPanel(key, distanceAU, season) {
+    function openPanel(key, distanceAU, season, constellation) {
         const info = PlanetData.planetInfo[key];
 
         elements.panelPlanetName.textContent = info.name;
-        elements.panelPlanetType.textContent = info.type;
+        elements.panelPlanetType.textContent = info.type + (constellation ? ' — in ' + constellation : '');
         elements.panelDistance.textContent = Astronomy.formatDistance(distanceAU);
         elements.panelTemperature.textContent = info.surfaceTemp;
         elements.panelSeason.textContent = season;

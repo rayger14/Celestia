@@ -334,7 +334,8 @@
             const distanceAU = computeDistanceFromEarth(hit);
             const season = computeSeason(hit);
             const pos = planetScreenPositions[hit];
-            UI.showTooltip(hit, pos.sx, pos.sy, distanceAU, season);
+            const constellation = Astronomy.getConstellationForLon(planetAngles[hit] || 0);
+            UI.showTooltip(hit, pos.sx, pos.sy, distanceAU, season, constellation);
             document.getElementById('main-canvas').style.cursor = 'pointer';
         } else {
             if (Renderer.hoveredPlanet) {
@@ -372,7 +373,8 @@
 
         const distanceAU = computeDistanceFromEarth(key);
         const season = computeSeason(key);
-        UI.openPanel(key, distanceAU, season);
+        const constellation = Astronomy.getConstellationForLon(planetAngles[key] || 0);
+        UI.openPanel(key, distanceAU, season, constellation);
 
         // Smooth pan to planet
         const pos = planetScreenPositions[key];
