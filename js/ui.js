@@ -105,6 +105,7 @@ const UI = (() => {
         };
 
         bindEvents();
+        initGlossaryPopup();
     }
 
     function bindEvents() {
@@ -538,8 +539,93 @@ const UI = (() => {
 
     let birthdayContentPopulated = false;
 
+    // ──────────────────────────────────────────────
+    // Glossary — inline term definitions
+    // ──────────────────────────────────────────────
+
+    function applyGlossary(text) {
+        if (!CosmicKnowledge.glossary) return text;
+        const glossary = CosmicKnowledge.glossary;
+        const used = new Set();
+        let result = text;
+
+        // Sort terms by length (longest first) to avoid partial matches
+        const terms = Object.keys(glossary).sort((a, b) => b.length - a.length);
+
+        for (const term of terms) {
+            if (used.has(term)) continue;
+            // Case-insensitive, whole-word-ish match (first occurrence only)
+            const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(?<![\\w-])${escaped}(?![\\w-])`, 'i');
+            const match = result.match(regex);
+            if (match) {
+                used.add(term);
+                const idx = match.index;
+                const matchedText = result.slice(idx, idx + match[0].length);
+                result = result.slice(0, idx)
+                    + `<span class="glossary-term" data-term="${term.replace(/"/g, '&quot;')}">${matchedText}</span>`
+                    + result.slice(idx + match[0].length);
+            }
+        }
+        return result;
+    }
+
+    function initGlossaryPopup() {
+        // Dismiss on click outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.glossary-popup') && !e.target.closest('.glossary-term')) {
+                const existing = document.querySelector('.glossary-popup');
+                if (existing) existing.remove();
+            }
+        });
+
+        // Delegate click on glossary terms
+        document.addEventListener('click', (e) => {
+            const termEl = e.target.closest('.glossary-term');
+            if (!termEl) return;
+            e.stopPropagation();
+
+            // Remove existing popup
+            const existing = document.querySelector('.glossary-popup');
+            if (existing) existing.remove();
+
+            const term = termEl.dataset.term;
+            const def = CosmicKnowledge.glossary[term];
+            if (!def) return;
+
+            const popup = document.createElement('div');
+            popup.className = 'glossary-popup';
+            popup.innerHTML = `
+                <div class="glossary-popup-title">${term}</div>
+                <div class="glossary-popup-def">${def}</div>
+            `;
+            document.body.appendChild(popup);
+
+            // Position near the term
+            const rect = termEl.getBoundingClientRect();
+            const popupWidth = 300;
+            let left = rect.left + rect.width / 2 - popupWidth / 2;
+            left = Math.max(8, Math.min(left, window.innerWidth - popupWidth - 8));
+
+            // Show above or below depending on space
+            popup.style.left = left + 'px';
+            popup.style.width = popupWidth + 'px';
+
+            const popupHeight = popup.offsetHeight;
+            if (rect.top > popupHeight + 16) {
+                popup.style.top = (rect.top - popupHeight - 8) + 'px';
+            } else {
+                popup.style.top = (rect.bottom + 8) + 'px';
+            }
+
+            popup.classList.add('visible');
+        });
+    }
+
     function buildLayerCard(item) {
         const badgeLabel = { confirmed: 'Confirmed Science', tradition: 'Real Historical Tradition', symbolic: 'Symbolic Correspondence', synthesis: 'Modern Synthesis' };
+        const summary = applyGlossary(item.summary);
+        const details = item.details ? applyGlossary(item.details) : '';
         return `
             <div class="layer-card" data-id="${item.id}">
                 <div class="layer-card-header">
@@ -547,8 +633,8 @@ const UI = (() => {
                     <span class="layer-card-title">${item.title}</span>
                     <span class="epistemic-badge epistemic-${item.badge}">${badgeLabel[item.badge] || item.badge}</span>
                 </div>
-                <div class="layer-card-summary">${item.summary}</div>
-                <div class="layer-card-details">${item.details || ''}</div>
+                <div class="layer-card-summary">${summary}</div>
+                <div class="layer-card-details">${details}</div>
                 ${item.source ? `<div class="layer-card-source">${item.source}</div>` : ''}
                 ${item.details ? '<button class="layer-card-toggle">Read more</button>' : ''}
             </div>
@@ -862,6 +948,13 @@ const UI = (() => {
     }
 
     function populateKnowledgeContent() {
+        // Thesis / Pattern cards
+        const thesisContainer = document.getElementById('thesis-cards');
+        if (thesisContainer && CosmicKnowledge.thesisStatement) {
+            thesisContainer.innerHTML = CosmicKnowledge.thesisStatement.map(item => buildLayerCard(item)).join('');
+            bindLayerCardToggles(thesisContainer);
+        }
+
         // Science cards
         const scienceContainer = document.getElementById('science-cards');
         scienceContainer.innerHTML = CosmicKnowledge.modernScience.map(item => {
