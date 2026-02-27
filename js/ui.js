@@ -605,6 +605,8 @@ const UI = (() => {
                 const icon = info ? info.icon : key.charAt(0).toUpperCase();
                 const name = info ? info.name : key.charAt(0).toUpperCase() + key.slice(1);
                 const glyph = zodiacProfile ? zodiacProfile.glyph : '';
+                const element = zodiacProfile ? zodiacProfile.element : '';
+                const signMeaning = (bodyInfo && bodyInfo.inElement && element) ? bodyInfo.inElement[element] : '';
 
                 return `
                     <div class="birth-planet-card" data-planet="${key}">
@@ -614,6 +616,7 @@ const UI = (() => {
                             <span class="birth-planet-sign">${glyph} ${sign}</span>
                             <span class="birth-planet-lon">${pos.lon.toFixed(1)}\u00B0</span>
                         </div>
+                        ${signMeaning ? `<div class="birth-planet-meaning">${signMeaning}</div>` : ''}
                         ${bodyInfo ? `
                         <div class="birth-planet-body hidden">
                             <div class="birth-planet-tradition">${bodyInfo.tradition}</div>

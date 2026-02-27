@@ -271,6 +271,110 @@ const ConstellationData = (() => {
         },
     ];
 
+    // ──────────────────────────────────────────────
+    // Non-Zodiac Constellations (circumpolar & prominent)
+    // ──────────────────────────────────────────────
+
+    const deepSkyConstellations = [
+        {
+            name: 'Ursa Major',
+            nickname: 'Big Dipper',
+            description: 'The Great Bear — the most recognized asterism in the Northern Hemisphere. The two "pointer stars" (Merak and Dubhe) point toward Polaris.',
+            stars: [
+                { name: 'Dubhe',     ra: 11.06, dec: 61.75, mag: 1.79, spectral: 'K0III', dist: 124 },
+                { name: 'Merak',     ra: 11.03, dec: 56.38, mag: 2.37, spectral: 'A1V',   dist: 80 },
+                { name: 'Phecda',    ra: 11.90, dec: 53.69, mag: 2.44, spectral: 'A0V',   dist: 84 },
+                { name: 'Megrez',    ra: 12.26, dec: 57.03, mag: 3.31, spectral: 'A3V',   dist: 81 },
+                { name: 'Alioth',    ra: 12.90, dec: 55.96, mag: 1.77, spectral: 'A1III', dist: 81 },
+                { name: 'Mizar',     ra: 13.40, dec: 54.93, mag: 2.27, spectral: 'A2V',   dist: 78 },
+                { name: 'Alkaid',    ra: 13.79, dec: 49.31, mag: 1.86, spectral: 'B3V',   dist: 104 },
+            ],
+            lines: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6]],
+        },
+        {
+            name: 'Ursa Minor',
+            nickname: 'Little Dipper',
+            description: 'The Little Bear — contains Polaris, the North Star, at the tip of its handle. Used for navigation for millennia.',
+            stars: [
+                { name: 'Polaris',   ra: 2.53,  dec: 89.26, mag: 1.98, spectral: 'F7Ib',  dist: 431 },
+                { name: 'Kochab',    ra: 14.85, dec: 74.16, mag: 2.08, spectral: 'K4III', dist: 131 },
+                { name: 'Pherkad',   ra: 15.35, dec: 71.83, mag: 3.00, spectral: 'A3II',  dist: 480 },
+                { name: 'Epsilon UMi', ra: 16.77, dec: 82.04, mag: 4.23, spectral: 'G5III', dist: 347 },
+                { name: 'Delta UMi',  ra: 17.54, dec: 86.59, mag: 4.36, spectral: 'A1V',   dist: 183 },
+                { name: 'Zeta UMi',   ra: 15.73, dec: 77.79, mag: 4.32, spectral: 'A3V',   dist: 380 },
+                { name: 'Eta UMi',    ra: 16.29, dec: 75.76, mag: 4.95, spectral: 'F5V',   dist: 97 },
+            ],
+            lines: [[0,4],[4,3],[3,5],[5,6],[6,2],[2,1]],
+        },
+        {
+            name: 'Orion',
+            nickname: 'The Hunter',
+            description: 'The most striking constellation visible from both hemispheres. Contains Betelgeuse, Rigel, and the three-star Belt.',
+            stars: [
+                { name: 'Betelgeuse', ra: 5.92,  dec: 7.41,   mag: 0.50, spectral: 'M2Ib',  dist: 700 },
+                { name: 'Rigel',      ra: 5.24,  dec: -8.20,  mag: 0.13, spectral: 'B8Ia',  dist: 860 },
+                { name: 'Bellatrix',  ra: 5.42,  dec: 6.35,   mag: 1.64, spectral: 'B2III', dist: 250 },
+                { name: 'Mintaka',    ra: 5.53,  dec: -0.30,  mag: 2.23, spectral: 'O9III', dist: 900 },
+                { name: 'Alnilam',    ra: 5.60,  dec: -1.20,  mag: 1.69, spectral: 'B0Ia',  dist: 2000 },
+                { name: 'Alnitak',    ra: 5.68,  dec: -1.94,  mag: 1.77, spectral: 'O9Ib',  dist: 800 },
+                { name: 'Saiph',      ra: 5.80,  dec: -9.67,  mag: 2.09, spectral: 'B0Ia',  dist: 650 },
+            ],
+            lines: [[0,2],[2,3],[3,4],[4,5],[5,6],[6,1],[1,3],[0,4]],
+        },
+        {
+            name: 'Cassiopeia',
+            nickname: 'The Queen',
+            description: 'The distinctive W-shape near the north celestial pole. In Greek myth, the vain queen chained to her throne as punishment.',
+            stars: [
+                { name: 'Schedar',    ra: 0.68,  dec: 56.54, mag: 2.23, spectral: 'K0III', dist: 228 },
+                { name: 'Caph',       ra: 0.15,  dec: 59.15, mag: 2.27, spectral: 'F2IV',  dist: 55 },
+                { name: 'Gamma Cas',  ra: 0.95,  dec: 60.72, mag: 2.47, spectral: 'B0IVe', dist: 550 },
+                { name: 'Ruchbah',    ra: 1.36,  dec: 60.24, mag: 2.68, spectral: 'A5V',   dist: 99 },
+                { name: 'Segin',      ra: 1.91,  dec: 63.67, mag: 3.37, spectral: 'B3III', dist: 440 },
+            ],
+            lines: [[1,2],[2,0],[0,3],[3,4]],
+        },
+        {
+            name: 'Cygnus',
+            nickname: 'Northern Cross',
+            description: 'The Swan, flying along the Milky Way. Deneb marks the tail. The Northern Cross asterism forms its core shape.',
+            stars: [
+                { name: 'Deneb',     ra: 20.69, dec: 45.28, mag: 1.25, spectral: 'A2Ia',  dist: 2600 },
+                { name: 'Sadr',      ra: 20.37, dec: 40.26, mag: 2.20, spectral: 'F8Ib',  dist: 1800 },
+                { name: 'Gienah',    ra: 20.77, dec: 33.97, mag: 2.46, spectral: 'K0III', dist: 72 },
+                { name: 'Delta Cyg', ra: 19.75, dec: 45.13, mag: 2.87, spectral: 'B9III', dist: 171 },
+                { name: 'Albireo',   ra: 19.51, dec: 27.96, mag: 3.08, spectral: 'K3II',  dist: 430 },
+            ],
+            lines: [[0,1],[1,2],[1,3],[1,4]],
+        },
+        {
+            name: 'Lyra',
+            nickname: 'The Lyre',
+            description: 'Small but brilliant — anchored by Vega, the 5th-brightest star in the sky. Orpheus\'s harp placed among the stars.',
+            stars: [
+                { name: 'Vega',       ra: 18.62, dec: 38.78, mag: 0.03, spectral: 'A0V',   dist: 25 },
+                { name: 'Sheliak',    ra: 18.83, dec: 33.36, mag: 3.45, spectral: 'B7Ve',  dist: 960 },
+                { name: 'Sulafat',    ra: 18.98, dec: 32.69, mag: 3.24, spectral: 'B9III', dist: 620 },
+                { name: 'Delta1 Lyr', ra: 18.91, dec: 36.90, mag: 4.22, spectral: 'B2V',   dist: 1100 },
+                { name: 'Delta2 Lyr', ra: 18.91, dec: 36.97, mag: 4.30, spectral: 'M4II',  dist: 740 },
+            ],
+            lines: [[0,1],[0,2],[1,2],[1,3],[2,4]],
+        },
+        {
+            name: 'Canis Major',
+            nickname: 'The Great Dog',
+            description: 'Orion\'s hunting dog, containing Sirius — the brightest star in the night sky at magnitude -1.46.',
+            stars: [
+                { name: 'Sirius',    ra: 6.75,  dec: -16.72, mag: -1.46, spectral: 'A1V',  dist: 8.6 },
+                { name: 'Adhara',    ra: 6.98,  dec: -28.97, mag: 1.50, spectral: 'B2II',  dist: 430 },
+                { name: 'Wezen',     ra: 7.14,  dec: -26.39, mag: 1.84, spectral: 'F8Ia',  dist: 1800 },
+                { name: 'Mirzam',    ra: 6.38,  dec: -17.96, mag: 1.98, spectral: 'B1III', dist: 500 },
+                { name: 'Aludra',    ra: 7.40,  dec: -29.30, mag: 2.45, spectral: 'B5Ia',  dist: 3000 },
+            ],
+            lines: [[3,0],[0,2],[2,1],[1,4]],
+        },
+    ];
+
     // Notable non-zodiac stars for sky map background
     const brightStars = [
         { name: 'Sirius',     ra: 6.75,  dec: -16.72, mag: -1.46, spectral: 'A1V',   dist: 8.6 },
@@ -305,6 +409,7 @@ const ConstellationData = (() => {
 
     return {
         zodiac,
+        deepSkyConstellations,
         brightStars,
         getStarColor,
     };

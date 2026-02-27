@@ -13,7 +13,7 @@
     let simulationJD = Astronomy.dateToJulian(simulationDate);
     let timeSpeed = 1;           // days per real second
     let timeDirection = 1;       // 1 or -1
-    let isPaused = false;
+    let isPaused = true;         // Start paused — time only advances when user chooses
     let lastFrameTime = 0;
     let currentView = 'solar-system';
 

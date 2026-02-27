@@ -456,6 +456,97 @@ const Renderer = (() => {
             }
         }
 
+        // Draw non-zodiac (deep sky) constellations outside the ecliptic ring
+        const deepSky = ConstellationData.deepSkyConstellations;
+        if (deepSky && eclipticR > 100) {
+            for (const ds of deepSky) {
+                const dsStarPositions = ds.stars.map((star) => {
+                    const ecl = Astronomy.raDecToEcliptic(star.ra, star.dec);
+                    const angle = ecl.lon * Astronomy.DEG;
+                    // Larger latitude scaling — these constellations are far from the ecliptic
+                    const latOffset = ecl.lat * 3.5 * camera.zoom;
+                    const r = eclipticR + latOffset;
+                    const sx = sp.x + Math.cos(angle) * r;
+                    const sy = sp.y + Math.sin(angle) * r;
+                    const size = Math.max(1.0, (5 - star.mag) * 0.85 * camera.zoom);
+                    const color = ConstellationData.getStarColor(star.spectral);
+                    return { sx, sy, size, name: star.name, mag: star.mag, color, star, constellation: ds.name };
+                });
+
+                // Draw connecting lines (slightly different color to distinguish from zodiac)
+                if (ds.lines && camera.zoom > 0.5) {
+                    ctx.beginPath();
+                    for (const [a, b] of ds.lines) {
+                        if (dsStarPositions[a] && dsStarPositions[b]) {
+                            ctx.moveTo(dsStarPositions[a].sx, dsStarPositions[a].sy);
+                            ctx.lineTo(dsStarPositions[b].sx, dsStarPositions[b].sy);
+                        }
+                    }
+                    // Glow pass
+                    ctx.strokeStyle = 'rgba(100, 160, 255, 0.06)';
+                    ctx.lineWidth = 3;
+                    ctx.setLineDash([]);
+                    ctx.stroke();
+                    // Sharp line
+                    ctx.beginPath();
+                    for (const [a, b] of ds.lines) {
+                        if (dsStarPositions[a] && dsStarPositions[b]) {
+                            ctx.moveTo(dsStarPositions[a].sx, dsStarPositions[a].sy);
+                            ctx.lineTo(dsStarPositions[b].sx, dsStarPositions[b].sy);
+                        }
+                    }
+                    ctx.strokeStyle = 'rgba(100, 160, 255, 0.25)';
+                    ctx.lineWidth = 1.0;
+                    ctx.setLineDash([4, 3]);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                // Draw stars
+                for (const dsStar of dsStarPositions) {
+                    if (dsStar.sx < -30 || dsStar.sx > width + 30 || dsStar.sy < -30 || dsStar.sy > height + 30) continue;
+
+                    if (dsStar.mag < 4.0 && dsStar.size > 1.2) {
+                        ctx.beginPath();
+                        ctx.arc(dsStar.sx, dsStar.sy, dsStar.size * 3.5, 0, Math.PI * 2);
+                        const glowAlpha = Math.min(0.2, (4.5 - dsStar.mag) * 0.05);
+                        ctx.fillStyle = hexToRgba(dsStar.color, glowAlpha);
+                        ctx.fill();
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(dsStar.sx, dsStar.sy, dsStar.size, 0, Math.PI * 2);
+                    const alpha = Math.min(0.85, dsStar.size * 0.22 + 0.25);
+                    ctx.fillStyle = hexToRgba(dsStar.color, alpha);
+                    ctx.fill();
+
+                    // Name labels when zoomed in
+                    if (camera.zoom > 1.0 && dsStar.mag < 2.5) {
+                        const fontSize = Math.max(7, Math.min(10, 8 * camera.zoom));
+                        ctx.font = `400 ${fontSize}px 'Space Grotesk', sans-serif`;
+                        ctx.textAlign = 'left';
+                        ctx.fillStyle = 'rgba(150, 190, 255, 0.45)';
+                        ctx.fillText(dsStar.name, dsStar.sx + dsStar.size + 3, dsStar.sy + 3);
+                    }
+
+                    newStarPositions.push(dsStar);
+                }
+
+                // Constellation name label
+                if (camera.zoom > 0.7 && dsStarPositions.length > 0) {
+                    let avgX = 0, avgY = 0;
+                    for (const s of dsStarPositions) { avgX += s.sx; avgY += s.sy; }
+                    avgX /= dsStarPositions.length;
+                    avgY /= dsStarPositions.length;
+                    const labelSize = Math.max(8, Math.min(11, 9 * camera.zoom));
+                    ctx.font = `500 ${labelSize}px 'Space Grotesk', sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.fillStyle = 'rgba(150, 190, 255, 0.3)';
+                    ctx.fillText(ds.nickname || ds.name, avgX, avgY - 12 * camera.zoom);
+                }
+            }
+        }
+
         constellationStarPositions = newStarPositions;
 
         // Draw planets on the ecliptic ring (showing which constellation they're in)
