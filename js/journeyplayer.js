@@ -157,7 +157,13 @@ const JourneyPlayer = (() => {
     }
 
     async function connectAppleMusic() {
-        if (!musicKitInstance) return false;
+        // If MusicKit isn't loaded or configured, open Apple Music directly
+        if (!musicKitInstance) {
+            const phase = phases[currentPhaseIndex];
+            const query = phase.searchTerms[0];
+            window.open(`https://music.apple.com/us/search?term=${encodeURIComponent(query)}`, '_blank');
+            return false;
+        }
 
         try {
             await musicKitInstance.authorize();
@@ -273,7 +279,7 @@ const JourneyPlayer = (() => {
                     <p class="journey-subtitle">Phase-matched music for consciousness exploration</p>
                     <button class="journey-connect-btn" id="journey-connect-btn">
                         <span class="journey-connect-icon">🎵</span>
-                        <span class="journey-connect-text" id="journey-connect-text">Connect Apple Music</span>
+                        <span class="journey-connect-text" id="journey-connect-text">Open in Apple Music</span>
                     </button>
                 </div>
 
@@ -395,16 +401,20 @@ const JourneyPlayer = (() => {
                 if (isConnected) {
                     disconnectAppleMusic();
                     render('journey-player-container');
-                } else {
+                } else if (musicKitInstance) {
                     const connected = await connectAppleMusic();
                     if (connected) {
                         render('journey-player-container');
-                        // Auto-search for current phase
                         const results = await searchByBPM(phases[currentPhaseIndex]);
                         if (results.length > 0) {
                             showSearchResults(results);
                         }
                     }
+                } else {
+                    // No MusicKit configured — open Apple Music search for current phase
+                    const phase = phases[currentPhaseIndex];
+                    const query = phase.searchTerms[0] + ' instrumental';
+                    window.open(`https://music.apple.com/us/search?term=${encodeURIComponent(query)}`, '_blank');
                 }
             });
         }
@@ -504,7 +514,7 @@ const JourneyPlayer = (() => {
         const text = document.getElementById('journey-connect-text');
         const btn = document.getElementById('journey-connect-btn');
         if (text) {
-            text.textContent = connected ? 'Connected ✓ (Disconnect)' : 'Connect Apple Music';
+            text.textContent = connected ? 'Connected ✓ (Disconnect)' : 'Open in Apple Music';
         }
         if (btn) {
             btn.classList.toggle('connected', connected);
