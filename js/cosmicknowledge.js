@@ -249,6 +249,15 @@ const CosmicKnowledge = (() => {
             details: 'Scholars debate how far to push these parallels. Some (Dupuis, Kuhn, Murdock) argue for direct solar allegory. Others (C.S. Lewis, N.T. Wright) argue the parallels exist but the Christ event is the "true myth" that the solar pattern foreshadowed. Still others (Bart Ehrman) acknowledge mythological context while arguing for historical elements. The scholarly consensus is not "all the same story" but rather that solar death-rebirth is a deep mythic pattern that different cultures express in different ways. The pattern itself is undeniable.',
             source: 'Kuhn, Who Is This King of Glory? (1944); Campbell, The Hero with a Thousand Faces; Eliade, Patterns in Comparative Religion (1958)',
         },
+        {
+            id: 'entheogenic-death-rebirth',
+            title: 'Not Metaphors — Descriptions',
+            badge: 'tradition',
+            icon: '🍄',
+            summary: 'The Eleusinian Mysteries, the central religious rite of ancient Greece for nearly 2,000 years, involved drinking kykeon — a beverage now believed to have contained psychoactive compounds. Initiates described experiencing literal death and rebirth. This was not solar allegory — it was lived experience.',
+            details: 'Scholars including R. Gordon Wasson, Albert Hofmann (discoverer of LSD), and Carl Ruck argued in The Road to Eleusis (1978) that kykeon contained ergot alkaloids (precursors to LSD) growing on barley. Archaeological evidence supports this: vessels at Mas Castellar de Pontós (Spain) contained ergot traces. Initiates at Eleusis — including Plato, Sophocles, Cicero, and Marcus Aurelius — described the experience in unmistakable terms. Cicero wrote: "We have learned from them the beginnings of life, and have gained the power not only to live happily, but also to die with a better hope." Plutarch described initiates experiencing terror, trembling, and then "a wonderful light" — a sequence identical to what modern psychedelic researchers call ego death and rebirth. The solar death-rebirth pattern may not be an allegory derived from watching the Sun — it may be a description of an actual neurochemical experience that the Sun\'s annual cycle happens to mirror. H. Ümit Sayin (NeuroQuantology, 2014) documented that every ancient culture that used entheogens independently produced the same archetypal images: death and rebirth, serpents, geometric forms, beings of light — suggesting these visions arise from the brain\'s own architecture when certain neurochemical thresholds are crossed.',
+            source: 'Wasson, Hofmann & Ruck, The Road to Eleusis (1978); Sayin, NeuroQuantology 12(2), 2014; Cicero, De Legibus II.36; Plutarch, Fragment 168',
+        },
     ];
 
     // Anatomy-mythology correspondence layer
@@ -311,6 +320,15 @@ const CosmicKnowledge = (() => {
             details: 'The goal of kundalini yoga is to raise energy from the muladhara (base) through sushumna to sahasrara (crown), piercing each chakra along the way. The seven major chakras map roughly to nerve plexuses along the spine: sacral, lumbar, solar, cardiac, cervical, and cranial. Whether the nadis ARE the nervous system described in different language, or are a distinct subtle-body anatomy, is a matter of interpretive framework. But the structural correspondence between sushumna/spinal cord, chakras/nerve plexuses, and ida-pingala/sympathetic-parasympathetic nervous system is striking enough that multiple researchers have noted it.',
             source: 'Sat-Cakra-Nirupana (Woodroffe, 1919); Motoyama, Theories of the Chakras (1981); Saraswati, Kundalini Tantra (Bihar School of Yoga, 1984)',
         },
+        {
+            id: 'cia-validates-kundalini',
+            title: 'The CIA Validated Kundalini in 1983',
+            badge: 'synthesis',
+            icon: '🏛️',
+            summary: 'A declassified 1983 CIA report ("Analysis and Assessment of Gateway Process") explicitly describes kundalini rising — energy ascending from the base of the spine through the sushumna to the third eye — and concludes that binaural beat technology can achieve the same neurological state that takes 5 years of transcendental meditation.',
+            details: 'Lt. Col. Wayne McDonnell, writing for the U.S. Army Intelligence and Security Command, describes in the declassified report (CIA-RDP96-00788R001700210016-5) how transcendental meditation works by concentrating focus on the base of the spine "until energetic currents rise up through the spine and into the Right Brain Hemisphere." He explicitly references kundalini rising from the Muladhara chakra, through the Sushumna nadi, reaching the Ajna chakra (third eye). The report\'s key finding: this exact neurological state — left-right hemispheric synchronization at specific frequencies — can be reproduced mechanically using binaural beats in the 4-7 Hz (theta) range. A subject with 20 years of Zen training could achieve and sustain this state at will. The Monroe Institute\'s Hemi-Sync technology claimed to produce the same state in weeks. The report further describes the body\'s internal resonance system aligning with Earth\'s Schumann resonance (~7.83 Hz) — the same frequency range the yogis were targeting through chanting and breathwork for millennia. The U.S. government did not debunk kundalini. They studied it, confirmed the neurological correlates, and tried to engineer a shortcut.',
+            source: 'CIA-RDP96-00788R001700210016-5, "Analysis and Assessment of Gateway Process" (1983), declassified 2003; Monroe, Journeys Out of the Body (1971)',
+        },
     ];
 
     // Sufi tradition layer
@@ -332,6 +350,15 @@ const CosmicKnowledge = (() => {
             summary: 'In Sufi tradition, the heart (qalb) is the primary organ of spiritual knowledge — distinct from intellectual knowledge (\'aql). Al-Ghazali describes the "eye of the heart" that perceives divine realities invisible to the physical senses.',
             details: 'Al-Ghazali (1058-1111), in his Ihya Ulum al-Din (Revival of the Religious Sciences), describes the heart as possessing a form of direct perception that transcends rational thought. This is developed through dhikr (remembrance of God) — repetitive invocation of divine names that produces measurable physiological effects (heart rate coherence, altered brainwave states). Modern HeartMath research has documented measurable electromagnetic fields from the heart and heart-brain communication via the vagus nerve. Whether this validates the Sufi metaphysics or merely parallels it is, again, a matter of interpretive framework.',
             source: 'Al-Ghazali, Ihya Ulum al-Din, Book 21 ("Wonders of the Heart"); Helminski, The Knowing Heart (1999)',
+        },
+        {
+            id: 'sufi-entheogens',
+            title: 'Sufism, Cannabis, and the Hashishins',
+            badge: 'tradition',
+            icon: '🌿',
+            summary: 'Multiple Sufi orders historically used cannabis (hashish) and other psychoactive substances as tools for mystical experience. The Assassins (Hashishins) of Hassan-i Sabbah reportedly used hashish as part of initiation. Sufi poetry is saturated with references to wine and intoxication that scholars debate as literal, figurative, or both.',
+            details: 'The connection between Sufism and psychoactive substances is well-documented but contested within the tradition itself. The word "assassin" derives from "hashishin" — users of hashish — referring to the Nizari Ismaili sect of Hassan-i Sabbah (11th-12th century). Marco Polo\'s account describes initiates being given hashish and brought to a garden paradise, then told they had glimpsed heaven. While Polo\'s account may be embellished, the association between Sufi mysticism and cannabis use is documented in multiple sources. Rumi, Hafez, and other Sufi poets write extensively of wine, intoxication, and ecstatic states — mainstream Sufism interprets these as metaphors for divine love, but scholars like Sayin (2014) note that Peganum harmala (Syrian rue, containing harmine — the same MAOI used in ayahuasca) grows wild across Persia and Anatolia and was used in Sufi ritual contexts. The Sufi "whirling" of the Mevlevi order itself induces altered states through vestibular disruption — another physical technology for achieving what entheogens provide chemically.',
+            source: 'Sayin, NeuroQuantology 12(2), 2014; Rosenthal, The Herb: Hashish versus Medieval Muslim Society (Brill, 1971); Lewis, The Assassins: A Radical Sect in Islam (Basic Books, 2003)',
         },
     ];
 
@@ -736,6 +763,144 @@ const CosmicKnowledge = (() => {
     ];
 
     // ──────────────────────────────────────────────
+    // Entheogenic Traditions
+    // ──────────────────────────────────────────────
+
+    const entheogens = [
+        {
+            id: 'eleusinian-kykeon',
+            title: 'The Eleusinian Mysteries & Kykeon',
+            badge: 'tradition',
+            icon: '🏛️',
+            summary: 'For nearly 2,000 years (c. 1500 BCE – 392 CE), the Eleusinian Mysteries were the most sacred rite in the ancient Greek world. Every major thinker — Plato, Aristotle, Sophocles, Cicero, Marcus Aurelius — was initiated. The central act was drinking kykeon, a beverage now believed to have contained psychoactive compounds.',
+            details: 'The Mysteries were held annually at Eleusis, near Athens. Initiates fasted, processed along the Sacred Way, and entered the Telesterion (Hall of Initiation), where they drank kykeon and experienced the "vision" (epopteia). The experience was so profound that revealing its contents was punishable by death.\n\nR. Gordon Wasson, Albert Hofmann (discoverer of LSD), and classicist Carl Ruck published The Road to Eleusis (1978), arguing kykeon contained ergot alkaloids — specifically ergonovine or LSA — growing on the barley in the drink. Ergot is the natural precursor to LSD. Archaeological evidence from Mas Castellar de Pontós in Spain found ergot traces in ritual vessels and in the teeth of a human jawbone, confirming entheogenic use in ancient Mediterranean ritual.\n\nCicero wrote: "Athens has given nothing to the world more excellent or divine than the Eleusinian Mysteries." Pindar wrote: "Blessed is he who has seen these things before going beneath the earth. He knows the end of life. He knows the god-given beginning." These are not descriptions of a lecture or a ceremony — they describe a direct experience of death and rebirth that transformed the initiate permanently.',
+            source: 'Wasson, Hofmann & Ruck, The Road to Eleusis (1978); Cicero, De Legibus II.36; Pindar, Fragment 137; Ruck, Sacred Mushrooms of the Goddess (2006)',
+        },
+        {
+            id: 'soma-haoma',
+            title: 'Soma and Haoma: The Divine Drink',
+            badge: 'tradition',
+            icon: '🕉️',
+            summary: 'The Rigveda (c. 1500–1200 BCE) dedicates an entire book (Mandala IX, 114 hymns) to Soma — a plant-based drink consumed during Vedic ritual that granted "immortality," "visions of the gods," and "union with the divine." The Iranian equivalent, Haoma, held the same role in Zoroastrian ritual. The identity of the original plant remains one of the great unsolved mysteries of ethnobotany.',
+            details: 'Rigveda 8.48.3: "We have drunk the Soma; we have become immortal; we have gone to the light; we have found the gods." This is not metaphor — it describes a psychoactive experience in pharmacological terms. Wasson (1968) proposed Soma was Amanita muscaria (fly agaric mushroom). Others have proposed ephedra, Peganum harmala (Syrian rue, containing DMT-activating MAOIs), psilocybin mushrooms, or cannabis.\n\nThe Zoroastrian Haoma ceremony (Yasna) is still performed today, though the original psychoactive ingredient was replaced by ephedra centuries ago. The Avesta describes Haoma granting "health, strength, victory, and spiritual insight." The Bundahishn (Zoroastrian creation text) describes Haoma as a "bridge between the earthly and spiritual realms."\n\nThe convergence is striking: the oldest religious texts from both the Indo-Aryan and Iranian traditions describe a sacramental drink that produces direct divine experience. When modern entheogens (ayahuasca, psilocybin) produce identical descriptions — visions of gods, dissolution of self, union with cosmic consciousness — the parallel suggests that Soma/Haoma was describing the same neurochemical experience these substances produce.',
+            source: 'Rigveda, Mandala IX (Griffith translation); Wasson, Soma: Divine Mushroom of Immortality (1968); Flattery & Schwartz, Haoma and Harmaline (1989)',
+        },
+        {
+            id: 'dionysian-rites',
+            title: 'Dionysus: God of Altered States',
+            badge: 'tradition',
+            icon: '🍷',
+            summary: 'Dionysus was not merely the "god of wine." He was the god of ecstasy, of dissolution of the self, of the boundary between life and death. His rites — the Dionysia — involved psychoactive substances beyond alcohol, ritual frenzy, and the direct experience of ego death. His staff, the thyrsus, was topped with a pine cone — an ancient symbol of the pineal gland.',
+            details: 'Archaeological and literary evidence indicates that Dionysian wine was not ordinary wine. It was infused with psychoactive herbs and plants. Ruck (2006) documents that ancient Greek wine was routinely mixed with additives including henbane, nightshade, and opium — making it a powerful entheogenic cocktail, not a simple alcoholic beverage.\n\nThe thyrsus — Dionysus\'s ritual staff — was a fennel stalk wrapped in ivy, topped with a pine cone. The pine cone has been identified by scholars as a symbol of the pineal gland across multiple traditions: the Vatican\'s "Pigna" (a massive pine cone statue in the Court of the Pine Cone), the Staff of Osiris topped with a pine cone between two serpents (cf. the caduceus), and Hindu depictions of the "third eye." That the god of altered consciousness carries a symbol of the pineal gland is either a profound coincidence or evidence that ancients understood the pineal\'s role in consciousness.\n\nThe Dionysian experience was fundamentally about "sparagmos" (tearing apart of the self) followed by "omophagia" (consuming the raw divine) — ego death and rebirth enacted ritually and neurochemically. Euripides\' The Bacchae (405 BCE) describes initiates experiencing madness, transcendence, supernatural strength, and visions — descriptions consistent with high-dose psychedelic experiences.',
+            source: 'Ruck, Sacred Mushrooms of the Goddess (2006); Euripides, The Bacchae (405 BCE); Sayin, NeuroQuantology 12(2), 2014; Kerenyi, Dionysos: Archetypal Image of Indestructible Life (1976)',
+        },
+        {
+            id: 'living-entheogen-traditions',
+            title: 'Living Entheogenic Traditions',
+            badge: 'tradition',
+            icon: '🌱',
+            summary: 'These are not merely historical artifacts. Ayahuasca ceremonies (Amazon), peyote rituals (Native American Church), ibogaine initiation (Bwiti, Gabon), and psilocybin ceremonies (Mazatec, Mexico) are living traditions practiced today — each independently producing the same core experiences: ego dissolution, encounter with beings, death-rebirth, cosmic unity.',
+            details: 'The cross-cultural convergence is the key evidence:\n\n• AYAHUASCA (DMT + MAOIs, Amazon): Participants report contact with "plant teachers," visions of serpents and geometric patterns, dissolution of self, and encounter with a cosmic intelligence. Used for healing, divination, and spiritual initiation by dozens of indigenous groups across South America.\n\n• PEYOTE (mescaline, Native American Church): Legal for religious use in the US since 1994. Ceremonies involve all-night prayer, singing, and visions. The Native American Church has ~250,000 members. Participants describe healing, spiritual insight, and direct communion with the Creator.\n\n• IBOGAINE (Tabernanthe iboga, Bwiti tradition, Gabon): The Bwiti initiation involves massive doses of iboga root bark, producing a 24-36 hour visionary state in which initiates report meeting ancestors, reliving their entire life, dying and being reborn. The Bwiti call iboga "the tree of knowledge."\n\n• PSILOCYBIN (Mazatec tradition, Mexico): Maria Sabina\'s velada ceremonies preserved an ancient tradition of mushroom use for healing and divination. R. Gordon Wasson\'s 1955 participation and subsequent Life magazine article (1957) introduced psilocybin to the Western world.\n\nThe pattern across ALL these traditions: the same core experience described in different cultural languages. Death-rebirth. Encounter with the divine. Cosmic unity. Geometric visions. This is what the solar mythology, the Eleusinian Mysteries, and the Vedic Soma rites were describing.',
+            source: 'Schultes & Hofmann, Plants of the Gods (1979); Wasson, "Seeking the Magic Mushroom," Life Magazine (1957); Sayin, NeuroQuantology 12(2), 2014; Fernandez, Bwiti: An Ethnography of Religious Imagination (Princeton, 1982)',
+        },
+        {
+            id: 'archetypal-convergence',
+            title: 'Universal Visions: Why Every Culture Saw the Same Things',
+            badge: 'synthesis',
+            icon: '🧠',
+            summary: 'H. Ümit Sayin documented that cultures with no historical contact — separated by oceans and millennia — independently produced the same mythological figures, sacred symbols, and religious experiences when consuming psychoactive plants. This suggests the visions arise from the brain\'s own architecture, not from cultural transmission.',
+            details: 'Sayin (NeuroQuantology, 2014; SexuS Journal, 2017) catalogued the universal patterns:\n\n1. SERPENTS: Appear in virtually every psychedelic tradition — the Vedic Naga, the Aztec Quetzalcoatl, the Greek Ouroboros, the kundalini serpent, the caduceus, the serpent in Eden. Ayahuasca users consistently report serpent visions regardless of cultural background.\n\n2. GEOMETRIC FORMS: Spirals, mandalas, fractals, lattices — these "entoptic" phenomena are produced by the visual cortex itself when certain neurochemical thresholds are crossed. Lewis-Williams & Dowson (Current Anthropology, 1988) demonstrated that Paleolithic cave art worldwide matches the geometric forms produced during early-stage psychedelic experiences.\n\n3. DEATH AND REBIRTH: The universal mythic pattern — Osiris, Christ, Dionysus, the shamanic death — maps precisely onto the psychedelic "ego death" experience, where the sense of separate self dissolves and reconstitutes.\n\n4. BEINGS OF LIGHT: Angels, devas, spirits, plant teachers — encountered across every entheogenic tradition.\n\n5. COSMIC UNITY: The experience of "all is one" — Vedantic Brahman, Buddhist sunyata, Sufi fana, Christian mystical union — described identically by psychedelic subjects in modern clinical trials.\n\nJung called these shared patterns the "collective unconscious." Sayin\'s contribution is proposing the mechanism: these archetypes are not mystically inherited but are produced by the brain\'s own neural architecture when consciousness is altered by specific molecules. The ancient traditions weren\'t inventing myths — they were reporting what the brain shows when its ordinary filters are removed.',
+            source: 'Sayin, NeuroQuantology 12(2), 2014; Lewis-Williams & Dowson, Current Anthropology 29(2), 1988; Jung, The Archetypes and the Collective Unconscious (1959); Strassman, DMT: The Spirit Molecule (2001)',
+        },
+    ];
+
+    // ──────────────────────────────────────────────
+    // CIA Gateway Process
+    // ──────────────────────────────────────────────
+
+    const gatewayProcess = [
+        {
+            id: 'gateway-report',
+            title: 'The CIA Gateway Report: What It Actually Says',
+            badge: 'synthesis',
+            icon: '📋',
+            summary: 'In 1983, Lt. Col. Wayne McDonnell wrote a 29-page classified report for the U.S. Army Intelligence Command titled "Analysis and Assessment of Gateway Process." Declassified in 2003, it represents the U.S. government\'s serious investigation into altered states of consciousness, out-of-body experiences, and the nature of reality itself.',
+            details: 'The Gateway Process was developed by Robert Monroe at The Monroe Institute, based on decades of research into the effects of sound on consciousness. Monroe, a radio broadcasting executive, discovered in the 1950s that specific audio frequencies could reliably induce altered states — including what he called "out of body experiences." He published Journeys Out of the Body (1971) and patented the Hemi-Sync audio technology.\n\nThe CIA did not dismiss this as pseudoscience. They assigned a military intelligence officer to analyze it, and the resulting report draws on quantum physics (David Bohm), neuroscience (Karl Pribram), biomedical research (Itzhak Bentov), and transcendental meditation research. McDonnell concluded that the Gateway Process represents a legitimate method of altering consciousness, and the report was classified — not debunked.\n\nThe report\'s theoretical framework: consciousness is a vibrational pattern of energy. The physical universe is a hologram. The brain is a holographic processor that can, under specific conditions, access information beyond normal space-time. These conditions are achieved by synchronizing both brain hemispheres to specific frequencies — the same state achieved by years of meditation, yogic practice, or entheogenic experience.\n\nPage 25 of the original report — describing potential applications — was missing from the declassified version and has never been released.',
+            source: 'CIA-RDP96-00788R001700210016-5 (declassified 2003); Monroe, Journeys Out of the Body (1971); The Black Vault FOIA archive',
+        },
+        {
+            id: 'hemisync-mechanism',
+            title: 'Hemi-Sync: Frequency as Technology',
+            badge: 'synthesis',
+            icon: '🎧',
+            summary: 'The Gateway Process uses binaural beats — slightly different frequencies played in each ear — to force the brain into hemispheric synchronization. When the left ear receives 400 Hz and the right receives 410 Hz, the brain generates a 10 Hz "phantom" beat. Different beat frequencies correspond to different states of consciousness.',
+            details: 'The key frequencies and their corresponding states:\n\n• DELTA (0.5–4 Hz): Deep sleep, unconscious processes. The Gateway Report states consciousness can "click out" of space-time at oscillation frequencies approaching 10⁻³³ cm/s.\n\n• THETA (4–7 Hz): Deep meditation, hypnagogic states, REM sleep. This is the critical range — the same frequency produced by years of yogic meditation. The report explicitly states that "exposure to mechanical acoustical vibrations in the range of 4-7 Hz for protracted periods may achieve the same effect" as 5 years of transcendental meditation.\n\n• ALPHA (8–13 Hz): Relaxed awareness, light meditation.\n\n• BETA (13–30 Hz): Normal waking consciousness.\n\nThe report compares the brain to a lamp: normally, light scatters in all directions (normal consciousness). When both hemispheres synchronize, the scattered light becomes a coherent laser beam — focused, penetrating, capable of reaching beyond normal limits. This is why the yogic traditions emphasize balancing ida (left/moon) and pingala (right/sun) channels — they were describing hemispheric synchronization in the language available to them.\n\nThe body\'s resonance during this process aligns with Earth\'s Schumann resonance (~7.83 Hz) — the electromagnetic frequency of the Earth\'s cavity between surface and ionosphere. Ancient practices like chanting "Om" (measured at ~7.83 Hz in studies) and Sufi dhikr may have been technologies for achieving this same resonance alignment.',
+            source: 'CIA Gateway Report (1983); Schumann, "Über die strahlungslosen Eigenschwingungen einer leitenden Kugel," Zeitschrift für Naturforschung (1952); Monroe, Far Journeys (1985)',
+        },
+        {
+            id: 'holographic-universe',
+            title: 'The Holographic Universe: Bohm-Pribram',
+            badge: 'synthesis',
+            icon: '🌀',
+            summary: 'The Gateway Report\'s theoretical foundation is the holographic model of reality developed by physicist David Bohm and neuroscientist Karl Pribram. In a hologram, every part contains the whole. If the universe is holographic, then every point in it — including human consciousness — contains access to the totality.',
+            details: 'David Bohm (protégé of Einstein, professor at Birkbeck College London) proposed that beneath the "explicate order" — the world we perceive — lies an "implicate order" where everything is interconnected and enfolded into everything else. This was not mysticism — it was his interpretation of quantum mechanics, published in Wholeness and the Implicate Order (1980).\n\nKarl Pribram (Stanford neuroscientist) discovered that memories are not stored in specific brain locations — they are distributed holographically across the brain. When he removed large sections of cortex in experiments with Karl Lashley, memories persisted. The brain processes information as interference patterns, just like a hologram.\n\nThe Gateway Report synthesizes these: the universe IS a hologram of "unbelievable complexity." Human consciousness is itself a holographic fragment that, because each part contains the whole, can in principle access any information in the universal hologram. The right hemisphere receives energy from the universal hologram; the left hemisphere translates it into conscious experience.\n\nThis maps directly onto ancient descriptions: the Vedantic concept of Atman (individual consciousness) being identical to Brahman (universal consciousness), the Hermetic "As above, so below," the Buddhist concept of Indra\'s Net (where every jewel reflects all others). These traditions were not making poetic metaphors — they were describing the same holographic relationship the physicists independently discovered.',
+            source: 'Bohm, Wholeness and the Implicate Order (1980); Pribram, Languages of the Brain (1971); Talbot, The Holographic Universe (1991); CIA Gateway Report Section 9-11',
+        },
+        {
+            id: 'focus-levels',
+            title: 'Focus Levels: The Map of Consciousness',
+            badge: 'synthesis',
+            icon: '🔭',
+            summary: 'The Gateway Process uses progressive "Focus Levels" — discrete states of expanding awareness. Focus 10: mind awake, body asleep. Focus 12: expanded awareness beyond physical reality. Focus 15: perception outside of time. Focus 21: exploration beyond the space-time boundary. Each level maps onto states described in ancient contemplative traditions.',
+            details: 'The Gateway Process steps:\n\n1. ENERGY CONVERSION BOX: The practitioner visualizes placing all worldly concerns into a box — clearing the mind. This is identical to the yogic practice of pratyahara (withdrawal of the senses) and the Sufi practice of muraqaba (watchfulness).\n\n2. RESONANT TUNING: Sustained vocalization of a single tone synchronizes body vibration. This is chanting. Om. Dhikr. Gregorian chant. The same technology independently discovered by every contemplative tradition.\n\n3. THE ENERGY BALLOON: Visualization of a protective energy field surrounding the body. This is the yogic "aura," the Kabbalistic "body of light," the Taoist "wei qi" (protective energy).\n\n4. FOCUS 10 (Mind Awake/Body Asleep): The state between waking and sleeping — the hypnagogic threshold. This is yoga nidra. This is the Tibetan Buddhist practice of "dream yoga." This is where the DMT release associated with the sleep transition occurs.\n\n5. FOCUS 12 (Expanded Awareness): Consciousness extends beyond the body. The practitioner can project awareness to other locations. This is "remote viewing" — which the CIA invested millions studying because it worked often enough to be operationally useful (Project Stargate).\n\n6. FOCUS 21 (Beyond Space-Time): Consciousness participates in what the report calls "the Absolute" — an infinite energy field beyond dimensional constraints. This is Vedantic Brahman. This is Buddhist Nirvana. This is Sufi fana (annihilation in God). This is what psychedelic researchers call "the mystical experience."\n\nEvery level maps onto a state described independently by yogic, Buddhist, Sufi, and Christian mystical traditions. The Gateway Process is not inventing new states — it is providing a secular, technological map of states the contemplative traditions have mapped for millennia.',
+            source: 'CIA Gateway Report Sections 15-26; Monroe, Ultimate Journey (1994); Compare: Patanjali, Yoga Sutras (ashtanga/eight limbs); al-Qushayri, Risala (Sufi states and stations)',
+        },
+        {
+            id: 'gateway-ancient-validation',
+            title: 'Three Paths, One Destination',
+            badge: 'synthesis',
+            icon: '🔺',
+            summary: 'The Gateway Report, entheogenic research, and contemplative traditions converge on a single conclusion: human consciousness can access states beyond ordinary waking awareness through at least three methods — sustained contemplative practice (years), frequency technology (weeks), or psychoactive chemistry (hours). All three produce the same core experiences.',
+            details: 'The convergence:\n\nMEDITATION (The Slow Path): 5-20 years of dedicated practice. Yogic kundalini, Zen satori, Sufi fana, Christian mystical union. Achieved by disciplined manipulation of attention, breath, and internal awareness. The Gateway Report confirms this works by producing hemispheric synchronization and resonance with Earth\'s electromagnetic field.\n\nFREQUENCY TECHNOLOGY (The Engineered Path): Weeks to months using Hemi-Sync binaural beats. The CIA studied this because it compressed decades of contemplative training into a reproducible protocol. Monroe\'s subjects achieved Focus 12 (expanded awareness) within sessions, not years.\n\nENTHEOGENS (The Chemical Path): Hours. Psilocybin, DMT, LSD, mescaline cross specific neurochemical thresholds and produce: ego dissolution, encounter with the transpersonal, geometric visions, death-rebirth, cosmic unity — the exact same experiences reported by advanced meditators and Gateway Process practitioners.\n\nRobert Monroe himself noted this convergence: "Cultures from all over the world have their own way of reaching profound self-explorations through vision quests, Zen meditation, chanting, or using hallucinogens." He was describing three paths to the same door.\n\nThe ancient texts were not writing poetry. The yogis were describing real neurological states. The mystery schools were administering real psychoactive sacraments. The CIA confirmed both the states and the mechanisms. Sayin documented the universal archetypal output. The pattern is not coincidence — it is convergent evidence from every direction that these states of consciousness are real, reproducible, and fundamental to the human organism.',
+            source: 'CIA Gateway Report (1983); Sayin, NeuroQuantology (2014); Griffiths et al., "Psilocybin produces substantial and sustained decreases in depression and anxiety," Journal of Psychopharmacology 30(12), 2016; Monroe, Journeys Out of the Body (1971)',
+        },
+    ];
+
+    // ──────────────────────────────────────────────
+    // Consciousness Convergence: The Synthesis
+    // ──────────────────────────────────────────────
+
+    const consciousnessConvergence = [
+        {
+            id: 'triangulation',
+            title: 'Triangulation Across Millennia',
+            badge: 'synthesis',
+            icon: '📐',
+            summary: 'Real fact-checking is not Googling a claim and checking if Snopes agrees. It is triangulating across independent sources separated by time, geography, and methodology — and finding they all point at the same thing. When the Rigveda (1500 BCE), the Eleusinian Mysteries (1500 BCE – 392 CE), the CIA (1983), and Johns Hopkins psilocybin trials (2006–present) all describe the same experience, you are no longer dealing with coincidence.',
+            details: 'The independent measurements:\n\n1. VEDIC RISHIS (c. 1500 BCE): "We have drunk the Soma; we have become immortal; we have gone to the light; we have found the gods." Describing a substance-induced experience of divine union and immortality.\n\n2. ELEUSINIAN INITIATES (c. 1500 BCE – 392 CE): Drinking kykeon, experiencing terror and dissolution, then "a wonderful light" and permanent transformation. Plato\'s entire philosophy of Forms — the cave allegory, the realm beyond appearances — may derive from his initiation at Eleusis.\n\n3. YOGIC TRADITION (c. 500 BCE onward): Kundalini rising through chakras to produce samadhi — "absorption" into universal consciousness. Described as light, dissolution of self, encounter with the absolute.\n\n4. SUFI MASTERS (c. 800 CE onward): Fana (annihilation of self in God), followed by baqa (subsistence in God). Al-Ghazali describes the "unveiling" as seeing with an inner eye what cannot be grasped by intellect.\n\n5. CIA GATEWAY REPORT (1983): Hemispheric synchronization produces expanded consciousness that can "click out" of space-time and access "the Absolute" — an infinite, uniform energy field.\n\n6. JOHNS HOPKINS (2006–present): Psilocybin reliably produces "mystical experiences" rated by subjects as among the most meaningful of their lives. 67% rated it in their top 5 life experiences. The experiences match the phenomenology described by all the traditions above.\n\nSix independent lines of evidence, spanning 3,500 years, using different methods, arriving at the same description. This is not a belief system. This is convergent data.',
+            source: 'Rigveda IX; Wasson et al. (1978); Patanjali, Yoga Sutras; Al-Ghazali, Ihya; CIA Gateway Report (1983); Griffiths et al., Psychopharmacology 187(3), 2006',
+        },
+        {
+            id: 'not-metaphors',
+            title: 'They Were Not Writing Metaphors',
+            badge: 'synthesis',
+            icon: '📜',
+            summary: 'The standard scholarly approach treats ancient religious texts as mythology — symbolic stories encoding moral or cosmological lessons. But if these traditions were using psychoactive sacraments, their descriptions of "dying and being reborn," "seeing the light," "encountering gods," and "becoming immortal" may be literal reports of neurochemical experiences.',
+            details: 'Consider the reframing:\n\n• When the Rigveda says Soma grants "immortality" — this may describe the experience of ego death, where the boundary between self and cosmos dissolves, and the experiencer perceives their consciousness as continuous with the universe. Every psychedelic researcher has documented this experience.\n\n• When Jesus says "the kingdom of God is within you" (Luke 17:21) — and the pineal gland sits at the geometric center of the brain, producing DMT-like compounds, activated by the same meditation techniques the contemplative traditions prescribed — the "within" may be neuroanatomically specific.\n\n• When the Tibetan Book of the Dead describes the bardo states between death and rebirth — and DMT (released during near-death experiences) produces virtually identical phenomenology — the text may be a trip guide, not a cosmological treatise.\n\n• When the Sufis describe fana (annihilation) followed by baqa (subsistence in God) — and psilocybin produces ego dissolution followed by reconstitution with lasting personality changes — they may be describing the same pharmacological event.\n\n• When the CIA describes consciousness "clicking out" of space-time and accessing "the Absolute" — they are using clinical language for what every mystical tradition calls enlightenment, satori, moksha, or theosis.\n\nThe traditions were not inventing stories about dying and being reborn because they watched the Sun do it. They were describing what happens to consciousness when specific neurochemical thresholds are crossed — and the Sun\'s annual death-rebirth cycle was the most available metaphor for an experience that has no adequate words.',
+            source: 'Strassman, DMT: The Spirit Molecule (2001); Grof, Realms of the Human Unconscious (1975); Huxley, The Doors of Perception (1954); CIA Gateway Report (1983)',
+        },
+        {
+            id: 'pine-cone-thread',
+            title: 'The Pine Cone Thread',
+            badge: 'symbolic',
+            icon: '🌲',
+            summary: 'The pine cone appears as a symbol of the pineal gland and spiritual awakening across traditions that had no contact with each other: Dionysus\'s thyrsus, the Staff of Osiris, the Vatican\'s Court of the Pine Cone, Hindu third-eye iconography, Assyrian winged figures holding pine cones, and the Masonic "All-Seeing Eye." This is not diffusion — it is convergent recognition.',
+            details: 'Follow the thread:\n\n• DIONYSUS (Greek): The thyrsus staff — fennel wrapped in ivy, topped with a pine cone — was carried by every participant in Dionysian rites. The god of altered states carries a symbol of the gland that mediates consciousness.\n\n• OSIRIS (Egyptian): The Staff of Osiris features two intertwining serpents rising to meet a pine cone at the top. Two serpents (ida and pingala/sympathetic and parasympathetic) rising along a central staff (sushumna/spinal cord) to the pine cone (pineal). This is the same image as the caduceus, the medical symbol.\n\n• THE VATICAN: The Court of the Pine Cone (Cortile della Pigna) features a massive bronze pine cone, originally from a Roman temple, flanked by two peacocks (symbols of immortality). The largest pine cone sculpture in the ancient world sits at the center of the institution that inherited the Roman mystery tradition.\n\n• ASSYRIA (c. 900 BCE): Winged figures in Assyrian palace reliefs hold pine cones, often pointing them toward the Tree of Life. These figures are anointing the tree — the same act (anointing) that gives us the word "Christ."\n\n• HINDUISM: The bindu point at the crown of the head, the ajna chakra between the brows — the pineal region — is depicted as the site of the "third eye" of Shiva, whose opening destroys illusion.\n\nEvery tradition that practiced consciousness alteration — through entheogens, meditation, or ritual — independently identified the pineal region as the locus of transcendent experience. They depicted it as a pine cone because, anatomically, the pineal gland is shaped like a tiny pine cone. The word "pineal" itself comes from the Latin "pinea" — pine cone.\n\nThey knew. They all knew. They encoded it in symbols that survive to this day, in plain sight.',
+            source: 'Descartes, Treatise on Man (1664); Manly P. Hall, The Secret Teachings of All Ages (1928); Ruck, Sacred Mushrooms of the Goddess (2006); Comparative iconographic analysis',
+        },
+    ];
+
+    // ──────────────────────────────────────────────
     // Public API
     // ──────────────────────────────────────────────
 
@@ -758,6 +923,9 @@ const CosmicKnowledge = (() => {
         signMythology,
         lunarCyclePhases,
         lunarCycleStudies,
+        entheogens,
+        gatewayProcess,
+        consciousnessConvergence,
     };
 
 })();

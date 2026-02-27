@@ -685,6 +685,25 @@ const UI = (() => {
         bindLayerCardToggles(secContainer);
 
         // Lunar & Body Cycles tab
+        // Consciousness tab: Entheogens + Gateway Process + Convergence
+        const enthContainer = document.getElementById('entheogen-cards');
+        if (enthContainer) {
+            enthContainer.innerHTML = CosmicKnowledge.entheogens.map(buildLayerCard).join('');
+            bindLayerCardToggles(enthContainer);
+        }
+
+        const gwContainer = document.getElementById('gateway-cards');
+        if (gwContainer) {
+            gwContainer.innerHTML = CosmicKnowledge.gatewayProcess.map(buildLayerCard).join('');
+            bindLayerCardToggles(gwContainer);
+        }
+
+        const convContainer = document.getElementById('convergence-cards');
+        if (convContainer) {
+            convContainer.innerHTML = CosmicKnowledge.consciousnessConvergence.map(buildLayerCard).join('');
+            bindLayerCardToggles(convContainer);
+        }
+
         const lunarDiagram = document.getElementById('lunar-cycle-diagram');
         if (lunarDiagram) {
             lunarDiagram.innerHTML = CosmicKnowledge.lunarCyclePhases.map(phase => `
