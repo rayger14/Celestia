@@ -72,7 +72,7 @@
                     <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     <span class="knowledge-btn-label">Cosmos</span>
                 </button>
-                <button id="premium-btn" class="action-btn premium-glow" title="Celestia Pro">
+                <button id="premium-btn" class="action-btn premium-glow" title="Celestia Pro" style="display: none;">
                     <svg viewBox="0 0 24 24" width="20" height="20"><polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" fill="currentColor"/></svg>
                     <span>PRO</span>
                 </button>
@@ -231,6 +231,17 @@
                         <!-- Seasonal Context -->
                         <div class="birthday-season-box" id="birthday-season-box"></div>
 
+                        <!-- Birthday Comparison Section -->
+                        <div class="birthday-compare-section" id="birthday-compare-section">
+                            <button class="birthday-compare-toggle" id="birthday-compare-toggle">Compare with Another Birthday</button>
+                            <div class="birthday-compare-form hidden" id="birthday-compare-form">
+                                <label for="birthday-compare-input" class="birthday-label">Enter a second birthday</label>
+                                <input type="date" id="birthday-compare-input" class="birthday-date-input">
+                                <button id="birthday-compare-btn" class="birthday-generate-btn" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));">Compare Birth Skies</button>
+                            </div>
+                            <div class="birthday-compare-results hidden" id="birthday-compare-results"></div>
+                        </div>
+
                         <!-- Tab Navigation -->
                         <div class="knowledge-tabs">
                             <button class="birthday-tab active" data-btab="traditions">Ancient Traditions</button>
@@ -272,17 +283,6 @@
                                 <div class="lunar-cycle-diagram" id="lunar-cycle-diagram"></div>
                             </div>
                             <div id="lunar-study-cards"></div>
-                        </div>
-
-                        <!-- Birthday Comparison Section -->
-                        <div class="birthday-compare-section" id="birthday-compare-section">
-                            <button class="birthday-compare-toggle" id="birthday-compare-toggle">Compare with Another Birthday</button>
-                            <div class="birthday-compare-form hidden" id="birthday-compare-form">
-                                <label for="birthday-compare-input" class="birthday-label">Enter a second birthday</label>
-                                <input type="date" id="birthday-compare-input" class="birthday-date-input">
-                                <button id="birthday-compare-btn" class="birthday-generate-btn" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));">Compare Birth Skies</button>
-                            </div>
-                            <div class="birthday-compare-results hidden" id="birthday-compare-results"></div>
                         </div>
                     </div>
                 </div>
@@ -449,11 +449,7 @@
                     <div id="panel-moons" class="moons-grid"></div>
                 </div>
 
-                <div class="panel-section premium-locked">
-                    <div class="lock-overlay">
-                        <svg viewBox="0 0 24 24" width="24" height="24"><rect x="3" y="11" width="18" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 11V7a5 5 0 0110 0v4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-                        <span>Unlock with Celestia Pro</span>
-                    </div>
+                <div class="panel-section">
                     <h3>Atmospheric Composition</h3>
                     <div id="panel-atmosphere" class="atmosphere-chart"></div>
                 </div>
@@ -476,7 +472,7 @@
                     <span class="pill-value" id="next-event">Mercury at Greatest Elongation</span>
                 </div>
             </div>
-            <div class="ad-banner" id="ad-banner">
+            <div class="ad-banner" id="ad-banner" style="display: none;">
                 <span class="ad-label">AD</span>
                 <span class="ad-text">Explore the universe with Celestia Pro — Start your free trial</span>
                 <button class="ad-close" id="ad-close">&times;</button>

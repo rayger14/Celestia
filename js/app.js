@@ -400,12 +400,12 @@
         if (!pos) return 'Unknown';
 
         if (key === 'earth') {
-            // Earth season based on current month
+            // Earth season based on simulation date month (Northern Hemisphere)
             const month = simulationDate.getMonth();
-            if (month >= 2 && month <= 4) return 'Spring';
-            if (month >= 5 && month <= 7) return 'Summer';
-            if (month >= 8 && month <= 10) return 'Autumn';
-            return 'Winter';
+            if (month >= 2 && month <= 4) return 'Spring (N)';
+            if (month >= 5 && month <= 7) return 'Summer (N)';
+            if (month >= 8 && month <= 10) return 'Autumn (N)';
+            return 'Winter (N)';
         }
 
         return Astronomy.getSeason(pos.lon, info.axialTilt);
