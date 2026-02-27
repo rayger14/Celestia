@@ -704,6 +704,12 @@ const UI = (() => {
             bindLayerCardToggles(convContainer);
         }
 
+        const journeyContainer = document.getElementById('journey-music-cards');
+        if (journeyContainer) {
+            journeyContainer.innerHTML = CosmicKnowledge.journeyMusicGuide.map(buildLayerCard).join('');
+            bindLayerCardToggles(journeyContainer);
+        }
+
         const lunarDiagram = document.getElementById('lunar-cycle-diagram');
         if (lunarDiagram) {
             lunarDiagram.innerHTML = CosmicKnowledge.lunarCyclePhases.map(phase => `
@@ -724,7 +730,9 @@ const UI = (() => {
         const lunarStudyCards = document.getElementById('lunar-study-cards');
         if (lunarStudyCards) {
             lunarStudyCards.innerHTML = '<h3 class="lunar-studies-title">The Science</h3>' +
-                CosmicKnowledge.lunarCycleStudies.map(buildLayerCard).join('');
+                CosmicKnowledge.lunarCycleStudies.map(buildLayerCard).join('') +
+                '<h3 class="lunar-studies-title" style="margin-top: 28px; color: var(--accent-gold);">Practical Protocols</h3>' +
+                CosmicKnowledge.lunarSyncProtocols.map(buildLayerCard).join('');
             bindLayerCardToggles(lunarStudyCards);
         }
     }

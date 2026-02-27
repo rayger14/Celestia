@@ -763,6 +763,92 @@ const CosmicKnowledge = (() => {
     ];
 
     // ──────────────────────────────────────────────
+    // Practical Lunar Sync Protocols
+    // ──────────────────────────────────────────────
+
+    const lunarSyncProtocols = [
+        {
+            id: 'morning-light-protocol',
+            title: 'Morning Light Protocol (Huberman)',
+            badge: 'confirmed',
+            icon: '☀️',
+            summary: 'View 2–10 minutes of direct sunlight within 30–60 minutes of waking. This sets a 16-hour "melatonin timer" — morning light at 7am primes your body for sleepiness at 11pm. This is the single most impactful circadian reset, and it directly affects the hormonal cascade that governs the menstrual cycle.',
+            details: 'Dr. Andrew Huberman (Stanford neuroscience) identifies morning sunlight as the master regulator of circadian biology. The mechanism:\n\n1. Light enters the eyes → activates melanopsin cells in the retina → signals the suprachiasmatic nucleus (SCN, the brain\'s master clock)\n2. SCN triggers morning cortisol pulse (healthy — this is when you want cortisol)\n3. 16 hours later, the SCN signals the pineal gland to release melatonin\n4. Melatonin directly modulates reproductive hormones: it suppresses GnRH (gonadotropin-releasing hormone), which cascades down to FSH, LH, estrogen, and progesterone\n\nWhy this matters for cycle syncing: melatonin is the hormonal bridge between your circadian rhythm and your menstrual cycle. Disrupted melatonin = disrupted reproductive hormones. Helfrich-Förster (2021) found that women who were less exposed to artificial light at night showed stronger lunar-menstrual synchronization.\n\nKey rules from Huberman:\n• Don\'t wear sunglasses during morning light viewing\n• Don\'t try through a window — too many wavelengths are filtered\n• Overcast days need MORE time outside, not less (still far more lux than indoors)\n• Avoid ALL bright artificial light between 10pm–4am — this is when your eyes are maximally sensitive and even brief exposure suppresses melatonin',
+            source: 'Huberman Lab: "Using Light to Optimize Health"; Helfrich-Förster et al., Science Advances, 2021; Brzezinski et al., "Melatonin in Human Reproduction," Reproductive BioMedicine Online, 2005',
+        },
+        {
+            id: 'moonlight-sleep-protocol',
+            title: 'Moonlight Sleep Protocol',
+            badge: 'synthesis',
+            icon: '🌙',
+            summary: 'Sleep in complete darkness during the new moon (days 1–5 of lunar cycle). Allow natural moonlight into your bedroom during the full moon (days 12–16). This mimics the ancestral light signal that Helfrich-Förster\'s research shows once synchronized menstrual and lunar cycles.',
+            details: 'The protocol is based on converging evidence:\n\n1. Helfrich-Förster (2021): Women born before 1974 (pre-widespread artificial light) showed stronger lunar-menstrual synchronization. Synchronization has been weakening since, suggesting artificial light overrides the natural lunar signal.\n\n2. Casiraghi et al. (2021): Sleep onset is later and duration shorter before full moons — even in communities without electricity. This is not myth; it\'s measured in indigenous Toba/Qom communities in Argentina.\n\n3. The biological pathway: Full moonlight (0.1–0.3 lux) → retina → SCN → pineal → suppresses melatonin slightly → shifts reproductive hormone timing. New moon darkness → maximum melatonin → different hormonal profile.\n\nPractical implementation:\n• NEW MOON PHASE (dark nights): Use blackout curtains. Complete darkness supports maximum melatonin production. This is traditionally associated with menstruation/withdrawal.\n• WAXING TO FULL MOON: Gradually allow moonlight through a window. Open curtains slightly. This gentle light signal is what the body evolved with — not phone screens.\n• FULL MOON: Allow moonlight to enter your sleeping space. The slight melatonin suppression from moonlight is the signal your body is designed to receive.\n• WANING MOON: Gradually return to darkness.\n\nThis is essentially recreating the lighting conditions under which human reproductive biology evolved for hundreds of thousands of years before electric light disrupted the signal.',
+            source: 'Helfrich-Förster et al., Science Advances, 2021; Casiraghi et al., Science Advances, 2021; Cajochen et al., Current Biology, 2013',
+        },
+        {
+            id: 'cycle-phase-exercise',
+            title: 'Cycle-Phase Training & Nutrition',
+            badge: 'synthesis',
+            icon: '🏃‍♀️',
+            summary: 'Match exercise intensity and nutrition to your menstrual cycle phase. Follicular phase (days 1–14): higher tolerance for intensity, strength training, and caloric deficit. Luteal phase (days 15–28): lower intensity, emphasis on recovery, higher caloric needs. This is backed by hormonal science and increasingly by sports medicine research.',
+            details: 'The hormonal basis (Huberman Lab, Dr. Stacy Sims, Dr. Sara Gottfried):\n\nFOLLICULAR PHASE (Menstruation → Ovulation, ~Days 1–14):\n• Estrogen rises, progesterone is low\n• Higher pain tolerance, faster recovery, better insulin sensitivity\n• Training: This is your strength window. Heavy lifting, HIIT, explosive work\n• Nutrition: Body handles carbs well. Can tolerate caloric deficit if desired\n• Huberman note: Morning sunlight + exercise in this phase amplifies estrogen\'s positive effects on mood and energy via dopamine pathway\n\nOVULATION (~Days 12–16):\n• Estrogen peaks, LH surges, testosterone spikes briefly\n• Peak physical performance window. PR attempts, competitions\n• Higher injury risk (estrogen affects ligament laxity) — warm up thoroughly\n• Maps to full moon in synced cycles — traditional "peak fertility" window\n\nLUTEAL PHASE (Post-ovulation → Menstruation, ~Days 15–28):\n• Progesterone rises, estrogen moderate then drops\n• Higher core temperature, worse sleep quality, higher caloric needs (~200–300 extra kcal/day)\n• Training: Lower intensity. Yoga, walking, steady-state cardio. Avoid fasted training\n• Nutrition: Increase magnesium, B6, complex carbs. Body craves — and needs — more fuel\n• The "PMS" window (days 24–28): Progesterone and estrogen both crash. This is biological, not weakness\n\nMENSTRUATION (~Days 1–5):\n• All hormones at baseline. Reset point\n• Light movement, gentle yoga, walking. Rest if needed\n• Traditional "new moon/moon lodge" phase — cultures that tracked cycles knew this was the withdrawal/rest window',
+            source: 'Huberman Lab: Dr. Stacy Sims episode; Dr. Sara Gottfried episode; McNulty et al., "The Effects of Menstrual Cycle Phase on Exercise Performance," PLOS One, 2020',
+        },
+        {
+            id: 'light-dark-hormones',
+            title: 'Light as Hormone Medicine',
+            badge: 'confirmed',
+            icon: '💡',
+            summary: 'UVB light exposure to skin increases testosterone, estrogen (beta-estradiol), AND progesterone — in both men and women. Melatonin, produced in darkness, suppresses reproductive hormones. This means your light environment is directly programming your hormonal state, every day.',
+            details: 'The science (referenced by Huberman):\n\n1. A study found that UVB light (short-wavelength light in sunshine) to the skin increased beta-estradiol, progesterone, and testosterone in both sexes within a brief period. This is separate from vitamin D — the skin itself has hormone-producing pathways activated by light.\n\n2. Melatonin is suppressive to the gonadal axis. It inhibits GnRH, which reduces FSH and LH, which reduces testosterone and estrogen output from the testes and ovaries. This is why:\n• Seasonal Affective Disorder (winter, long nights = more melatonin) often comes with low libido and cycle irregularity\n• Shift workers have higher rates of menstrual irregularity and fertility issues\n• The pre-electric world had massive seasonal hormone variation — higher testosterone/estrogen in summer (long days), lower in winter (long nights)\n\n3. Practical protocol:\n• GET SUNLIGHT ON SKIN: Not just eyes. Arms, legs, face — UVB exposure (the same wavelength that makes vitamin D) triggers hormone production\n• MORNING + AFTERNOON SUN: Anchor circadian rhythm AND boost sex hormones\n• DARK NIGHTS: Protect melatonin. Dim lights after sunset. No screens 1hr before bed (or use very dim red lighting)\n• AVOID THE 10PM–4AM BRIGHT LIGHT TRAP: Huberman emphasizes this window as maximally damaging — even a brief bathroom light exposure suppresses melatonin and disrupts the next day\'s dopamine\n\nThe ancient traditions that aligned activity with sunlight and rest with darkness weren\'t just practical — they were accidentally optimizing their hormonal biology through light exposure patterns.',
+            source: 'Huberman Lab: "Using Light to Optimize Health"; Parikh et al., Cell Reports, 2021 (UVB and hormones); Brzezinski et al., Reproductive BioMedicine Online, 2005',
+        },
+    ];
+
+    // ──────────────────────────────────────────────
+    // Music & Journey Guide
+    // ──────────────────────────────────────────────
+
+    const journeyMusicGuide = [
+        {
+            id: 'music-hidden-therapist',
+            title: 'Music as the Hidden Therapist',
+            badge: 'confirmed',
+            icon: '🎵',
+            summary: 'In clinical psychedelic research, music is not background — it is described as a "hidden therapist." Johns Hopkins, Imperial College London, and NYU Langone all use carefully structured playlists as a core component of psilocybin therapy. Research shows music quality directly predicts therapeutic outcomes.',
+            details: 'Mendel Kaelen (neuroscientist, Imperial College London) demonstrated in multiple studies that:\n\n• Openness to music correlates with intensity of psychedelic experience (Kaelen et al., 2018)\n• Music liking predicts antidepressant outcomes — patients who resonated with the music had better treatment results\n• Music operates as an emotional scaffolding — providing safety during difficult passages, amplifying insight during peak experiences, and supporting integration during return\n• Disliked or jarring music can negatively impact sessions\n\nBill Richards (Johns Hopkins, psychedelic research since 1963) describes the role of music: "At a trip\'s peak, music becomes a mirror of transcendental forms of consciousness — like a net below a trapeze artist."\n\nHuberman\'s related finding: listening to 10–30 minutes of preferred music daily increases heart rate variability (parasympathetic activation) not just during listening but throughout the day and into sleep. Music physically shifts your autonomic nervous system state.\n\nBecause psychedelics temporarily increase neuroplasticity, returning to the same music after your session can act as a cue that re-opens the learning/healing window — a form of state-dependent memory.',
+            source: 'Kaelen et al., Psychopharmacology, 2018; Richards, Sacred Knowledge (Columbia UP, 2015); Huberman Lab: "How to Use Music to Boost Motivation, Mood & Improve Learning"',
+        },
+        {
+            id: 'journey-phases-bpm',
+            title: 'The Journey Arc: Phases & Music Structure',
+            badge: 'synthesis',
+            icon: '🎼',
+            summary: 'The Johns Hopkins psilocybin playlist (7 hours 40 minutes) is structured around the pharmacological arc of a session: arrival, onset, ascent, peak, post-peak, and return. Each phase requires fundamentally different music — not just different songs, but different tempos, textures, and emotional qualities.',
+            details: 'THE JOURNEY ARC (based on Bill Richards/Johns Hopkins + Kaelen/Imperial College):\n\n1. ARRIVAL / PRE-SESSION (0:00–0:30)\nPurpose: Grounding, safety, trust\nMusic: Gentle, familiar, warm. Acoustic instruments.\nBPM: 60–80 (resting heart rate range)\nExamples: Solo piano, gentle guitar, ambient nature\n\n2. ONSET (0:30–1:30)\nPurpose: The medicine is taking effect. Support the transition.\nMusic: Slowly building, minimal lyrics. Increasing spaciousness.\nBPM: 60–90 (gradually rising)\nKey: Avoid lyrics in the listener\'s language — Richards says this "discourages the rational mind from following content"\n\n3. ASCENT (1:30–2:30)\nPurpose: Intensity is building. Ego defenses are dissolving.\nMusic: Swelling orchestral, emotional classical, building ambient\nBPM: 80–120 (matching increasing physiological arousal)\nRichards\' pick: Samuel Barber\'s "Adagio for Strings" — "The music chromatically develops, goes up, reaches this exquisite climax and then comes back down"\n\n4. PEAK (2:30–4:00)\nPurpose: Ego dissolution. Mystical experience. Surrender.\nMusic: Drone-based, overtone-rich, rhythmic anchors. "Trance-inducing features."\nBPM: Variable — rhythm becomes secondary to texture. Often 50–90 or arrhythmic\nKey quality: Provide a "musical anchor" (drone/rhythm) and "spaciousness" (overtones)\nThis is where sacred/devotional music from ANY tradition works: Tibetan bowls, Indian ragas, Gregorian chant, Sufi music\n\n5. POST-PEAK / DESCENT (4:00–5:30)\nPurpose: Reintegration begins. Emotional processing.\nMusic: More melodic, emotionally evocative, gentler than ascent\nBPM: 70–100 (gradually decreasing)\nKaelen\'s research: "Sentimental" and "cinematic" music works best here\n\n6. RETURN / WELCOME BACK (5:30–7:30)\nPurpose: Grounding, gratitude, integration\nMusic: Familiar, warm, may include vocals/lyrics now\nBPM: 60–80 (returning to resting state)\nThis is when songs with meaningful lyrics can be profoundly impactful\n\nThe entire arc mirrors the death-rebirth pattern we\'ve traced through every tradition — dissolution (ascent/peak) followed by reconstitution (descent/return).',
+            source: 'Richards, Sacred Knowledge (2015); Kaelen et al., Psychopharmacology (2018); Barrett et al., "Emotions and Brain Function are Altered for Months After Psilocybin," Scientific Reports (2020)',
+        },
+        {
+            id: 'binaural-beats-protocol',
+            title: '40Hz Binaural Beats: The Huberman Protocol',
+            badge: 'confirmed',
+            icon: '🎧',
+            summary: 'Huberman recommends 40Hz binaural beats for 5 minutes before cognitive work — the frequency shown to improve memory, reaction time, and verbal recall. This is the same gamma frequency the CIA Gateway Report identified as associated with heightened awareness, and the same frequency Tibetan monks produce during deep meditation.',
+            details: 'The 40Hz protocol (Huberman Lab):\n\n• Listen to PURE 40Hz binaural beats (no rain sounds, no music overlay — these reduce effectiveness)\n• 5 minutes before starting focused work\n• Can also use during exercise for mind-muscle connection\n• Avoid continuous use during long work sessions (habituation reduces effect)\n\nWhy 40Hz matters across traditions:\n\n1. NEUROSCIENCE: 40Hz gamma oscillations are associated with conscious awareness, memory binding, and attention. They synchronize neural populations across brain regions.\n\n2. CIA GATEWAY REPORT: The report describes consciousness reaching coherent states at specific frequencies. The progression from beta (normal waking) through alpha (relaxed) to theta (deep meditation, 4–7 Hz) to gamma (40 Hz, heightened awareness) maps the same territory as the yogic progression through dharana (concentration) → dhyana (meditation) → samadhi (absorption).\n\n3. TIBETAN MONKS: Lutz et al. (2004, PNAS) measured experienced Tibetan Buddhist meditators during compassion meditation and found massive gamma synchronization at ~40Hz — far beyond anything seen in non-meditators. The monks had trained for 10,000–50,000 hours. Binaural beats attempt to induce the same frequency externally.\n\n4. SCHUMANN RESONANCE: Earth\'s electromagnetic cavity resonates at ~7.83 Hz (and harmonics). The Gateway Report explicitly connects body resonance with Earth\'s field. The 5th harmonic of 7.83 Hz is 39.15 Hz — essentially 40Hz. Chanting Om has been measured at frequencies that entrain with Schumann resonance.\n\nThe convergence: Ancient chanting → Tibetan meditation → CIA frequency research → Huberman\'s protocol — all pointing at the same narrow frequency band as the gateway to heightened consciousness.',
+            source: 'Huberman Lab: "Focus Toolkit"; Lutz et al., PNAS 101(46), 2004; CIA Gateway Report (1983); Schumann, Zeitschrift für Naturforschung (1952)',
+        },
+        {
+            id: 'bpm-daily-protocols',
+            title: 'BPM Protocols for Daily Life',
+            badge: 'confirmed',
+            icon: '🎶',
+            summary: 'Huberman\'s music research shows that specific BPM ranges reliably shift nervous system states. 140–150+ BPM for motivation and energy. 60–80 BPM for relaxation and sleep preparation. 9 minutes minimum to shift mood. "Weightless" by Marconi Union reduces anxiety by 65%. Music literally programs your autonomic nervous system.',
+            details: 'Practical BPM protocols from Huberman Lab:\n\nMORNING ACTIVATION (with sunlight exposure):\n• 140–150+ BPM: Shifts into sympathetic (fight-or-flight) nervous system activation\n• Increases dopamine, adrenaline, and cortisol (the GOOD morning cortisol)\n• 9 minutes minimum to achieve full mood shift\n• Use for: Pre-workout, morning energy, overcoming inertia\n\nFOCUSED WORK:\n• 40Hz binaural beats for 5 min pre-session (gamma entrainment)\n• OR white/pink noise during sustained focus\n• Avoid lyrics in your language during cognitive work (same principle as psychedelic playlists — lyrics engage the analytical mind)\n\nAFTERNOON RESET:\n• 60–80 BPM: Engages parasympathetic (rest-and-digest) nervous system\n• Increases heart rate variability — this effect persists through the day and into sleep\n• 10–30 minutes of preferred music at this tempo\n\nPRE-SLEEP WIND DOWN:\n• 50–70 BPM: Deep relaxation range\n• "Weightless" by Marconi Union: Purpose-designed with sound therapists to reduce anxiety. Studies show 65% anxiety reduction — comparable to anxiolytic medication\n• No screens, dim red/orange light, begin 1hr before bed\n\nEMOTIONAL PROCESSING:\n• Sad music for ~13 minutes helps process grief and emotions (catharsis)\n• This maps directly onto the "post-peak" phase of psychedelic journeys — the integration window where emotional music supports processing\n\nThe nervous system transitions through states gradually — Huberman calls this the "onboarding and offboarding" process. You cannot flip from stressed to focused to relaxed instantly. Music is the technology for guiding these transitions. This is exactly what the ancient traditions understood — why Sufi dhikr builds in intensity, why Gregorian chant has a specific rhythmic structure, why the Eleusinian ritual had a progression of experiences.',
+            source: 'Huberman Lab: "How to Use Music to Boost Motivation, Mood & Improve Learning"; Lyz Cooper (British Academy of Sound Therapy), study on "Weightless"',
+        },
+    ];
+
+    // ──────────────────────────────────────────────
     // Entheogenic Traditions
     // ──────────────────────────────────────────────
 
@@ -926,6 +1012,8 @@ const CosmicKnowledge = (() => {
         entheogens,
         gatewayProcess,
         consciousnessConvergence,
+        lunarSyncProtocols,
+        journeyMusicGuide,
     };
 
 })();
