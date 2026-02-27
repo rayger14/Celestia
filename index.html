@@ -64,6 +64,10 @@
                     <svg viewBox="0 0 24 24" width="20" height="20"><polygon points="5,3 19,12 5,21" fill="currentColor"/></svg>
                     <span id="speed-display">1x</span>
                 </button>
+                <button id="birthday-btn" class="action-btn" title="Birth Sky Profile">
+                    <svg viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="1" x2="12" y2="4" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="20" x2="12" y2="23" stroke="currentColor" stroke-width="1.5"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34" stroke="currentColor" stroke-width="1.5"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="1.5"/><line x1="1" y1="12" x2="4" y2="12" stroke="currentColor" stroke-width="1.5"/><line x1="20" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="1.5"/></svg>
+                    <span>Birth Sky</span>
+                </button>
                 <button id="knowledge-btn" class="action-btn" title="Cosmic Knowledge">
                     <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     <span class="knowledge-btn-label">Cosmos</span>
@@ -164,6 +168,95 @@
                 </div>
                 <button class="btn-premium-cta">Start 7-Day Free Trial</button>
                 <p class="premium-disclaimer">Cancel anytime. No charge during trial.</p>
+            </div>
+        </div>
+
+        <!-- Birthday Cosmic Profile Modal -->
+        <div id="birthday-modal" class="modal hidden">
+            <div class="modal-backdrop"></div>
+            <div class="birthday-content">
+                <button class="knowledge-close" id="birthday-close">&times;</button>
+                <div class="knowledge-scroll">
+                    <!-- Input Section -->
+                    <div class="birthday-input-section" id="birthday-input-section">
+                        <div class="knowledge-header">
+                            <div class="knowledge-badge" style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));">Birth Sky Profile</div>
+                            <h2>Your Cosmic Birthday</h2>
+                            <p class="knowledge-tagline">See where the Sun, Moon, and planets stood when you were born — through the eyes of astronomy, ancient tradition, and symbolic pattern</p>
+                        </div>
+                        <div class="birthday-form">
+                            <label for="birthday-input" class="birthday-label">Enter your birthday</label>
+                            <input type="date" id="birthday-input" class="birthday-date-input">
+                            <button id="birthday-generate-btn" class="birthday-generate-btn">Reveal My Birth Sky</button>
+                        </div>
+                    </div>
+
+                    <!-- Results Section (hidden until generated) -->
+                    <div class="birthday-results hidden" id="birthday-results">
+                        <div class="birthday-sky-header">
+                            <div class="birthday-zodiac-glyph" id="birthday-glyph"></div>
+                            <div>
+                                <h2 id="birthday-sign-name"></h2>
+                                <p class="birthday-date-label" id="birthday-date-label"></p>
+                            </div>
+                            <button id="birthday-change-btn" class="birthday-change-btn">Change</button>
+                        </div>
+
+                        <!-- Sky Summary Grid -->
+                        <div class="birthday-sky-grid">
+                            <div class="birthday-sky-card">
+                                <div class="birthday-sky-card-label">Sun Position</div>
+                                <div class="birthday-sky-card-value" id="bsky-sun"></div>
+                                <div class="birthday-sky-card-sub" id="bsky-sun-lon"></div>
+                            </div>
+                            <div class="birthday-sky-card">
+                                <div class="birthday-sky-card-label">Moon Phase</div>
+                                <div class="birthday-sky-card-value" id="bsky-moon"></div>
+                                <div class="birthday-sky-card-sub" id="bsky-moon-illum"></div>
+                            </div>
+                            <div class="birthday-sky-card">
+                                <div class="birthday-sky-card-label">Next Solar Return</div>
+                                <div class="birthday-sky-card-value" id="bsky-return"></div>
+                                <div class="birthday-sky-card-sub">Sun returns to birth position</div>
+                            </div>
+                        </div>
+
+                        <!-- Seasonal Context -->
+                        <div class="birthday-season-box" id="birthday-season-box"></div>
+
+                        <!-- Tab Navigation -->
+                        <div class="knowledge-tabs">
+                            <button class="birthday-tab active" data-btab="traditions">Ancient Traditions</button>
+                            <button class="birthday-tab" data-btab="patterns">Symbolic Patterns</button>
+                            <button class="birthday-tab" data-btab="science">Modern Science</button>
+                            <button class="birthday-tab" data-btab="secretion">The Synthesis</button>
+                        </div>
+
+                        <!-- Ancient Traditions Tab -->
+                        <div class="birthday-section active" id="bsection-traditions">
+                            <p class="section-intro">What real historical texts — not internet summaries — say about the Sun, the body, and the sacred. Every source is cited.</p>
+                            <div id="birthday-traditions-cards"></div>
+                        </div>
+
+                        <!-- Symbolic Patterns Tab -->
+                        <div class="birthday-section" id="bsection-patterns">
+                            <p class="section-intro">The correspondences between anatomy, mythology, and astronomy. We show you the facts and the patterns — you decide what they mean.</p>
+                            <div id="birthday-patterns-cards"></div>
+                        </div>
+
+                        <!-- Modern Science Tab -->
+                        <div class="birthday-section" id="bsection-science">
+                            <p class="section-intro">Peer-reviewed neuroscience on the pineal gland, cerebrospinal fluid, and the birthday effect. Every claim has a journal citation.</p>
+                            <div id="birthday-science-cards"></div>
+                        </div>
+
+                        <!-- The Synthesis Tab -->
+                        <div class="birthday-section" id="bsection-secretion">
+                            <p class="section-intro">The "sacred secretion" theory — honestly assessed. What it claims, what's real in it, what science doesn't support, and a charitable reading.</p>
+                            <div id="birthday-secretion-cards"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

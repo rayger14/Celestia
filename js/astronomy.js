@@ -243,6 +243,88 @@ const Astronomy = (() => {
         return signs[Math.min(idx, 11)];
     }
 
+    // Compute full birth sky snapshot for a given date
+    function getBirthSky(date) {
+        const jd = dateToJulian(date);
+        const T = (jd - J2000) / 36525;
+        const sunLon = sunLongitude(jd);
+        const zodiac = getZodiacSign(sunLon);
+        const moonPhase = getMoonPhase(jd);
+
+        // Planet positions
+        const planets = {};
+        const planetKeys = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'];
+        planetKeys.forEach(key => {
+            if (PlanetData.orbitalElements[key]) {
+                planets[key] = computePosition(PlanetData.orbitalElements[key], T);
+            }
+        });
+
+        // Solar seasonal position: distance to nearest solstice/equinox
+        const seasonalPosition = getSolarSeasonalPosition(sunLon);
+
+        return {
+            jd,
+            sunLongitude: sunLon,
+            zodiac,
+            moonPhase,
+            planets,
+            seasonalPosition,
+        };
+    }
+
+    // Determine proximity to nearest solstice or equinox
+    function getSolarSeasonalPosition(sunLon) {
+        const markers = [
+            { lon: 0,   name: 'Spring Equinox',    type: 'equinox',  metaphor: 'Resurrection — light and dark in balance, light rising' },
+            { lon: 90,  name: 'Summer Solstice',    type: 'solstice', metaphor: 'Peak of light — the Sun at its highest, longest day' },
+            { lon: 180, name: 'Autumn Equinox',     type: 'equinox',  metaphor: 'Balance point — light and dark equal, descent begins' },
+            { lon: 270, name: 'Winter Solstice',     type: 'solstice', metaphor: 'Death and rebirth — the Sun reaches its lowest point, stands still for 3 days, then begins to rise' },
+        ];
+
+        let nearest = markers[0];
+        let minDist = 360;
+
+        markers.forEach(m => {
+            let d = Math.abs(sunLon - m.lon);
+            if (d > 180) d = 360 - d;
+            if (d < minDist) {
+                minDist = d;
+                nearest = m;
+            }
+        });
+
+        return {
+            nearest,
+            degreesAway: Math.round(minDist * 10) / 10,
+            sunLon: Math.round(sunLon * 100) / 100,
+        };
+    }
+
+    // Calculate next solar return date from a reference date
+    function calculateSolarReturn(birthSunLon, fromDate) {
+        // Start search from the given date
+        let jd = dateToJulian(fromDate);
+        // The Sun moves ~1 degree/day. Find approximate start.
+        let currentLon = sunLongitude(jd);
+        let diff = normalizeDeg(birthSunLon - currentLon);
+        if (diff < 1) diff += 360; // ensure we find NEXT return
+        jd += diff; // approximate jump
+
+        // Newton-Raphson refinement (5 iterations is plenty)
+        for (let i = 0; i < 8; i++) {
+            currentLon = sunLongitude(jd);
+            let err = birthSunLon - currentLon;
+            // Handle wrap-around
+            if (err > 180) err -= 360;
+            if (err < -180) err += 360;
+            if (Math.abs(err) < 0.001) break;
+            jd += err; // Sun moves ~1 deg/day so err in degrees ≈ correction in days
+        }
+
+        return julianToDate(jd);
+    }
+
     return {
         J2000,
         DEG,
@@ -263,5 +345,7 @@ const Astronomy = (() => {
         getSeason,
         raDecToEcliptic,
         getConstellationForLon,
+        getBirthSky,
+        calculateSolarReturn,
     };
 })();

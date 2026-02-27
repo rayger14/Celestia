@@ -65,6 +65,15 @@ const UI = (() => {
             knowledgeBtn: document.getElementById('knowledge-btn'),
             knowledgeClose: document.getElementById('knowledge-close'),
 
+            birthdayModal: document.getElementById('birthday-modal'),
+            birthdayBtn: document.getElementById('birthday-btn'),
+            birthdayClose: document.getElementById('birthday-close'),
+            birthdayInput: document.getElementById('birthday-input'),
+            birthdayGenerateBtn: document.getElementById('birthday-generate-btn'),
+            birthdayInputSection: document.getElementById('birthday-input-section'),
+            birthdayResults: document.getElementById('birthday-results'),
+            birthdayChangeBtn: document.getElementById('birthday-change-btn'),
+
             // Panel wisdom
             panelWisdomSection: document.getElementById('panel-wisdom-section'),
             panelWisdomName: document.getElementById('panel-wisdom-name'),
@@ -102,6 +111,39 @@ const UI = (() => {
         elements.premiumBtn.addEventListener('click', () => toggleModal('premium'));
         elements.knowledgeBtn.addEventListener('click', () => toggleModal('knowledge'));
         elements.knowledgeClose.addEventListener('click', closeAllModals);
+        elements.birthdayBtn.addEventListener('click', () => toggleModal('birthday'));
+        elements.birthdayClose.addEventListener('click', closeAllModals);
+
+        // Birthday form
+        elements.birthdayGenerateBtn.addEventListener('click', () => {
+            const val = elements.birthdayInput.value;
+            if (!val) return;
+            const parts = val.split('-');
+            const date = new Date(Date.UTC(+parts[0], +parts[1] - 1, +parts[2], 12, 0, 0));
+            localStorage.setItem('celestia-birthday', val);
+            generateBirthdayProfile(date);
+        });
+
+        elements.birthdayChangeBtn.addEventListener('click', () => {
+            elements.birthdayResults.classList.add('hidden');
+            elements.birthdayInputSection.classList.remove('hidden');
+        });
+
+        // Birthday tabs
+        document.querySelectorAll('.birthday-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.birthday-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelectorAll('.birthday-section').forEach(s => s.classList.remove('active'));
+                document.getElementById('bsection-' + tab.dataset.btab).classList.add('active');
+            });
+        });
+
+        // Load saved birthday
+        const savedBirthday = localStorage.getItem('celestia-birthday');
+        if (savedBirthday) {
+            elements.birthdayInput.value = savedBirthday;
+        }
 
         // Knowledge tabs
         document.querySelectorAll('.knowledge-tab').forEach(tab => {
@@ -216,6 +258,7 @@ const UI = (() => {
             speed: elements.speedModal,
             premium: elements.premiumModal,
             knowledge: elements.knowledgeModal,
+            birthday: elements.birthdayModal,
         };
 
         if (activeModal === type) {
@@ -233,6 +276,7 @@ const UI = (() => {
         elements.speedModal.classList.add('hidden');
         elements.premiumModal.classList.add('hidden');
         elements.knowledgeModal.classList.add('hidden');
+        elements.birthdayModal.classList.add('hidden');
         activeModal = null;
     }
 
@@ -467,6 +511,111 @@ const UI = (() => {
         const g = Math.max(0, parseInt(hex.slice(3, 5), 16) - amount);
         const b = Math.max(0, parseInt(hex.slice(5, 7), 16) - amount);
         return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    // ──────────────────────────────────────────────
+    // Birthday Cosmic Profile
+    // ──────────────────────────────────────────────
+
+    let birthdayContentPopulated = false;
+
+    function buildLayerCard(item) {
+        const badgeLabel = { confirmed: 'Confirmed Science', tradition: 'Real Historical Tradition', symbolic: 'Symbolic Correspondence', synthesis: 'Modern Synthesis' };
+        return `
+            <div class="layer-card" data-id="${item.id}">
+                <div class="layer-card-header">
+                    <span class="layer-card-icon">${item.icon}</span>
+                    <span class="layer-card-title">${item.title}</span>
+                    <span class="epistemic-badge epistemic-${item.badge}">${badgeLabel[item.badge] || item.badge}</span>
+                </div>
+                <div class="layer-card-summary">${item.summary}</div>
+                <div class="layer-card-details">${item.details || ''}</div>
+                ${item.source ? `<div class="layer-card-source">${item.source}</div>` : ''}
+                ${item.details ? '<button class="layer-card-toggle">Read more</button>' : ''}
+            </div>
+        `;
+    }
+
+    function bindLayerCardToggles(container) {
+        container.addEventListener('click', (e) => {
+            const toggle = e.target.closest('.layer-card-toggle');
+            if (!toggle) return;
+            const card = toggle.closest('.layer-card');
+            card.classList.toggle('expanded');
+            toggle.textContent = card.classList.contains('expanded') ? 'Show less' : 'Read more';
+        });
+    }
+
+    function generateBirthdayProfile(date) {
+        const sky = Astronomy.getBirthSky(date);
+        const profile = CosmicKnowledge.zodiacProfiles[sky.zodiac.name];
+        const solarReturn = Astronomy.calculateSolarReturn(sky.sunLongitude, new Date());
+
+        // Show results, hide input
+        elements.birthdayInputSection.classList.add('hidden');
+        elements.birthdayResults.classList.remove('hidden');
+
+        // Header
+        document.getElementById('birthday-glyph').textContent = sky.zodiac.symbol;
+        document.getElementById('birthday-sign-name').textContent = sky.zodiac.name;
+
+        const dateOpts = { month: 'long', day: 'numeric', year: 'numeric' };
+        document.getElementById('birthday-date-label').textContent = date.toLocaleDateString('en-US', dateOpts);
+
+        // Sky summary
+        document.getElementById('bsky-sun').textContent = `${sky.zodiac.symbol} ${sky.zodiac.name}`;
+        document.getElementById('bsky-sun-lon').textContent = `${sky.sunLongitude.toFixed(1)}° ecliptic`;
+
+        document.getElementById('bsky-moon').textContent = `${sky.moonPhase.emoji} ${sky.moonPhase.name}`;
+        document.getElementById('bsky-moon-illum').textContent = `${Math.round(sky.moonPhase.illumination * 100)}% illuminated`;
+
+        const returnOpts = { month: 'short', day: 'numeric', year: 'numeric' };
+        document.getElementById('bsky-return').textContent = solarReturn.toLocaleDateString('en-US', returnOpts);
+
+        // Season box
+        const sp = sky.seasonalPosition;
+        let seasonText = '';
+        if (profile) {
+            seasonText = `<strong>${sky.zodiac.name} — ${profile.element} sign, ${profile.modality}</strong><br>${profile.season}`;
+            if (sp.degreesAway < 15) {
+                seasonText += `<br><br><em>Your Sun is ${sp.degreesAway}° from the ${sp.nearest.name} — ${sp.nearest.metaphor}</em>`;
+            }
+        }
+        document.getElementById('birthday-season-box').innerHTML = seasonText;
+
+        // Populate content (once)
+        if (!birthdayContentPopulated) {
+            populateBirthdayContent();
+            birthdayContentPopulated = true;
+        }
+    }
+
+    function populateBirthdayContent() {
+        // Ancient Traditions tab: solar mythology + yogic + sufi + christian alchemy
+        const tradContainer = document.getElementById('birthday-traditions-cards');
+        const allTraditions = [
+            ...CosmicKnowledge.solarMythology,
+            ...CosmicKnowledge.yogicTradition,
+            ...CosmicKnowledge.sufiTradition,
+            ...CosmicKnowledge.christianAlchemy,
+        ];
+        tradContainer.innerHTML = allTraditions.map(buildLayerCard).join('');
+        bindLayerCardToggles(tradContainer);
+
+        // Symbolic Patterns tab
+        const patContainer = document.getElementById('birthday-patterns-cards');
+        patContainer.innerHTML = CosmicKnowledge.anatomyPatterns.map(buildLayerCard).join('');
+        bindLayerCardToggles(patContainer);
+
+        // Modern Science tab
+        const sciContainer = document.getElementById('birthday-science-cards');
+        sciContainer.innerHTML = CosmicKnowledge.neuroscienceLayer.map(buildLayerCard).join('');
+        bindLayerCardToggles(sciContainer);
+
+        // The Synthesis tab
+        const secContainer = document.getElementById('birthday-secretion-cards');
+        secContainer.innerHTML = CosmicKnowledge.sacredSecretion.map(buildLayerCard).join('');
+        bindLayerCardToggles(secContainer);
     }
 
     function populateKnowledgeContent() {
