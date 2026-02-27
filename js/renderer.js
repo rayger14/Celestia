@@ -204,8 +204,9 @@ const Renderer = (() => {
         const angleRad = angle * Astronomy.DEG;
 
         // Planet world position (on its display orbit)
+        // Negate Y so planets orbit counter-clockwise (correct astronomical direction)
         const wx = Math.cos(angleRad) * displayRadius;
-        const wy = Math.sin(angleRad) * displayRadius;
+        const wy = -Math.sin(angleRad) * displayRadius;
         const sp = worldToScreen(wx, wy);
 
         const isHovered = hoveredPlanet === key;
@@ -280,7 +281,7 @@ const Renderer = (() => {
             const moonAngle = time * 0.002;
             const moonDist = planetRadius * 2.5;
             const mx = sp.x + Math.cos(moonAngle) * moonDist;
-            const my = sp.y + Math.sin(moonAngle) * moonDist;
+            const my = sp.y - Math.sin(moonAngle) * moonDist;
             ctx.beginPath();
             ctx.arc(mx, my, Math.max(1.5, planetRadius * 0.2), 0, Math.PI * 2);
             ctx.fillStyle = '#ccc';
@@ -329,7 +330,7 @@ const Renderer = (() => {
             const midAngle = ((z.startLon + z.endLon) / 2) * Astronomy.DEG;
             const labelR = (outerR + 25 * camera.zoom);
             const lx = sp.x + Math.cos(midAngle) * labelR;
-            const ly = sp.y + Math.sin(midAngle) * labelR;
+            const ly = sp.y - Math.sin(midAngle) * labelR;
 
             // Only draw if on screen
             if (lx < -50 || lx > width + 50 || ly < -50 || ly > height + 50) continue;
@@ -352,9 +353,9 @@ const Renderer = (() => {
             // Divider ticks
             const tickAngle = z.startLon * Astronomy.DEG;
             const tx1 = sp.x + Math.cos(tickAngle) * (innerR - 5);
-            const ty1 = sp.y + Math.sin(tickAngle) * (innerR - 5);
+            const ty1 = sp.y - Math.sin(tickAngle) * (innerR - 5);
             const tx2 = sp.x + Math.cos(tickAngle) * (outerR + 5);
-            const ty2 = sp.y + Math.sin(tickAngle) * (outerR + 5);
+            const ty2 = sp.y - Math.sin(tickAngle) * (outerR + 5);
             ctx.beginPath();
             ctx.moveTo(tx1, ty1);
             ctx.lineTo(tx2, ty2);
@@ -385,7 +386,7 @@ const Renderer = (() => {
                 const r = eclipticR + latOffset;
 
                 const sx = sp.x + Math.cos(angle) * r;
-                const sy = sp.y + Math.sin(angle) * r;
+                const sy = sp.y - Math.sin(angle) * r;
                 const size = Math.max(1.2, (5 - star.mag) * 0.9 * camera.zoom);
                 const color = ConstellationData.getStarColor(star.spectral);
 
@@ -467,7 +468,7 @@ const Renderer = (() => {
                     const latOffset = ecl.lat * 3.5 * camera.zoom;
                     const r = eclipticR + latOffset;
                     const sx = sp.x + Math.cos(angle) * r;
-                    const sy = sp.y + Math.sin(angle) * r;
+                    const sy = sp.y - Math.sin(angle) * r;
                     const size = Math.max(1.0, (5 - star.mag) * 0.85 * camera.zoom);
                     const color = ConstellationData.getStarColor(star.spectral);
                     return { sx, sy, size, name: star.name, mag: star.mag, color, star, constellation: ds.name };
@@ -568,12 +569,12 @@ const Renderer = (() => {
 
             // Position on the ecliptic ring
             const px = center.x + Math.cos(angleRad) * eclipticR;
-            const py = center.y + Math.sin(angleRad) * eclipticR;
+            const py = center.y - Math.sin(angleRad) * eclipticR;
 
             // Planet position on its display orbit (for connecting line)
             const displayRadius = PlanetData.orbitDisplayRadii[key] * camera.zoom;
             const planetX = center.x + Math.cos(angleRad) * displayRadius;
-            const planetY = center.y + Math.sin(angleRad) * displayRadius;
+            const planetY = center.y - Math.sin(angleRad) * displayRadius;
 
             // Only draw if on screen
             if (px < -60 || px > width + 60 || py < -60 || py > height + 60) continue;
@@ -668,7 +669,7 @@ const Renderer = (() => {
             const r = PlanetData.orbitDisplayRadii[key] * scale;
             const angle = planetAngles[key] * Astronomy.DEG;
             const px = cx + Math.cos(angle) * r;
-            const py = cy + Math.sin(angle) * r;
+            const py = cy - Math.sin(angle) * r;
 
             minimapCtx.beginPath();
             minimapCtx.arc(px, py, key === selectedPlanet ? 3 : 2, 0, Math.PI * 2);

@@ -710,6 +710,11 @@ const UI = (() => {
             bindLayerCardToggles(journeyContainer);
         }
 
+        // Render Journey Player (Apple Music integration)
+        if (typeof JourneyPlayer !== 'undefined') {
+            JourneyPlayer.render('journey-player-container');
+        }
+
         const lunarDiagram = document.getElementById('lunar-cycle-diagram');
         if (lunarDiagram) {
             lunarDiagram.innerHTML = CosmicKnowledge.lunarCyclePhases.map(phase => `
