@@ -877,3 +877,467 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ──────────────────────────────────────────────
+   Planet Positions Grid
+   ────────────────────────────────────────────── */
+
+.birthday-planets-section {
+    margin-bottom: 24px;
+}
+
+.birthday-planets-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 4px;
+}
+
+.birthday-planets-subtitle {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    line-height: 1.5;
+}
+
+.birthday-planets-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.birth-planet-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    transition: all 0.2s ease;
+}
+
+.birth-planet-card:hover {
+    border-color: var(--border-glass);
+    transform: translateY(-1px);
+}
+
+.birth-planet-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.birth-planet-icon {
+    font-size: 1.2rem;
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.birth-planet-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--text-bright);
+    min-width: 70px;
+}
+
+.birth-planet-sign {
+    font-size: 0.85rem;
+    color: var(--accent-purple);
+    font-weight: 500;
+    flex: 1;
+}
+
+.birth-planet-lon {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.birth-planet-body {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
+
+.birth-planet-body > div {
+    margin-bottom: 8px;
+}
+
+.birth-planet-body > div:last-child {
+    margin-bottom: 0;
+}
+
+.birth-planet-tradition {
+    font-style: italic;
+    color: var(--text-primary);
+}
+
+.birth-planet-source {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.birth-planet-expand {
+    display: inline-block;
+    border: none;
+    background: none;
+    color: var(--accent-gold);
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 0 0 0;
+    margin-top: 6px;
+}
+
+.birth-planet-expand:hover {
+    text-decoration: underline;
+}
+
+/* ──────────────────────────────────────────────
+   Birthday Comparison
+   ────────────────────────────────────────────── */
+
+.birthday-compare-section {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.birthday-compare-toggle {
+    width: 100%;
+    padding: 14px;
+    border: 1px dashed var(--border-glass);
+    background: transparent;
+    color: var(--accent-purple);
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.birthday-compare-toggle:hover {
+    background: rgba(139, 92, 246, 0.08);
+    border-color: var(--accent-purple);
+}
+
+.birthday-compare-form {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.compare-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin: 20px 0;
+}
+
+.compare-person {
+    text-align: center;
+}
+
+.compare-glyph {
+    display: block;
+    font-size: 2.8rem;
+    margin-bottom: 6px;
+}
+
+.compare-name {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-bright);
+}
+
+.compare-element {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.compare-vs {
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+.compare-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    margin-bottom: 12px;
+}
+
+.compare-card h4 {
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.compare-aspect {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.aspect-symbol {
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+}
+
+.aspect-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-bright);
+}
+
+.aspect-angle {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.aspect-meaning {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.compare-elements {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.element-tag {
+    padding: 3px 10px;
+    border-radius: var(--radius-xl);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.element-fire   { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+.element-earth  { background: rgba(6, 214, 160, 0.15); color: #06d6a0; border: 1px solid rgba(6, 214, 160, 0.3); }
+.element-air    { background: rgba(79, 143, 255, 0.15); color: #4f8fff; border: 1px solid rgba(79, 143, 255, 0.3); }
+.element-water  { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; border: 1px solid rgba(139, 92, 246, 0.3); }
+
+.compat-rating {
+    padding: 3px 10px;
+    border-radius: var(--radius-xl);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-left: auto;
+}
+
+.compat-harmonious { background: rgba(6, 214, 160, 0.12); color: #06d6a0; border: 1px solid rgba(6, 214, 160, 0.25); }
+.compat-neutral    { background: rgba(244, 185, 66, 0.12); color: var(--accent-gold); border: 1px solid rgba(244, 185, 66, 0.25); }
+.compat-challenging { background: rgba(239, 68, 68, 0.12); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25); }
+
+.compare-desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.compare-myth {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
+
+.compare-myth-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--text-bright);
+    font-size: 0.88rem;
+    margin-bottom: 6px;
+}
+
+.compare-myth-source {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    margin-top: 8px;
+}
+
+.birthday-compare-reset {
+    width: 100%;
+    padding: 10px;
+    margin-top: 12px;
+    border: 1px solid var(--border-subtle);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.birthday-compare-reset:hover {
+    border-color: var(--border-glass);
+    color: var(--text-bright);
+}
+
+/* ──────────────────────────────────────────────
+   Lunar Cycle Tracker
+   ────────────────────────────────────────────── */
+
+.lunar-tracker {
+    margin-bottom: 28px;
+}
+
+.lunar-tracker-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 16px;
+}
+
+.lunar-cycle-diagram {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.lunar-phase-column {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 16px 12px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.lunar-phase-column:hover {
+    border-color: var(--border-glass);
+    transform: translateY(-2px);
+}
+
+.lunar-moon-emoji {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.lunar-moon-label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: var(--text-bright);
+    margin-bottom: 4px;
+}
+
+.lunar-moon-days {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    margin-bottom: 12px;
+}
+
+.lunar-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--border-glass);
+    margin: 0 auto 12px;
+}
+
+.lunar-cycle-label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.78rem;
+    margin-bottom: 4px;
+}
+
+.lunar-cycle-days {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    margin-bottom: 8px;
+}
+
+.lunar-hormones {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.lunar-body-effect {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-style: italic;
+}
+
+.lunar-tradition {
+    font-size: 0.68rem;
+    color: var(--accent-purple);
+    line-height: 1.4;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.lunar-studies-title {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin: 20px 0 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+@media (max-width: 768px) {
+    .lunar-cycle-diagram {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .compare-header {
+        gap: 16px;
+    }
+
+    .compare-glyph {
+        font-size: 2rem;
+    }
+
+    .birthday-compare-form {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 420px) {
+    .lunar-cycle-diagram {
+        grid-template-columns: 1fr;
+    }
+
+    .birth-planet-header {
+        flex-wrap: wrap;
+    }
+}

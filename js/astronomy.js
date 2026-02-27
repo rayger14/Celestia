@@ -325,6 +325,33 @@ const Astronomy = (() => {
         return julianToDate(jd);
     }
 
+    // Compute Ptolemaic aspect between two ecliptic longitudes
+    const PTOLEMAIC_ASPECTS = [
+        { name: 'Conjunction', angle: 0,   orb: 10, symbol: '\u260C' },
+        { name: 'Sextile',    angle: 60,  orb: 6,  symbol: '\u26B9' },
+        { name: 'Square',     angle: 90,  orb: 8,  symbol: '\u25A1' },
+        { name: 'Trine',      angle: 120, orb: 8,  symbol: '\u25B3' },
+        { name: 'Opposition', angle: 180, orb: 10, symbol: '\u260D' },
+    ];
+
+    function computeAspect(lon1, lon2) {
+        let diff = Math.abs(normalizeDeg(lon1) - normalizeDeg(lon2));
+        if (diff > 180) diff = 360 - diff;
+
+        for (const aspect of PTOLEMAIC_ASPECTS) {
+            if (Math.abs(diff - aspect.angle) <= aspect.orb) {
+                return {
+                    name: aspect.name,
+                    symbol: aspect.symbol,
+                    angle: aspect.angle,
+                    orb: aspect.orb,
+                    exactAngle: Math.round(diff * 10) / 10,
+                };
+            }
+        }
+        return null;
+    }
+
     return {
         J2000,
         DEG,
@@ -347,5 +374,6 @@ const Astronomy = (() => {
         getConstellationForLon,
         getBirthSky,
         calculateSolarReturn,
+        computeAspect,
     };
 })();

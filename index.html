@@ -221,6 +221,13 @@
                             </div>
                         </div>
 
+                        <!-- Planet Positions at Birth -->
+                        <div class="birthday-planets-section" id="birthday-planets-section">
+                            <h3 class="birthday-planets-title">Your Planets at Birth</h3>
+                            <p class="birthday-planets-subtitle">Where every planet stood in the zodiac when you were born — and what historical traditions say about each placement</p>
+                            <div class="birthday-planets-grid" id="birthday-planets-grid"></div>
+                        </div>
+
                         <!-- Seasonal Context -->
                         <div class="birthday-season-box" id="birthday-season-box"></div>
 
@@ -230,6 +237,7 @@
                             <button class="birthday-tab" data-btab="patterns">Symbolic Patterns</button>
                             <button class="birthday-tab" data-btab="science">Modern Science</button>
                             <button class="birthday-tab" data-btab="secretion">The Synthesis</button>
+                            <button class="birthday-tab" data-btab="lunar">Lunar &amp; Body</button>
                         </div>
 
                         <!-- Ancient Traditions Tab -->
@@ -254,6 +262,27 @@
                         <div class="birthday-section" id="bsection-secretion">
                             <p class="section-intro">The "sacred secretion" theory — honestly assessed. What it claims, what's real in it, what science doesn't support, and a charitable reading.</p>
                             <div id="birthday-secretion-cards"></div>
+                        </div>
+
+                        <!-- Lunar & Body Cycles Tab -->
+                        <div class="birthday-section" id="bsection-lunar">
+                            <p class="section-intro">The Moon's 29.5-day cycle overlaid with the ~28-day menstrual cycle. What peer-reviewed science says about their relationship — and what ancient traditions observed.</p>
+                            <div class="lunar-tracker" id="lunar-tracker">
+                                <h3 class="lunar-tracker-title">Dual Cycle Timeline</h3>
+                                <div class="lunar-cycle-diagram" id="lunar-cycle-diagram"></div>
+                            </div>
+                            <div id="lunar-study-cards"></div>
+                        </div>
+
+                        <!-- Birthday Comparison Section -->
+                        <div class="birthday-compare-section" id="birthday-compare-section">
+                            <button class="birthday-compare-toggle" id="birthday-compare-toggle">Compare with Another Birthday</button>
+                            <div class="birthday-compare-form hidden" id="birthday-compare-form">
+                                <label for="birthday-compare-input" class="birthday-label">Enter a second birthday</label>
+                                <input type="date" id="birthday-compare-input" class="birthday-date-input">
+                                <button id="birthday-compare-btn" class="birthday-generate-btn" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));">Compare Birth Skies</button>
+                            </div>
+                            <div class="birthday-compare-results hidden" id="birthday-compare-results"></div>
                         </div>
                     </div>
                 </div>

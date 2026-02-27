@@ -73,6 +73,12 @@ const UI = (() => {
             birthdayInputSection: document.getElementById('birthday-input-section'),
             birthdayResults: document.getElementById('birthday-results'),
             birthdayChangeBtn: document.getElementById('birthday-change-btn'),
+            birthdayPlanetsGrid: document.getElementById('birthday-planets-grid'),
+            birthdayCompareToggle: document.getElementById('birthday-compare-toggle'),
+            birthdayCompareForm: document.getElementById('birthday-compare-form'),
+            birthdayCompareInput: document.getElementById('birthday-compare-input'),
+            birthdayCompareBtn: document.getElementById('birthday-compare-btn'),
+            birthdayCompareResults: document.getElementById('birthday-compare-results'),
 
             // Panel wisdom
             panelWisdomSection: document.getElementById('panel-wisdom-section'),
@@ -137,6 +143,19 @@ const UI = (() => {
                 document.querySelectorAll('.birthday-section').forEach(s => s.classList.remove('active'));
                 document.getElementById('bsection-' + tab.dataset.btab).classList.add('active');
             });
+        });
+
+        // Birthday comparison
+        elements.birthdayCompareToggle.addEventListener('click', () => {
+            elements.birthdayCompareForm.classList.toggle('hidden');
+        });
+
+        elements.birthdayCompareBtn.addEventListener('click', () => {
+            const val = elements.birthdayCompareInput.value;
+            if (!val) return;
+            const parts = val.split('-');
+            const date2 = new Date(Date.UTC(+parts[0], +parts[1] - 1, +parts[2], 12, 0, 0));
+            generateComparison(date2);
         });
 
         // Load saved birthday
@@ -572,13 +591,58 @@ const UI = (() => {
         const returnOpts = { month: 'short', day: 'numeric', year: 'numeric' };
         document.getElementById('bsky-return').textContent = solarReturn.toLocaleDateString('en-US', returnOpts);
 
+        // Planet positions grid
+        const planetsGrid = elements.birthdayPlanetsGrid;
+        if (planetsGrid) {
+            const displayPlanets = ['mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'];
+            planetsGrid.innerHTML = displayPlanets.map(key => {
+                const pos = sky.planets[key];
+                if (!pos) return '';
+                const sign = Astronomy.getConstellationForLon(pos.lon);
+                const info = typeof PlanetData !== 'undefined' ? PlanetData.planetInfo[key] : null;
+                const zodiacProfile = CosmicKnowledge.zodiacProfiles[sign];
+                const bodyInfo = CosmicKnowledge.planetBodyMap[key];
+                const icon = info ? info.icon : key.charAt(0).toUpperCase();
+                const name = info ? info.name : key.charAt(0).toUpperCase() + key.slice(1);
+                const glyph = zodiacProfile ? zodiacProfile.glyph : '';
+
+                return `
+                    <div class="birth-planet-card" data-planet="${key}">
+                        <div class="birth-planet-header">
+                            <span class="birth-planet-icon">${icon}</span>
+                            <span class="birth-planet-name">${name}</span>
+                            <span class="birth-planet-sign">${glyph} ${sign}</span>
+                            <span class="birth-planet-lon">${pos.lon.toFixed(1)}\u00B0</span>
+                        </div>
+                        ${bodyInfo ? `
+                        <div class="birth-planet-body hidden">
+                            <div class="birth-planet-tradition">${bodyInfo.tradition}</div>
+                            <div><strong>Body rulership:</strong> ${bodyInfo.bodyRegion}</div>
+                            <div><strong>System:</strong> ${bodyInfo.system}</div>
+                        </div>
+                        <button class="birth-planet-expand">Details</button>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            planetsGrid.addEventListener('click', (e) => {
+                const btn = e.target.closest('.birth-planet-expand');
+                if (!btn) return;
+                const card = btn.closest('.birth-planet-card');
+                const body = card.querySelector('.birth-planet-body');
+                body.classList.toggle('hidden');
+                btn.textContent = body.classList.contains('hidden') ? 'Details' : 'Hide';
+            });
+        }
+
         // Season box
         const sp = sky.seasonalPosition;
         let seasonText = '';
         if (profile) {
             seasonText = `<strong>${sky.zodiac.name} — ${profile.element} sign, ${profile.modality}</strong><br>${profile.season}`;
             if (sp.degreesAway < 15) {
-                seasonText += `<br><br><em>Your Sun is ${sp.degreesAway}° from the ${sp.nearest.name} — ${sp.nearest.metaphor}</em>`;
+                seasonText += `<br><br><em>Your Sun is ${sp.degreesAway}\u00B0 from the ${sp.nearest.name} — ${sp.nearest.metaphor}</em>`;
             }
         }
         document.getElementById('birthday-season-box').innerHTML = seasonText;
@@ -616,6 +680,150 @@ const UI = (() => {
         const secContainer = document.getElementById('birthday-secretion-cards');
         secContainer.innerHTML = CosmicKnowledge.sacredSecretion.map(buildLayerCard).join('');
         bindLayerCardToggles(secContainer);
+
+        // Lunar & Body Cycles tab
+        const lunarDiagram = document.getElementById('lunar-cycle-diagram');
+        if (lunarDiagram) {
+            lunarDiagram.innerHTML = CosmicKnowledge.lunarCyclePhases.map(phase => `
+                <div class="lunar-phase-column">
+                    <span class="lunar-moon-emoji">${phase.moonEmoji}</span>
+                    <div class="lunar-moon-label">${phase.moonPhase}</div>
+                    <div class="lunar-moon-days">Days ${phase.moonDays}</div>
+                    <div class="lunar-divider"></div>
+                    <div class="lunar-cycle-label" style="color: ${phase.cycleColor}">${phase.cycleName}</div>
+                    <div class="lunar-cycle-days">Days ${phase.cycleDays}</div>
+                    <div class="lunar-hormones">${phase.hormones}</div>
+                    <div class="lunar-body-effect">${phase.lunarBody}</div>
+                    <div class="lunar-tradition">${phase.tradition}</div>
+                </div>
+            `).join('');
+        }
+
+        const lunarStudyCards = document.getElementById('lunar-study-cards');
+        if (lunarStudyCards) {
+            lunarStudyCards.innerHTML = '<h3 class="lunar-studies-title">The Science</h3>' +
+                CosmicKnowledge.lunarCycleStudies.map(buildLayerCard).join('');
+            bindLayerCardToggles(lunarStudyCards);
+        }
+    }
+
+    function generateComparison(date2) {
+        const savedBirthday = localStorage.getItem('celestia-birthday');
+        if (!savedBirthday) return;
+        const parts1 = savedBirthday.split('-');
+        const date1 = new Date(Date.UTC(+parts1[0], +parts1[1] - 1, +parts1[2], 12, 0, 0));
+
+        const sky1 = Astronomy.getBirthSky(date1);
+        const sky2 = Astronomy.getBirthSky(date2);
+
+        const profile1 = CosmicKnowledge.zodiacProfiles[sky1.zodiac.name];
+        const profile2 = CosmicKnowledge.zodiacProfiles[sky2.zodiac.name];
+
+        // Sun aspect
+        const aspect = Astronomy.computeAspect(sky1.sunLongitude, sky2.sunLongitude);
+        const aspectText = aspect
+            ? CosmicKnowledge.aspectMeanings[aspect.name] || ''
+            : '';
+
+        // Element compatibility
+        const elKey = [profile1.element, profile2.element].sort().join('-');
+        const compat = CosmicKnowledge.elementCompatibility[elKey];
+
+        // Modality
+        const modalityText = getModalityText(profile1.modality, profile2.modality);
+
+        // Sign mythology
+        const myth1 = CosmicKnowledge.signMythology[sky1.zodiac.name];
+        const myth2 = CosmicKnowledge.signMythology[sky2.zodiac.name];
+
+        const container = elements.birthdayCompareResults;
+        container.classList.remove('hidden');
+        elements.birthdayCompareForm.classList.add('hidden');
+
+        container.innerHTML = `
+            <div class="compare-header">
+                <div class="compare-person">
+                    <span class="compare-glyph">${sky1.zodiac.symbol}</span>
+                    <span class="compare-name">${sky1.zodiac.name}</span>
+                    <span class="compare-element">${profile1.element} \u2022 ${profile1.modality}</span>
+                </div>
+                <div class="compare-vs">&amp;</div>
+                <div class="compare-person">
+                    <span class="compare-glyph">${sky2.zodiac.symbol}</span>
+                    <span class="compare-name">${sky2.zodiac.name}</span>
+                    <span class="compare-element">${profile2.element} \u2022 ${profile2.modality}</span>
+                </div>
+            </div>
+
+            <div class="compare-card">
+                <h4>Sun-to-Sun Aspect (Ptolemaic)</h4>
+                ${aspect
+                    ? `<div class="compare-aspect">
+                           <span class="aspect-symbol">${aspect.symbol}</span>
+                           <span class="aspect-name">${aspect.name}</span>
+                           <span class="aspect-angle">${aspect.exactAngle}\u00B0</span>
+                       </div>
+                       <p class="aspect-meaning">${aspectText}</p>`
+                    : '<p class="aspect-meaning">No major Ptolemaic aspect \u2014 the two Suns are not at a classical angular relationship (conjunction, sextile, square, trine, or opposition). Ptolemy would consider this a neutral placement.</p>'
+                }
+            </div>
+
+            <div class="compare-card">
+                <h4>Element Compatibility</h4>
+                <div class="compare-elements">
+                    <span class="element-tag element-${profile1.element.toLowerCase()}">${profile1.element}</span>
+                    <span style="color: var(--text-muted)">+</span>
+                    <span class="element-tag element-${profile2.element.toLowerCase()}">${profile2.element}</span>
+                    ${compat ? `<span class="compat-rating compat-${compat.rating.toLowerCase()}">${compat.rating}</span>` : ''}
+                </div>
+                ${compat ? `<p class="compare-desc">${compat.desc}</p>` : ''}
+            </div>
+
+            <div class="compare-card">
+                <h4>Modality</h4>
+                <p class="compare-desc">${profile1.modality} + ${profile2.modality} \u2014 ${modalityText}</p>
+            </div>
+
+            ${myth1 ? `
+            <div class="compare-card">
+                <h4>${sky1.zodiac.name} \u2014 ${myth1.title}</h4>
+                <p class="compare-myth"><strong>Greek:</strong> ${myth1.greek}</p>
+                <p class="compare-myth"><strong>Persian/Zoroastrian:</strong> ${myth1.persian}</p>
+                <p class="compare-myth-source">${myth1.source}</p>
+            </div>
+            ` : ''}
+
+            ${myth2 ? `
+            <div class="compare-card">
+                <h4>${sky2.zodiac.name} \u2014 ${myth2.title}</h4>
+                <p class="compare-myth"><strong>Greek:</strong> ${myth2.greek}</p>
+                <p class="compare-myth"><strong>Persian/Zoroastrian:</strong> ${myth2.persian}</p>
+                <p class="compare-myth-source">${myth2.source}</p>
+            </div>
+            ` : ''}
+
+            <button class="birthday-compare-reset" id="birthday-compare-reset">Compare a different birthday</button>
+        `;
+
+        const resetBtn = container.querySelector('#birthday-compare-reset');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                container.classList.add('hidden');
+                container.innerHTML = '';
+                elements.birthdayCompareForm.classList.remove('hidden');
+            });
+        }
+    }
+
+    function getModalityText(m1, m2) {
+        if (m1 === m2) return `Both ${m1} \u2014 you share the same approach to change and action.`;
+        const combos = {
+            'Cardinal-Fixed': 'One initiates, the other sustains. Cardinal energy starts things; Fixed energy completes them. Complementary if you respect each other\'s rhythm.',
+            'Cardinal-Mutable': 'One initiates, the other adapts. Cardinal leads, Mutable adjusts. A fluid partnership that can move quickly.',
+            'Fixed-Mutable': 'One stabilizes, the other flexes. Fixed provides anchor; Mutable provides versatility. Grounding meets adaptability.',
+        };
+        const key = [m1, m2].sort().join('-');
+        return combos[key] || 'Different approaches to change.';
     }
 
     function populateKnowledgeContent() {

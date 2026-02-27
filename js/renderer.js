@@ -394,6 +394,7 @@ const Renderer = (() => {
 
             // Draw connecting lines
             if (z.lines && camera.zoom > 0.5) {
+                // First pass: wide glow for bloom effect
                 ctx.beginPath();
                 for (const [a, b] of z.lines) {
                     if (starPositions[a] && starPositions[b]) {
@@ -401,9 +402,22 @@ const Renderer = (() => {
                         ctx.lineTo(starPositions[b].sx, starPositions[b].sy);
                     }
                 }
-                ctx.strokeStyle = 'rgba(139, 92, 246, 0.15)';
-                ctx.lineWidth = 0.8;
-                ctx.setLineDash([3, 4]);
+                ctx.strokeStyle = 'rgba(139, 92, 246, 0.08)';
+                ctx.lineWidth = 3.5;
+                ctx.setLineDash([]);
+                ctx.stroke();
+
+                // Second pass: sharp visible line
+                ctx.beginPath();
+                for (const [a, b] of z.lines) {
+                    if (starPositions[a] && starPositions[b]) {
+                        ctx.moveTo(starPositions[a].sx, starPositions[a].sy);
+                        ctx.lineTo(starPositions[b].sx, starPositions[b].sy);
+                    }
+                }
+                ctx.strokeStyle = 'rgba(139, 92, 246, 0.35)';
+                ctx.lineWidth = 1.2;
+                ctx.setLineDash([6, 3]);
                 ctx.stroke();
                 ctx.setLineDash([]);
             }
@@ -412,11 +426,11 @@ const Renderer = (() => {
             for (const sp2 of starPositions) {
                 if (sp2.sx < -20 || sp2.sx > width + 20 || sp2.sy < -20 || sp2.sy > height + 20) continue;
 
-                // Glow for bright stars (mag < 2.5)
-                if (sp2.mag < 2.5 && sp2.size > 2) {
+                // Glow for constellation stars
+                if (sp2.mag < 4.0 && sp2.size > 1.5) {
                     ctx.beginPath();
-                    ctx.arc(sp2.sx, sp2.sy, sp2.size * 3, 0, Math.PI * 2);
-                    const glowAlpha = Math.min(0.15, (3 - sp2.mag) * 0.05);
+                    ctx.arc(sp2.sx, sp2.sy, sp2.size * 4, 0, Math.PI * 2);
+                    const glowAlpha = Math.min(0.25, (4.5 - sp2.mag) * 0.06);
                     ctx.fillStyle = hexToRgba(sp2.color, glowAlpha);
                     ctx.fill();
                 }
@@ -424,7 +438,7 @@ const Renderer = (() => {
                 // Star dot
                 ctx.beginPath();
                 ctx.arc(sp2.sx, sp2.sy, sp2.size, 0, Math.PI * 2);
-                const alpha = Math.min(0.9, sp2.size * 0.22 + 0.2);
+                const alpha = Math.min(0.9, sp2.size * 0.25 + 0.3);
                 ctx.fillStyle = hexToRgba(sp2.color, alpha);
                 ctx.fill();
 

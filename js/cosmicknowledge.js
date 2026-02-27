@@ -434,6 +434,266 @@ const CosmicKnowledge = (() => {
     ];
 
     // ──────────────────────────────────────────────
+    // Planet-Body Rulership Map (Ptolemy Tetrabiblos III)
+    // ──────────────────────────────────────────────
+
+    const planetBodyMap = {
+        mercury: {
+            bodyRegion: 'Brain, nervous system, lungs, arms, hands',
+            system: 'Communication, cognition, respiration',
+            tradition: 'Ptolemy, Tetrabiblos III.12 — Mercury rules the rational mind and all organs of communication. In Galenic medicine, Mercury governed the "animal spirit" carried by nerves.',
+            badge: 'tradition',
+        },
+        venus: {
+            bodyRegion: 'Throat, kidneys, reproductive system, veins',
+            system: 'Venous circulation, skin quality, fertility',
+            tradition: 'Ptolemy, Tetrabiblos III.12 — Venus rules the generative organs and throat. Culpeper\'s herbal medicine assigned Venus rulership over the kidneys and venous blood.',
+            badge: 'tradition',
+        },
+        mars: {
+            bodyRegion: 'Muscles, adrenal glands, blood, male reproductive system',
+            system: 'Inflammatory response, iron metabolism, adrenaline',
+            tradition: 'Ptolemy, Tetrabiblos III.12 — Mars rules the "choleric" temperament: heat, dryness, and the blood\'s iron. Paracelsus linked Mars to iron in alchemy (Fe = Mars symbol).',
+            badge: 'tradition',
+        },
+        jupiter: {
+            bodyRegion: 'Liver, hips, arterial system, thighs',
+            system: 'Growth, fat metabolism, arterial blood',
+            tradition: 'Ptolemy, Tetrabiblos III.12 — Jupiter rules the liver (seat of the "sanguine" humor). In Vedic Jyotish, Guru (Jupiter) governs expansion and the liver\'s regenerative capacity.',
+            badge: 'tradition',
+        },
+        saturn: {
+            bodyRegion: 'Bones, joints, teeth, spleen, skin',
+            system: 'Structural integrity, calcification, aging',
+            tradition: 'Ptolemy, Tetrabiblos III.12 — Saturn rules the "melancholic" temperament: cold and dry. Governs skeletal structure, boundaries, and the process of mineralization.',
+            badge: 'tradition',
+        },
+        uranus: {
+            bodyRegion: 'Nervous system (modern), bioelectric field',
+            system: 'Sudden disruption, electrical signaling',
+            tradition: 'No classical association — discovered 1781 by Herschel. Modern astrologers associate Uranus with the nervous system\'s electrical impulses and sudden somatic events.',
+            badge: 'symbolic',
+        },
+        neptune: {
+            bodyRegion: 'Pineal gland, lymphatic system (modern)',
+            system: 'Endocrine sensitivity, psychoactive chemistry',
+            tradition: 'No classical association — discovered 1846. Modern astrologers connect Neptune to the pineal gland and lymph. Intriguingly, the pineal does contain photoreceptor proteins (Mano 2007).',
+            badge: 'symbolic',
+        },
+    };
+
+    // ──────────────────────────────────────────────
+    // Element Compatibility (Aristotelian Physics)
+    // ──────────────────────────────────────────────
+
+    const elementCompatibility = {
+        'Fire-Fire':   { rating: 'Harmonious', desc: 'Same element — natural affinity. Ptolemy: "of the same nature, sharing heat and dryness." Both signs express through action, will, and transformation.' },
+        'Fire-Air':    { rating: 'Harmonious', desc: 'Classical complement. Fire needs air to burn. In Aristotelian physics, both share the quality of heat — one active (Fire), one intellectual (Air).' },
+        'Fire-Earth':  { rating: 'Neutral', desc: 'Different natures — Fire is hot, Earth is cold. Fire can forge Earth or scorch it. The dynamic depends on willingness to ground inspiration into form.' },
+        'Fire-Water':  { rating: 'Challenging', desc: 'Opposing elements. Water extinguishes fire. In Aristotelian terms, they share no qualities. Steam or destruction — transformation either way.' },
+        'Earth-Earth': { rating: 'Harmonious', desc: 'Same element — grounded stability. Both build, both endure. Ptolemy: shared cold and dry nature creates deep mutual understanding.' },
+        'Earth-Water': { rating: 'Harmonious', desc: 'Classical complement. Water nourishes earth, earth gives water form. They share the quality of cold — one nurtures, one structures.' },
+        'Earth-Air':   { rating: 'Neutral', desc: 'Different but not directly opposed in Aristotelian terms. Air theorizes, Earth builds. The tension is between abstraction and practicality.' },
+        'Air-Air':     { rating: 'Harmonious', desc: 'Same element — intellectual resonance. Shared heat and moisture create fluent communication. Ideas spark and circulate freely.' },
+        'Air-Water':   { rating: 'Challenging', desc: 'Different natures — Air is hot, Water is cold. Air rationalizes what Water feels. The gap between logic and emotion must be bridged.' },
+        'Water-Water': { rating: 'Harmonious', desc: 'Same element — deep emotional attunement. Shared cold and moist nature creates empathic bonds. The risk is mutual drowning in feeling.' },
+    };
+
+    // ──────────────────────────────────────────────
+    // Ptolemaic Aspect Definitions
+    // ──────────────────────────────────────────────
+
+    const aspectMeanings = {
+        'Conjunction': 'Unity — the two Suns occupy the same region of the zodiac. Their qualities merge and amplify. Ptolemy (Tetrabiblos I.13) considered this the most powerful relationship, for good or ill, depending on the planets involved.',
+        'Sextile': 'Harmonious support — 60° apart, two signs of compatible element. Elements share one Aristotelian quality (both hot, or both cold). Ptolemy: "signs of the same gender." Opportunity through gentle cooperation.',
+        'Square': 'Tension and dynamic energy — 90° apart. Elements share no qualities. Ptolemy (Tetrabiblos I.13) called this "disjunct" — the aspect of friction that forces growth. The relationship that makes you work.',
+        'Trine': 'Natural harmony — 120° apart, same element. The most harmonious major aspect. Ptolemy: "of the same element and gender." What flows without effort — the gifts you share.',
+        'Opposition': 'Polarity and awareness — 180° apart, complementary signs across the zodiac wheel. Maximum distance, maximum visibility. Ptolemy: full tension but also full consciousness of the other. The mirror.',
+    };
+
+    // ──────────────────────────────────────────────
+    // Zodiac Sign Mythology (Persian/Greek/Zoroastrian)
+    // ──────────────────────────────────────────────
+
+    const signMythology = {
+        Aries: {
+            title: 'The Ram — Golden Fleece & Bahram',
+            greek: 'The ram Chrysomallus who carried Phrixus to safety, whose golden fleece became the object of Jason\'s quest. Aries marks the vernal equinox — the Sun\'s resurrection from winter.',
+            persian: 'In Zoroastrian tradition, the yazata Bahram (Verethragna) embodies victorious force. The Ram is the first of his ten incarnations — the primal surge of life overcoming death.',
+            source: 'Apollodorus, Bibliotheca 1.9; Bundahishn Ch. 26; Boyce, History of Zoroastrianism Vol. I',
+        },
+        Taurus: {
+            title: 'The Bull — Tauroctony & Apis',
+            greek: 'Zeus took bull form to carry Europa. The constellation preserves the Pleiades (seven sisters) on the bull\'s shoulder — the most observed star cluster in human history.',
+            persian: 'The Mithraic tauroctony — Mithras slaying the cosmic bull — is the central icon of Roman Mithraism. The bull\'s death releases grain (tail), wine (blood), and the soul (dog laps blood). It encodes the precession of equinoxes: the end of the Age of Taurus.',
+            source: 'Ulansey, Origins of the Mithraic Mysteries (1989); Plutarch, De Iside; Porphyry, De antro nympharum',
+        },
+        Gemini: {
+            title: 'The Twins — Dioscuri & Cosmic Duality',
+            greek: 'Castor and Pollux — one mortal, one divine. When Castor died, Pollux begged Zeus to share his immortality. They alternate between Olympus and Hades — the archetype of duality resolved through love.',
+            persian: 'Zoroastrian cosmology centers on the twin spirits: Spenta Mainyu (progressive mentality) and Angra Mainyu (destructive mentality). The fundamental choice between truth (asha) and falsehood (druj).',
+            source: 'Homer, Odyssey 11.300; Yasna 30.3-5 (Gathas of Zarathustra)',
+        },
+        Cancer: {
+            title: 'The Crab — Gate of Souls',
+            greek: 'Hera sent the crab Karkinos to bite Heracles during his battle with the Hydra. It failed but was immortalized in the stars. Cancer marks the summer solstice — the Sun\'s highest point before descent.',
+            persian: 'In Neoplatonic tradition (drawing on Persian/Chaldean sources), Cancer was the "Gate of Men" — the portal through which souls descended into incarnation. The Moon\'s exaltation sign.',
+            source: 'Pseudo-Eratosthenes, Catasterismi; Macrobius, Commentary on Scipio\'s Dream I.12',
+        },
+        Leo: {
+            title: 'The Lion — Nemean Beast & Royal Star',
+            greek: 'The Nemean Lion, first of Heracles\' twelve labors — invulnerable to weapons, only defeated by bare hands. The solar hero conquers the solar beast. Regulus ("little king") marks the lion\'s heart.',
+            persian: 'Regulus (Venant in Persian) was one of the four Royal Stars of Persia — the Watcher of the North. Leo was associated with Mihr (Mithra), the god of light and covenant.',
+            source: 'Apollodorus, Bibliotheca 2.5.1; Bundahishn Ch. 2 (Royal Stars)',
+        },
+        Virgo: {
+            title: 'The Maiden — Astraea & the Harvest',
+            greek: 'Astraea, goddess of justice, was the last immortal to leave Earth during the decline of the ages. She holds the star Spica — the ear of wheat — marking the harvest.',
+            persian: 'Virgo\'s star Spica connects to Demeter/Persephone and the mystery of descent: the grain that falls into the earth, dies, and rises again. The agricultural mystery that underlies all death-rebirth myths.',
+            source: 'Hesiod, Works and Days 174; Aratus, Phaenomena 96-136; Homeric Hymn to Demeter',
+        },
+        Libra: {
+            title: 'The Scales — Ma\'at & Divine Judgment',
+            greek: 'Originally the claws of Scorpio, separated by the Romans. Associated with Astraea\'s scales of justice. Libra marks the autumn equinox — day and night in exact balance.',
+            persian: 'In Zoroastrian tradition, Rashnu (the righteous judge) weighs souls on golden scales at the Chinvat Bridge after death. In Egyptian tradition, Ma\'at\'s feather weighs against the heart.',
+            source: 'Bundahishn Ch. 30 (Chinvat); Book of the Dead, Spell 125; Manilius, Astronomica',
+        },
+        Scorpio: {
+            title: 'The Scorpion — Death & Eagle Transformation',
+            greek: 'Orion boasted he would kill all animals. Gaia sent the scorpion. They are placed on opposite sides of the sky — when Scorpio rises, Orion sets. The eternal chase of death pursuing pride.',
+            persian: 'In Persian/Babylonian tradition, Scorpio transforms through three stages: Scorpion (primal), Eagle (elevated), and Phoenix (transcended). The eagle was Scorpio\'s original form in some zodiacs, representing the power of death transformed into vision.',
+            source: 'Pseudo-Eratosthenes, Catasterismi; Manilius, Astronomica 4.212; Allen, Star Names (1899)',
+        },
+        Sagittarius: {
+            title: 'The Archer — Chiron & Tishtar',
+            greek: 'Chiron the centaur — the wounded healer. Unlike other centaurs (wild, brutal), Chiron was wise, teaching Asclepius medicine, Achilles war, and Jason navigation. Wounded by Heracles\' poisoned arrow, he traded his immortality to free Prometheus.',
+            persian: 'Tishtar (Tishtrya), the yazata of the star Sirius and the arrow-star. In the Avesta, Tishtrya battles the demon of drought (Apaosha) in the form of a white horse, bringing life-giving rain.',
+            source: 'Apollodorus, Bibliotheca 2.5.4; Tishtar Yasht (Yt. 8); Boyce, Zoroastrianism Vol. I',
+        },
+        Capricorn: {
+            title: 'The Sea-Goat — Pan & Enki',
+            greek: 'Pan, fleeing the monster Typhon, dove into the Nile — his upper body remained goat, his lower became fish. The sea-goat: half terrestrial ambition, half oceanic depth.',
+            persian: 'Capricorn connects to the Babylonian Enki/Ea — god of wisdom and the subterranean waters (Abzu). Saturn\'s exaltation sign. The winter solstice point — where the Sun reaches its lowest and begins to climb. The "death" of the Sun and its three-day standstill before rebirth.',
+            source: 'Hyginus, Astronomica 2.28; Berossus, Babyloniaca (via Apollodorus); Bundahishn',
+        },
+        Aquarius: {
+            title: 'The Water-Bearer — Ganymede & the New Age',
+            greek: 'Ganymede, the most beautiful mortal, carried to Olympus by Zeus\'s eagle to serve as cupbearer to the gods. He pours the waters of wisdom from heaven to earth.',
+            persian: 'Connected to the Babylonian Ea (Enki) as water-bearer, bringing civilization from the celestial realm. Due to axial precession (~25,800 year cycle), the vernal equinox is slowly moving from Pisces into Aquarius — the "Age of Aquarius" transition that takes centuries.',
+            source: 'Homer, Iliad 20.232; Hipparchus (precession discovery, c. 130 BCE); Berossus',
+        },
+        Pisces: {
+            title: 'The Fish — Aphrodite & the Vesica Piscis',
+            greek: 'Aphrodite and Eros, fleeing Typhon, transformed into fish and tied themselves together with a cord so they wouldn\'t lose each other. Love bound even in transformation.',
+            persian: 'Connected to Apam Napat ("child of the waters") in Zoroastrian tradition — a being of fire within water. The Vesica Piscis (intersection of two circles) became the earliest Christian symbol, combining the Greek IXTHYS (fish) acronym with sacred geometry.',
+            source: 'Ovid, Fasti 2.458; Avesta, Aban Yasht (Yt. 5); Lundy, Monumental Christianity (1876)',
+        },
+    };
+
+    // ──────────────────────────────────────────────
+    // Lunar Cycle & Female Reproductive Cycle Data
+    // ──────────────────────────────────────────────
+
+    const lunarCyclePhases = [
+        {
+            moonPhase: 'New Moon',
+            moonEmoji: '\uD83C\uDF11',
+            moonDays: '0-3.7',
+            cycleName: 'Menstrual',
+            cycleDays: '1-5',
+            cycleColor: '#ef4444',
+            hormones: 'Estrogen & progesterone at lowest. Prostaglandins trigger uterine contractions.',
+            bodyEffect: 'Energy at lowest. Body temperature drops. Iron may temporarily decrease. Deep rest phase — the body is actively releasing and renewing.',
+            lunarBody: 'Melatonin peaks in absence of moonlight. Deep sleep quality is highest around the new moon (Casiraghi et al. 2021). Lower blood pressure and heart rate reported.',
+            tradition: 'Many indigenous cultures observed "dark moon retreat" — women withdrew from daily tasks during menstruation, often gathering together. The Sanskrit word for menstruation (ṛtu) also means "season" and "cosmic order."',
+        },
+        {
+            moonPhase: 'Waxing (Crescent → First Quarter)',
+            moonEmoji: '\uD83C\uDF12',
+            moonDays: '3.7-14.8',
+            cycleName: 'Follicular',
+            cycleDays: '6-13',
+            cycleColor: '#f4b942',
+            hormones: 'FSH stimulates follicle growth. Estrogen rises steadily. Pituitary becomes more active.',
+            bodyEffect: 'Rising estrogen improves mood, energy, and cognition. Verbal fluency peaks. Skin quality improves (estrogen promotes collagen). Basal body temperature remains low. Exercise capacity increases.',
+            lunarBody: 'As moonlight increases nightly, sleep onset gradually shifts later. The body transitions from deep rest into a building phase — mirroring the hormonal rise.',
+            tradition: 'Waxing moon associated with growth, planting, and beginning new endeavors across agricultural traditions worldwide. The Farmer\'s Almanac tradition of planting by moon phase persists into the present.',
+        },
+        {
+            moonPhase: 'Full Moon',
+            moonEmoji: '\uD83C\uDF15',
+            moonDays: '14.8-18.5',
+            cycleName: 'Ovulatory',
+            cycleDays: '14-16',
+            cycleColor: '#06d6a0',
+            hormones: 'LH surge triggers egg release. Estrogen peaks. Brief testosterone pulse. Peak fertility window.',
+            bodyEffect: 'Peak fertility, energy, and social confidence. Studies show increased facial symmetry perception and heightened sensory sensitivity. Body temperature begins rising after ovulation (~0.3-0.5\u00B0C shift).',
+            lunarBody: 'Deep sleep brain activity drops 30% around full moon (Cajochen 2013). Sleep is 20-58 min shorter. Melatonin secretion measurably decreases. The body is most "awake" and outward-facing.',
+            tradition: 'The "White Moon" cycle: in the most common synchronization pattern found by Helfrich-F\u00F6rster (2021), ovulation clusters near the full moon — peak fertility at peak illumination. Full moon fertility rituals appear across cultures.',
+        },
+        {
+            moonPhase: 'Waning (Last Quarter → Crescent)',
+            moonEmoji: '\uD83C\uDF16',
+            moonDays: '18.5-29.5',
+            cycleName: 'Luteal',
+            cycleDays: '17-28',
+            cycleColor: '#8b5cf6',
+            hormones: 'Progesterone rises (corpus luteum). If no implantation, both progesterone and estrogen drop sharply in final days.',
+            bodyEffect: 'Progesterone promotes calm but also PMS symptoms in late phase. Body temperature stays elevated. Water retention, breast tenderness, mood shifts. Serotonin drops in final days — the neurochemical basis of premenstrual mood changes.',
+            lunarBody: 'Sleep gradually normalizes as moonlight decreases. The body turns inward, preparing either for implantation or for release. Melatonin production rises back toward its new-moon maximum.',
+            tradition: 'Waning moon associated with release, completion, and letting go across traditions. The cycle preparing to close mirrors the moon preparing to disappear. In Traditional Chinese Medicine, the luteal phase corresponds to the Liver qi phase — preparation and gathering.',
+        },
+    ];
+
+    const lunarCycleStudies = [
+        {
+            id: 'helfrich-forster-2021',
+            title: 'Lunar-Menstrual Synchronization: What Science Found',
+            badge: 'confirmed',
+            icon: '\uD83C\uDF19',
+            summary: 'Helfrich-F\u00F6rster et al. (2021) tracked 22 women for up to 32 years of menstrual cycle data. They found intermittent synchronization with the 29.53-day lunar synodic cycle, especially around full and new moon.',
+            details: 'Key findings:\n\n1. Synchronization was NOT constant — it appeared in episodes lasting several months before drifting out of phase. This is called "intermittent synchrony."\n\n2. Women with cycle lengths close to 29.5 days showed the strongest synchronization.\n\n3. Synchronization has WEAKENED since approximately 2010, correlating with the spread of LED lighting and smartphone screen use at night — artificial light disrupts the signal.\n\n4. The 29.53-day human menstrual cycle matching the lunar synodic month (also 29.53 days) is statistically unlikely to be coincidence. No other primate has a cycle this close to the lunar month.\n\n5. A follow-up study (2025) in children confirmed that moonlight measurably suppresses melatonin, establishing the biological pathway.',
+            source: 'Helfrich-F\u00F6rster et al., "Women temporarily synchronize their menstrual cycles with the luminance and gravimetric cycles of the Moon," Science Advances 7(5), 2021',
+        },
+        {
+            id: 'biological-pathway',
+            title: 'The Biological Pathway: Moon → Pineal → Ovaries',
+            badge: 'confirmed',
+            icon: '\uD83E\uDDE0',
+            summary: 'The mechanism connecting moonlight to menstrual timing runs through the pineal gland — the same structure described in yogic and alchemical traditions as the "third eye."',
+            details: 'The hormonal cascade:\n\nMoon (light) → Retina → Suprachiasmatic Nucleus → Pineal Gland → Melatonin ↓ → Hypothalamus (GnRH) → Anterior Pituitary (FSH/LH) → Ovaries → Ovulation timing\n\nMelatonin is the key mediator. It is:\n- Produced by the pineal gland\n- Suppressed by light (including moonlight)\n- A modulator of GnRH (gonadotropin-releasing hormone)\n- GnRH controls FSH and LH, which control follicle development and ovulation\n\nThis is the same pineal-endocrine axis that yogic traditions describe when they speak of the "third eye" governing the body\'s rhythms — though they used different language. The Hatha Yoga Pradipika\'s description of amrita (nectar) flowing from the "moon center" in the head (Ch. 3, v. 43-44) maps remarkably onto the pineal → hypothalamic → pituitary axis.\n\nIn marine organisms, this pathway is well-established. The bristle worm Platynereis dumerilii has a confirmed molecular circalunar clock (Zantke et al., Cell Reports 2013).',
+            source: 'Casiraghi et al., Science Advances 7(5), 2021; Zantke et al., Cell Reports 5(1), 2013; Mano & Bhatt, Photochemistry and Photobiology 83(1), 2007',
+        },
+        {
+            id: 'cajochen-sleep',
+            title: 'Full Moon Sleep Disruption',
+            badge: 'confirmed',
+            icon: '\uD83D\uDCA4',
+            summary: 'Cajochen et al. (2013) found that around the full moon, deep sleep brain activity drops 30%, sleep duration decreases by 20 minutes, and melatonin levels measurably fall.',
+            details: 'This double-blind study at the University of Basel controlled for every variable: participants were in windowless rooms with no knowledge of the lunar phase. Yet EEG data showed:\n\n- Delta activity during NREM sleep decreased by 30% around full moon\n- Time to fall asleep increased by 5 minutes\n- Total sleep decreased by 20 minutes\n- Subjective sleep quality dropped\n- Melatonin levels were lower\n\nThe study suggests an endogenous circalunar clock — a biological rhythm entrained to the moon that persists even without direct moonlight exposure, similar to how circadian rhythms persist in constant darkness.',
+            source: 'Cajochen et al., "Evidence that the Lunar Cycle Influences Human Sleep," Current Biology 23(15), 2013',
+        },
+        {
+            id: 'traditional-knowledge',
+            title: 'Ancient Lunar-Cycle Tracking',
+            badge: 'tradition',
+            icon: '\uD83C\uDF0D',
+            summary: 'Across cultures, menstrual cycles were tracked by the moon long before modern chronobiology. Many languages encode this connection directly.',
+            details: 'Evidence of lunar-menstrual tracking:\n\n- The English word "menstruation" derives from Latin "mensis" (month), from Greek "mene" (moon). The linguistic connection is universal.\n- Sanskrit "ṛtu" means both "menstruation" and "season/cosmic cycle" — the body\'s rhythm as part of cosmic rhythm.\n- The Lakota "Moon Lodge" (Isnati) tradition: women gathered during menstruation in ceremony aligned with the new moon.\n- Aboriginal Australian traditions tracked "women\'s business" by lunar phases for tens of thousands of years.\n- Chinese medicine\'s "Tian Gui" (heavenly water) explicitly links menstrual regulation to lunar phases in the Huangdi Neijing (c. 200 BCE).\n\nThese are not proof of synchronization, but they document that humans have observed and tracked the correlation for millennia. The modern scientific finding of intermittent synchronization suggests these traditions were recording a real (if inconsistent) phenomenon.',
+            source: 'Shuttle & Redgrove, The Wise Wound (1978); Buckley & Gottlieb, Blood Magic: The Anthropology of Menstruation (1988); Huangdi Neijing, Su Wen Ch. 1',
+        },
+        {
+            id: 'body-implications',
+            title: 'What Synchronization Means for the Body',
+            badge: 'confirmed',
+            icon: '\u2728',
+            summary: 'If the lunar cycle does entrain the menstrual cycle, the biological "purpose" may be reproductive timing — the same strategy used by marine organisms for millions of years.',
+            details: 'Implications of lunar-menstrual synchronization:\n\n1. REPRODUCTIVE TIMING: Many marine organisms synchronize spawning to lunar phase for maximum fertilization. Mass coral spawning occurs on specific lunar nights. If humans retain a vestige of this, ovulation near the full moon (maximum nighttime illumination) could have improved mating success in pre-electric environments.\n\n2. MELATONIN AS MASTER REGULATOR: Melatonin doesn\'t just regulate sleep — it modulates immunity, antioxidant activity, and reproductive hormones. Disrupting its lunar rhythm (via artificial light) may have broader health implications than just cycle irregularity.\n\n3. CIRCALUNAR VS. CIRCADIAN: We accept that circadian (daily) rhythms are real biology. Circalunar (monthly) rhythms are the same principle on a longer timescale. The molecular clock for circalunar rhythms has been found in marine organisms — the question is whether humans retain one.\n\n4. ARTIFICIAL LIGHT DISRUPTION: The weakening of synchronization post-2010 (Helfrich-F\u00F6rster 2021) suggests that artificial light at night is overriding a natural biological signal. This has implications for reproductive health, sleep quality, and hormonal balance.\n\n5. PRACTICAL APPLICATION: While the science is still emerging, some women report improved cycle regularity when sleeping in darkness during the new moon and allowing moonlight during the full moon — recreating the natural light signal.',
+            source: 'Helfrich-F\u00F6rster et al., Science Advances, 2021; Casiraghi et al., Science Advances, 2021; Zantke et al., Cell Reports, 2013',
+        },
+    ];
+
+    // ──────────────────────────────────────────────
     // Public API
     // ──────────────────────────────────────────────
 
@@ -450,6 +710,12 @@ const CosmicKnowledge = (() => {
         christianAlchemy,
         sacredSecretion,
         neuroscienceLayer,
+        planetBodyMap,
+        elementCompatibility,
+        aspectMeanings,
+        signMythology,
+        lunarCyclePhases,
+        lunarCycleStudies,
     };
 
 })();
