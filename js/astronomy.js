@@ -251,7 +251,7 @@ const Astronomy = (() => {
         const zodiac = getZodiacSign(sunLon);
         const moonPhase = getMoonPhase(jd);
 
-        // Planet positions
+        // Planet positions (heliocentric + geocentric longitude for zodiac)
         const planets = {};
         const planetKeys = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'];
         planetKeys.forEach(key => {
@@ -259,6 +259,16 @@ const Astronomy = (() => {
                 planets[key] = computePosition(PlanetData.orbitalElements[key], T);
             }
         });
+
+        // Compute geocentric ecliptic longitudes (as seen from Earth)
+        const earthPos = planets.earth;
+        if (earthPos) {
+            planetKeys.forEach(key => {
+                if (key !== 'earth' && planets[key]) {
+                    planets[key].geoLon = helioToGeoLon(planets[key], earthPos);
+                }
+            });
+        }
 
         // Solar seasonal position: distance to nearest solstice/equinox
         const seasonalPosition = getSolarSeasonalPosition(sunLon);
@@ -352,6 +362,14 @@ const Astronomy = (() => {
         return null;
     }
 
+    // Convert heliocentric position to geocentric ecliptic longitude
+    // Takes the planet's heliocentric {x, y, z} and Earth's heliocentric {x, y, z}
+    function helioToGeoLon(planetPos, earthPos) {
+        const geoX = planetPos.x - earthPos.x;
+        const geoY = planetPos.y - earthPos.y;
+        return normalizeDeg(Math.atan2(geoY, geoX) * RAD);
+    }
+
     return {
         J2000,
         DEG,
@@ -375,5 +393,6 @@ const Astronomy = (() => {
         getBirthSky,
         calculateSolarReturn,
         computeAspect,
+        helioToGeoLon,
     };
 })();

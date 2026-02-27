@@ -18,7 +18,8 @@
     let currentView = 'solar-system';
 
     // Planet positions in ecliptic longitude (degrees)
-    let planetAngles = {};
+    let planetAngles = {};       // heliocentric (for orbital display)
+    let planetGeoAngles = {};    // geocentric (for zodiac sign labels)
     let planetHelioPositions = {};
     let planetScreenPositions = {};
 
@@ -92,9 +93,21 @@
             const pos = Astronomy.computePosition(elements, T);
             planetHelioPositions[key] = pos;
 
-            // Use ecliptic longitude for display angle
-            // Negate to make planets move counter-clockwise (correct direction)
+            // Heliocentric longitude for orbital display position
             planetAngles[key] = pos.lon;
+        }
+
+        // Compute geocentric longitudes (as seen from Earth) for zodiac labels
+        const earthPos = planetHelioPositions.earth;
+        if (earthPos) {
+            for (const key of PlanetData.planetOrder) {
+                if (key === 'earth') {
+                    // Earth's "geocentric" position = Sun's position opposite Earth
+                    planetGeoAngles[key] = planetAngles[key];
+                } else {
+                    planetGeoAngles[key] = Astronomy.helioToGeoLon(planetHelioPositions[key], earthPos);
+                }
+            }
         }
 
         // Update bottom bar info
@@ -129,7 +142,7 @@
         advanceTime(delta);
 
         // Render
-        planetScreenPositions = Renderer.render(timestamp, planetAngles);
+        planetScreenPositions = Renderer.render(timestamp, planetAngles, planetGeoAngles);
 
         requestAnimationFrame(gameLoop);
     }
@@ -334,7 +347,7 @@
             const distanceAU = computeDistanceFromEarth(hit);
             const season = computeSeason(hit);
             const pos = planetScreenPositions[hit];
-            const constellation = Astronomy.getConstellationForLon(planetAngles[hit] || 0);
+            const constellation = Astronomy.getConstellationForLon(planetGeoAngles[hit] || planetAngles[hit] || 0);
             UI.showTooltip(hit, pos.sx, pos.sy, distanceAU, season, constellation);
             document.getElementById('main-canvas').style.cursor = 'pointer';
         } else {
@@ -373,7 +386,7 @@
 
         const distanceAU = computeDistanceFromEarth(key);
         const season = computeSeason(key);
-        const constellation = Astronomy.getConstellationForLon(planetAngles[key] || 0);
+        const constellation = Astronomy.getConstellationForLon(planetGeoAngles[key] || planetAngles[key] || 0);
         UI.openPanel(key, distanceAU, season, constellation);
 
         // Smooth pan to planet

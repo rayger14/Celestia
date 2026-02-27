@@ -684,7 +684,8 @@ const UI = (() => {
             planetsGrid.innerHTML = displayPlanets.map(key => {
                 const pos = sky.planets[key];
                 if (!pos) return '';
-                const sign = Astronomy.getConstellationForLon(pos.lon);
+                // Use geocentric longitude for zodiac sign (as seen from Earth)
+                const sign = Astronomy.getConstellationForLon(pos.geoLon !== undefined ? pos.geoLon : pos.lon);
                 const info = typeof PlanetData !== 'undefined' ? PlanetData.planetInfo[key] : null;
                 const zodiacProfile = CosmicKnowledge.zodiacProfiles[sign];
                 const bodyInfo = CosmicKnowledge.planetBodyMap[key];
@@ -700,7 +701,7 @@ const UI = (() => {
                             <span class="birth-planet-icon">${icon}</span>
                             <span class="birth-planet-name">${name}</span>
                             <span class="birth-planet-sign">${glyph} ${sign}</span>
-                            <span class="birth-planet-lon">${pos.lon.toFixed(1)}\u00B0</span>
+                            <span class="birth-planet-lon">${(pos.geoLon !== undefined ? pos.geoLon : pos.lon).toFixed(1)}\u00B0</span>
                         </div>
                         ${signMeaning ? `<div class="birth-planet-meaning">${signMeaning}</div>` : ''}
                         ${bodyInfo ? `

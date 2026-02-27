@@ -298,8 +298,9 @@ const Renderer = (() => {
                 : 'rgba(255, 255, 255, 0.5)';
             ctx.fillText(info.name, sp.x, sp.y + planetRadius + fontSize + 4);
 
-            // Show which constellation the planet is in
-            const constellation = Astronomy.getConstellationForLon(angle);
+            // Show which constellation the planet is in (use geocentric longitude)
+            const geoAngle = currentGeoAngles[key] || angle;
+            const constellation = Astronomy.getConstellationForLon(geoAngle);
             const smallFontSize = Math.max(7, Math.min(10, 8 * camera.zoom));
             ctx.font = `400 ${smallFontSize}px 'Space Grotesk', sans-serif`;
             ctx.fillStyle = isHovered || isSelected
@@ -565,7 +566,8 @@ const Renderer = (() => {
 
             const info = PlanetData.planetInfo[key];
             const angleRad = angle * Astronomy.DEG;
-            const constellation = Astronomy.getConstellationForLon(angle);
+            const geoAngle = currentGeoAngles[key] || angle;
+            const constellation = Astronomy.getConstellationForLon(geoAngle);
 
             // Position on the ecliptic ring
             const px = center.x + Math.cos(angleRad) * eclipticR;
@@ -687,7 +689,11 @@ const Renderer = (() => {
         minimapCtx.strokeRect(vx - vw / 2, vy - vh / 2, vw, vh);
     }
 
-    function render(time, planetAngles) {
+    // geoAngles: geocentric ecliptic longitudes for zodiac sign labels
+    let currentGeoAngles = {};
+
+    function render(time, planetAngles, geoAngles) {
+        currentGeoAngles = geoAngles || planetAngles;
         ctx.clearRect(0, 0, width, height);
 
         // Deep space background
