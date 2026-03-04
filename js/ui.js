@@ -1015,6 +1015,13 @@ const UI = (() => {
             toggle.textContent = card.classList.contains('expanded') ? 'Show less' : 'Read more';
         });
 
+        // Cosmic Narratives cards
+        const narrativeContainer = document.getElementById('narrative-cards');
+        if (narrativeContainer && CosmicKnowledge.cosmicNarratives) {
+            narrativeContainer.innerHTML = CosmicKnowledge.cosmicNarratives.map(item => buildLayerCard(item)).join('');
+            bindLayerCardToggles(narrativeContainer);
+        }
+
         // Deeper question
         const deeperContainer = document.getElementById('deeper-question-content');
         const dq = CosmicKnowledge.deeperQuestion;
