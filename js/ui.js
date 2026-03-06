@@ -1015,6 +1015,13 @@ const UI = (() => {
             toggle.textContent = card.classList.contains('expanded') ? 'Show less' : 'Read more';
         });
 
+        // Live Aligned cards
+        const alignedContainer = document.getElementById('live-aligned-cards');
+        if (alignedContainer && CosmicKnowledge.liveAligned) {
+            alignedContainer.innerHTML = CosmicKnowledge.liveAligned.map(item => buildLayerCard(item)).join('');
+            bindLayerCardToggles(alignedContainer);
+        }
+
         // Cosmic Narratives cards
         const narrativeContainer = document.getElementById('narrative-cards');
         if (narrativeContainer && CosmicKnowledge.cosmicNarratives) {
