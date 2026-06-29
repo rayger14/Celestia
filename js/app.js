@@ -66,6 +66,9 @@
         // Initialize UI
         UI.init();
 
+        // Initialize engagement features
+        if (typeof Engagement !== 'undefined') Engagement.init();
+
         // Set initial date display
         UI.updateDateDisplay(simulationDate);
 

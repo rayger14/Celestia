@@ -297,6 +297,12 @@ const UI = (() => {
         elements.premiumModal.classList.add('hidden');
         elements.knowledgeModal.classList.add('hidden');
         elements.birthdayModal.classList.add('hidden');
+        ['discovery-modal', 'quiz-modal', 'bookmarks-modal', 'alignment-modal'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('hidden');
+        });
+        const briefing = document.getElementById('briefing-panel');
+        if (briefing) { briefing.classList.remove('visible'); briefing.classList.add('hidden'); }
         activeModal = null;
     }
 
@@ -622,16 +628,27 @@ const UI = (() => {
         });
     }
 
-    function buildLayerCard(item) {
+    function buildLayerCard(item, options) {
+        const opts = options || {};
         const badgeLabel = { confirmed: 'Confirmed Science', tradition: 'Real Historical Tradition', symbolic: 'Symbolic Correspondence', synthesis: 'Modern Synthesis' };
         const summary = applyGlossary(item.summary);
         const details = item.details ? applyGlossary(item.details) : '';
+        const bookmarked = opts.isBookmarked || false;
+        const cardSource = opts.source || '';
         return `
             <div class="layer-card" data-id="${item.id}">
                 <div class="layer-card-header">
                     <span class="layer-card-icon">${item.icon}</span>
                     <span class="layer-card-title">${item.title}</span>
                     <span class="epistemic-badge epistemic-${item.badge}">${badgeLabel[item.badge] || item.badge}</span>
+                    <span class="card-actions">
+                        <button class="bookmark-btn ${bookmarked ? 'bookmarked' : ''}" data-card-id="${item.id}" data-card-source="${cardSource}" title="Save to collection">
+                            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 2h14v20l-7-5-7 5V2z" fill="${bookmarked ? 'var(--accent-gold)' : 'none'}" stroke="currentColor" stroke-width="1.5"/></svg>
+                        </button>
+                        <button class="share-btn" title="Share">
+                            <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="18" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="6" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="19" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="currentColor" stroke-width="1.5"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="currentColor" stroke-width="1.5"/></svg>
+                        </button>
+                    </span>
                 </div>
                 <div class="layer-card-summary">${summary}</div>
                 <div class="layer-card-details">${details}</div>
@@ -952,7 +969,7 @@ const UI = (() => {
         // Thesis / Pattern cards
         const thesisContainer = document.getElementById('thesis-cards');
         if (thesisContainer && CosmicKnowledge.thesisStatement) {
-            thesisContainer.innerHTML = CosmicKnowledge.thesisStatement.map(item => buildLayerCard(item)).join('');
+            thesisContainer.innerHTML = CosmicKnowledge.thesisStatement.map(item => buildLayerCard(item, { source: 'thesisStatement' })).join('');
             bindLayerCardToggles(thesisContainer);
         }
 
@@ -1018,14 +1035,14 @@ const UI = (() => {
         // Live Aligned cards
         const alignedContainer = document.getElementById('live-aligned-cards');
         if (alignedContainer && CosmicKnowledge.liveAligned) {
-            alignedContainer.innerHTML = CosmicKnowledge.liveAligned.map(item => buildLayerCard(item)).join('');
+            alignedContainer.innerHTML = CosmicKnowledge.liveAligned.map(item => buildLayerCard(item, { source: 'liveAligned' })).join('');
             bindLayerCardToggles(alignedContainer);
         }
 
         // Cosmic Narratives cards
         const narrativeContainer = document.getElementById('narrative-cards');
         if (narrativeContainer && CosmicKnowledge.cosmicNarratives) {
-            narrativeContainer.innerHTML = CosmicKnowledge.cosmicNarratives.map(item => buildLayerCard(item)).join('');
+            narrativeContainer.innerHTML = CosmicKnowledge.cosmicNarratives.map(item => buildLayerCard(item, { source: 'cosmicNarratives' })).join('');
             bindLayerCardToggles(narrativeContainer);
         }
 
@@ -1049,6 +1066,9 @@ const UI = (() => {
         updateDateDisplay,
         updateBottomBar,
         closeAllModals,
+        buildLayerCard,
+        applyGlossary,
+        bindLayerCardToggles,
         get isPanelOpen() { return isPanelOpen; },
     };
 })();
